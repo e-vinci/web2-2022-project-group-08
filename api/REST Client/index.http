@@ -1,17 +1,17 @@
 ######### NORMAL OPERATION  ###########
 
 ### Read all pizzas
-GET http://localhost:3000/pizzas
+GET http://localhost:3000/index
 
 ### Read all pizzas with File variable
 @baseUrl = http://localhost:3000
 GET {{baseUrl}}/pizzas
 
 ### Read all pizzas sorted by title (ascending)
-GET {{baseUrl}}/pizzas/?order=+title
+GET {{baseUrl}}/pizzas/
 
 ### Read all pizzas sorted by title (descending)
-GET {{baseUrl}}/pizzas/?order=-title
+GET {{baseUrl}}/pizzas/
 
 ### Read pizza identified by 2
 GET {{baseUrl}}/pizzas/2
