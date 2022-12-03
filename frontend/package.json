@@ -7,7 +7,7 @@
     "dev": "webpack --mode development && cp dist/index.html dist/404.html",
     "build": "webpack --mode production && cp dist/index.html dist/404.html",
     "start": "webpack serve --mode development",
-    "commit": "cz" 
+    "commit": "cz"
   },
   "author": "e-baron",
   "license": "CC-BY-SA-4.0",
@@ -32,6 +32,9 @@
   "dependencies": {
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.1",
-    "gh-pages": "^4.0.0"
+    "commit": "^0.0.4",
+    "gh-pages": "^4.0.0",
+    "json": "^11.0.0",
+    "pg": "^8.8.0"
   }
 }

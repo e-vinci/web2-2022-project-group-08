@@ -1,7 +1,8 @@
-import { getRememberMe, setAuthenticatedUser, setRememberMe } from '../../utils/auths';
+import { setAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
+
 
 const LoginPage = () => {
   clearPage();
@@ -29,36 +30,11 @@ function renderRegisterForm() {
   submit.value = 'Login';
   submit.type = 'submit';
   submit.className = 'btn btn-info';
-
-  const formCheckWrapper = document.createElement('div');
-  formCheckWrapper.className = 'mb-3 form-check';
-
-  const rememberme = document.createElement('input');
-  rememberme.type = 'checkbox';
-  rememberme.className = 'form-check-input';
-  rememberme.id = 'rememberme';
-  const remembered = getRememberMe();
-  rememberme.checked = remembered;
-  rememberme.addEventListener('click', onCheckboxClicked);
-
-  const checkLabel = document.createElement('label');
-  checkLabel.htmlFor = 'rememberme';
-  checkLabel.className = 'form-check-label';
-  checkLabel.textContent = 'Remember me';
-
-  formCheckWrapper.appendChild(rememberme);
-  formCheckWrapper.appendChild(checkLabel);
-
   form.appendChild(username);
   form.appendChild(password);
-  form.appendChild(formCheckWrapper);
   form.appendChild(submit);
   main.appendChild(form);
   form.addEventListener('submit', onLogin);
-}
-
-function onCheckboxClicked(e) {
-  setRememberMe(e.target.checked);
 }
 
 async function onLogin(e) {
@@ -66,7 +42,7 @@ async function onLogin(e) {
 
   const username = document.querySelector('#username').value;
   const password = document.querySelector('#password').value;
-
+  
   const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -78,7 +54,7 @@ async function onLogin(e) {
     },
   };
 
-  const response = await fetch(`${process.env.API_BASE_URL}/auths/login`, options);
+  const response = await fetch(`${process.env.API_BASE_URL}/users/login`, options);
 
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
@@ -89,6 +65,7 @@ async function onLogin(e) {
   setAuthenticatedUser(authenticatedUser);
 
   Navbar();
+  
 
   Navigate('/');
 }
