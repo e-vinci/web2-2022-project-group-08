@@ -10,7 +10,7 @@ const corsOptions = {
 };
 
 const usersRouter = require('./routes/users');
-const indexRouter = require('./routes');
+const indexRouter = require('./routes/index');
 
 
 const app = express();
@@ -21,6 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/users', usersRouter);
-app.use('/pizzas', cors(corsOptions), indexRouter);
+app.use('/index', cors(corsOptions), indexRouter);
 
 module.exports = app;
