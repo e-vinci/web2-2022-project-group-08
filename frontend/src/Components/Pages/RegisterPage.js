@@ -21,13 +21,13 @@ function renderRegisterForm() {
   username.required = true;
   username.className = 'form-control mb-3';
   const password = document.createElement('input');
-  password.type = 'mot de passe ';
+  password.type = 'password';
   password.id = 'password';
   password.required = true;
   password.placeholder = 'password';
   password.className = 'form-control mb-3';
   const confirmationPassword = document.createElement('input');
-  confirmationPassword.type = 'mot de passe ';
+  confirmationPassword.type = 'password';
   confirmationPassword.id = 'confPassword';
   confirmationPassword.required = true;
   confirmationPassword.placeholder = 'confirmez votre mot de passe ';
