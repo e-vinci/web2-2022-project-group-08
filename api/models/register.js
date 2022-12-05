@@ -26,7 +26,7 @@ function getOneTeacher(mail,password){
 };
 
 function getOneStudent(mail,password){
-    const student = db.prepare('select * from students where mail = ?').all(mail,password);
+    const student = db.prepare('select * from students where mail = ?').get(mail,password);
     if(!student) return undefined;
     if(student.user_password !== password ) return undefined ;
     
@@ -42,12 +42,40 @@ function getOneStudent(mail,password){
   };
 
   
-  
+  function toRegisterAStudent( mail, password){
+    const student = db.prepare('INSERT INTO students (mail, user_password) VALUES(?,?) RETURNING student_id').all(mail,password);
+    if(student === undefined ) return undefined;
 
+    const token = jwt.sign(
+      {mail},
+      jwtSecret,
+      {expiresIn : lifetimeJwt}
+    );
 
+    const  authenticatedStudent = {mail,token, student};
+
+    return authenticatedStudent;
+  };
+
+  function toRegisterATeacher(mail, password){
+    const teacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').get(mail,password);
+    if(teacher === undefined ) return undefined;
+
+    const token = jwt.sign(
+      {mail},
+      jwtSecret,
+      {expiresIn : lifetimeJwt}
+    );
+
+    const  authenticatedStudent = {mail,token, teacher};
+
+    return authenticatedStudent;
+
+  }
 
 
 module.exports={
-    getAllTeachers, getOneTeacher, getOneStudent
+    getAllTeachers, getOneTeacher, getOneStudent, toRegisterAStudent, toRegisterATeacher
 };
+
 
