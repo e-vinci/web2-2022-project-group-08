@@ -41,7 +41,7 @@ function getOneStudent(mail,password){
     return authenticatedStudent;
   };
 
-
+  
 
 
 
