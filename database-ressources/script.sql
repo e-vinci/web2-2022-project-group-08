@@ -103,5 +103,5 @@ create table professors_courses
     primary key (teacher, course)
 );
 
-INSERT INTO teachers(teacher_id, last_name, mail, user_password) VALUES (1,'prof','prof@vinci.be','mdp');
-INSERT INTO students(student_id, last_name, mail, user_password) VALUES (2,'etud','stud@student.vinci.be','mdp');
+INSERT INTO teachers( last_name, mail, user_password) VALUES ('prof','prof@vinci.be','mdp');
+INSERT INTO students( last_name, mail, user_password) VALUES ('etud','stud@student.vinci.be','mdp');
