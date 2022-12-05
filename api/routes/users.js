@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllTeachers, getOneTeacher, getOneStudent, 
-  toRegisterAStudent, toRegisterATeacher, } 
+  toRegisterAStudent, toRegisterATeacher } 
   = require('../models/Register');
 
 const router = express.Router();
@@ -67,6 +67,20 @@ router.post('/register', (req,res) => {
    console.log(`etudiant :  ${potentialUser}`);
     
    if(!potentialUser) return res.status(400).json('enregistrement impossible ');
+   
+   return res.json(potentialUser);
+});
+
+
+router.post('/registerTeacher', (req,res) => {
+   const mail = req?.body?.mail?.lenght !== 0 ? req.body.teacherUsername : undefined;
+   console.log('mail' + mail)
+   if (!mail) return res.status(400).json('email ou password null');
+
+  if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_\.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/)) /* gérer l'erreur */ return res.status(400).json('Pas un mail de professeur vinci');
+  const potentialUser = toRegisterATeacher(mail);
+    
+  if(!potentialUser) return res.status(400).json('enregistrement impossible ');
    
    return res.json(potentialUser);
 });

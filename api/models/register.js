@@ -1,6 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+const bcrypt = require('bcrypt');
 const db = require('./db_conf');
+
+const {send} = require('../utils/mail');
+const { generate } = require('../utils/passwordGenerator');
+
+const saltRounds = 10;
+
+
 
 const jwtSecret = 'iplearn!!!';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
@@ -57,10 +65,11 @@ function getOneStudent(mail,password){
     return authenticatedStudent;
   };
 
-  function toRegisterATeacher(mail, password){
-    const teacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').get(mail,password);
+  function toRegisterATeacher(mail){
+    const generatePassword = generate();
+    const encryptedPassword = bcrypt.hashSync(generatePassword, saltRounds);
+    const teacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').get(mail,encryptedPassword);
     if(teacher === undefined ) return undefined;
-
     const token = jwt.sign(
       {mail},
       jwtSecret,
@@ -69,8 +78,8 @@ function getOneStudent(mail,password){
 
     const  authenticatedStudent = {mail,token, teacher};
 
+    send(mail, generatePassword);
     return authenticatedStudent;
-
   }
 
 
