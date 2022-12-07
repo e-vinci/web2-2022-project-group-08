@@ -58,7 +58,7 @@ create table students
 (
     student_id    INTEGER
         primary key autoincrement,
-    last_name     varchar(25)  not null,
+
     mail          varchar(100) not null
         unique,
     user_password varchar(100) not null
@@ -88,7 +88,6 @@ create table teachers
 (
     teacher_id    INTEGER      not null
         primary key autoincrement,
-    last_name     varchar(25)  not null,
     mail          varchar(100) not null
         unique,
     user_password varchar(100) not null
@@ -103,5 +102,16 @@ create table professors_courses
     primary key (teacher, course)
 );
 
-INSERT INTO teachers( last_name, mail, user_password) VALUES ('prof','prof@vinci.be','mdp');
-INSERT INTO students( last_name, mail, user_password) VALUES ('etud','stud@student.vinci.be','mdp');
+INSERT INTO teachers( mail, user_password) VALUES ('manal@vinci.be','mdp') ;
+INSERT INTO teachers( mail, user_password) VALUES ('steven@vinci.be','mdp') ;
+INSERT INTO teachers( mail, user_password) VALUES ('ramtin@vinci.be','mdp') ;
+INSERT INTO teachers( mail, user_password) VALUES ('kevin@vinci.be','mdp') ;
+INSERT INTO teachers( mail, user_password) VALUES ('dorcas@vinci.be','mdp') ;
+
+
+
+
+INSERT INTO students( mail, user_password) VALUES ('stud@student.vinci.be','mdp');
+INSERT INTO students ( mail, user_password) VALUES ('etudiant@student.vinci.be','mdp');
+
+
