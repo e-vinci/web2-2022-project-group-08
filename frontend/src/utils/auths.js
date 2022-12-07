@@ -38,12 +38,15 @@ function getRememberMe() {
   const rememberedSerialized = localStorage.getItem(REMEMBER_ME);
   const remembered = JSON.parse(rememberedSerialized);
   return remembered;
-}
+};
+
 
 function setRememberMe(remembered) {
   const rememberedSerialized = JSON.stringify(remembered);
   localStorage.setItem(REMEMBER_ME, rememberedSerialized);
-}
+};
+
+
 
 export {
   getAuthenticatedUser,

@@ -2,3 +2,12 @@
 
 ### Read all users
 GET {{baseUrl}}/users
+
+### login one user
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "username" : "prof@vinci.be",
+    "password": "mdp"
+}
