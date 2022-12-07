@@ -11,3 +11,14 @@ Content-Type: application/json
     "username" : "prof@vinci.be",
     "password": "mdp"
 }
+
+### login one user
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "username" : "etudiant@student.vinci.be",
+    "password": "mdp",
+    "confirmationPassword":"mdp"
+    
+}
