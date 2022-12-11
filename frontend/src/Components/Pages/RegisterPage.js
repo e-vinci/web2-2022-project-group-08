@@ -206,12 +206,9 @@ async function onLogin(e) {
 
   const authenticatedUser = await response.json();
 
-<<<<<<< HEAD
   // eslint-disable-next-line no-console
   console.log('Newly registered & authenticated user : ', authenticatedUser);
-=======
   console.log('Authenticated user : ', authenticatedUser);
->>>>>>> 20e614c0c7723bf3da5a8b9b561cfc5c08018734
 
   setAuthenticatedUser(authenticatedUser);
 
