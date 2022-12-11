@@ -8,8 +8,8 @@ POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-    "username" : "prof@vinci.be",
-    "password": "mdp"
+    "username" : "kevin.bationo@student.vinci.be",
+    "password": "test"
 }
 
 ### login one user

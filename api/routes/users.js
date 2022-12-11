@@ -65,23 +65,27 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  const mail = req?.body?.mail?.lenght !== 0 ? req.body.registerUsername : undefined;
-  const password = req?.body?.registerPassword?.lenght !== 0 ? req.body.registerPassword : undefined;
-  const passwordConfirm =
-    req?.body?.registerConfPassword?.lenght !== 0 ? req.body.registerConfPassword : undefined;
-  if (!mail || !password || !passwordConfirm) return res.status(400).json('email ou password null');
-
+  
+  const {mail, registerPassword,registerConfPassword } = req.body
+  
+// const mail = req?.body?.mail?.length !== 0 ? req.body.registerUsername : undefined;
+//   const password = req?.body?.registerPassword?.length !== 0 ? req.body.registerPassword : undefined;
+//   const passwordConfirm =
+//     req?.body?.registerConfPassword?.length !== 0 ? req.body.registerConfPassword : undefined;
+  if (!mail || !registerPassword || !registerConfPassword) return res.status(400).json('email ou password null');
   // comment configuer un message d'erreur ?
-  if (password !== passwordConfirm)
+  if (registerPassword !== registerConfPassword)
     return res.status(400).json('les mots de passe ne correspondent pas');
   if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/))
     return res.status(400).json("Email non valide ou n'appartenant pas à un étudiant vinci");
-  const encryptedPassword = bcrypt.hashSync(password, saltRounds);
+  const encryptedPassword = bcrypt.hashSync(registerPassword, saltRounds);
 
   const potentialUser = toRegisterAStudent(mail, encryptedPassword);
   if (!potentialUser) return res.status(400).json('enregistrement impossible ');
 
   return res.json(potentialUser);
+ 
+
 });
 
 router.post('/registerTeacher', (req, res) => {
