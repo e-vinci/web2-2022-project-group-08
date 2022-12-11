@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 const express = require('express');
 const { getOneCourses, getAllAnswersOneQuestions,
-  getAllQuestionsOneQuizz } = require('../models/Question');
-  
+  getAllQuestionsOneQuizz, getAllQuestions } = require('../models/Question');
+
+// eslint-disable-next-line import/order
 const bcrypt = require('bcrypt');
+
 
 const {
   getAllTeachers,

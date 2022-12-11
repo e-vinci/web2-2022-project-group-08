@@ -6,7 +6,7 @@ const db = require('./db_conf');
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
 
 function getAllcourses(){
-    return db.prepare('select * from courses');
+    return db.prepare('select * from courses').all();
 };
 
 function getOneCourses(coursId){
@@ -25,14 +25,19 @@ function getAllAnswersOneQuestions(question){
     return db.prepare('select * from questions where question = ?').get(question);
 };
 
+// eslint-disable-next-line camelcase
 function getAllRegisteredQuestion(student_id){
     return db.prepare('select * from registered_questions where student = ?').all(student_id);
+}
+
+function getAllQuestions(){
+    return db.prepare('select * from questions').all();
 }
 
 
 module.exports={
     getOneCourses, getAllcourses, getAllAnswersOneQuestions,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions
 };
 
 

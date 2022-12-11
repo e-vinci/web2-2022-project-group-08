@@ -114,6 +114,7 @@ async function onRegister(e) {
 
   const authenticatedUser = await response.json();
 
+  // eslint-disable-next-line no-console
   console.log('Newly registered & authenticated user : ', authenticatedUser);
 
   setAuthenticatedUser(authenticatedUser);
@@ -147,6 +148,7 @@ async function onRegisterForTeacher(e) {
 
   const authenticatedUser = await response.json();
 
+  // eslint-disable-next-line no-console
   console.log('Newly registered & authenticated user : ', authenticatedUser);
 
   setAuthenticatedUser(authenticatedUser);

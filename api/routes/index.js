@@ -3,14 +3,15 @@ const { getAllcourses } = require('../models/Question');
 
 const router = express.Router();
 
-module.import ={ getAllcourses
-    
-};
 
+let courses;
 
 router.get('/', (req, res) =>{
-    const courses = getAllcourses;
+
+     courses = getAllcourses;
+    // eslint-disable-next-line no-console
+    console.log(courses)
     res.json(courses);
 });
 
-module.exports = router;
+module.exports = { courses };
