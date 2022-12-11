@@ -6,7 +6,9 @@ const db = require('./db_conf');
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
 
 function getAllcourses(){
-    return db.prepare('select * from courses');
+    const cours = db.prepare('select * from courses').all();
+   
+    return  cours;
 };
 
 function getOneCourses(coursId){
@@ -14,15 +16,15 @@ function getOneCourses(coursId){
 };
 
 function getAllQuizzOneCourses(coursId){
-    return db.prepare('select * from quizzes where course=?').get(coursId);
+    return db.prepare('select * from quizzes where course = ?').all(coursId);
 };
 
 function getAllQuestionsOneQuizz(quizzeId){
-    return db.prepare('select *  from questions where quizz=?').get(quizzeId);
+    return db.prepare('select *  from questions where quizz=?').all(quizzeId);
 };
 
 function getAllAnswersOneQuestions(question){
-    return db.prepare('select * from questions where question = ?').get(question);
+    return db.prepare('select * from answers where question = ?').all(question);
 };
 
 module.exports={

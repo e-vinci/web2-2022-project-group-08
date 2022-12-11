@@ -63,7 +63,7 @@ function getOneStudent(mail){
     );
     const  authenticatedStudent = {mail,token, teacher};
     return authenticatedStudent;
-  }
+  };
 
   function verifyIfStudentExists (mail){
     const commande = db.prepare("SELECT * FROM students WHERE mail = ?");
@@ -72,7 +72,7 @@ function getOneStudent(mail){
         return false;
     }
         return true;
-  }
+  };
 
   function verifyIfTeacherExists (mail){
     const commande = db.prepare("SELECT * FROM teachers WHERE mail = ?");
@@ -81,8 +81,8 @@ function getOneStudent(mail){
         return false;
     }
         return true;
-  }
-
+  };
+ 
 
 
 
