@@ -4,7 +4,7 @@ const { getAllcourses } = require('../models/Question');
 const router = express.Router();
 
 
-let courses;
+
 
 router.get('/', (req, res) =>{
     const courses = getAllcourses()

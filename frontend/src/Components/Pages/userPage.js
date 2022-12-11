@@ -6,7 +6,10 @@ import Navigate from '../Router/Navigate';
 
 const HomePage = () => {
     const main = document.querySelector('main');
+    
     main.innerHTML = `<h3>Welcome to your User Page!</h3>`;
+
+
   };
   
   
