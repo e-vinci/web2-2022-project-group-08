@@ -25,9 +25,11 @@ function getAllAnswersOneQuestions(question){
     return db.prepare('select * from questions where question = ?').get(question);
 };
 
+
+
 module.exports={
     getOneCourses, getAllcourses, getAllAnswersOneQuestions,
-     getAllQuestionsOneQuizz, getAllQuizzOneCourses
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses
 };
 
 
