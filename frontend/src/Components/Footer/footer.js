@@ -79,7 +79,7 @@ function renderFooter() {
 
             <div class="col-3">
                 <div class="form-group">
-                    <h3>Newsletter : </h3>
+                    <h3>Newsletter</h3>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Rentrez votre email">
                     <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre adresse électronique avec qui que ce soit.</small>
                 </div>
