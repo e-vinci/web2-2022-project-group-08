@@ -15,7 +15,10 @@ module.exports.send = async function(recipient, password){
         from: "quizzteam8@gmail.com",
         to: recipient,
         subject: "Inscription au Quizz",
-        text: `Vous avez été inscrit au site de quizz bla bla bla votre login est votre adresse mail et votre mot de passe est : ${password}`
+        text: `Vous avez été inscrit au site IPLearn par un administrateur veuillez utilisez votre adresse mail pour vous connecter et votre mot de passe est le suivant : ${password}
+        Veillez à bien conserver ce mot de passe. Si vous ne pensez pas être concerné par ce mail, veuillez envoyer un mail à quizzteam8@gmail.com.
+        
+        L'équipe IPLearn.`
     }
 
     await transporter.sendMail(mailOptions, (err,info) => {
