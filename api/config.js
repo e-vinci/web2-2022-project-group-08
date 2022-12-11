@@ -1,6 +1,6 @@
 module.exports = {
     secret: "",
-    dbPath: "/Users/rch/DataGripProjects/BLOC 2/projetWeb2.sqlite",
+    dbPath: "C:/Users/user/DataGripProjects/db_js.db",
     // add your own configurations
     
 }

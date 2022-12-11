@@ -7,11 +7,8 @@ const router = express.Router();
 let courses;
 
 router.get('/', (req, res) =>{
-
-     courses = getAllcourses;
-    // eslint-disable-next-line no-console
-    console.log(courses)
-    res.json(courses);
-});
+    const courses = getAllcourses()
+        res.json(courses);
+    });
 
 module.exports = router;
