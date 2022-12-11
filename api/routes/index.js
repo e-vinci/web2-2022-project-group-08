@@ -14,4 +14,4 @@ router.get('/', (req, res) =>{
     res.json(courses);
 });
 
-module.exports = { courses };
+module.exports = router;
