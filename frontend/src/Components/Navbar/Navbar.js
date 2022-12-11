@@ -31,9 +31,6 @@ function renderNavbar() {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
             </li>      
-            <li id="loginItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/login">Login</a>
-            </li>
             <li id="registerItem" class="nav-item">
               <a class="nav-link" href="#" data-uri="/register">Register</a>
             </li>            

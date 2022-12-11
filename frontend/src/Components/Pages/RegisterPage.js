@@ -7,6 +7,7 @@ const RegisterPage = () => {
   clearPage();
   renderPageTitle('Register');
   renderRegisterForm();
+  renderLoginForm();
 };
 
 function renderRegisterForm() {
@@ -16,19 +17,19 @@ function renderRegisterForm() {
   form.className = 'p-5';
   const username = document.createElement('input');
   username.type = 'text';
-  username.id = 'username';
+  username.id = 'registerUsername';
   username.placeholder = 'email vinci';
   username.required = true;
   username.className = 'form-control mb-3';
   const password = document.createElement('input');
   password.type = 'password';
-  password.id = 'password';
+  password.id = 'registerPassword';
   password.required = true;
   password.placeholder = 'password';
   password.className = 'form-control mb-3';
   const confirmationPassword = document.createElement('input');
   confirmationPassword.type = 'password';
-  confirmationPassword.id = 'confPassword';
+  confirmationPassword.id = 'registerConfPassword';
   confirmationPassword.required = true;
   confirmationPassword.placeholder = 'confirmez votre mot de passe ';
   confirmationPassword.className = 'form-control mb-3';
@@ -91,9 +92,9 @@ function onCheckboxClicked(e) {
 async function onRegister(e) {
   e.preventDefault();
 
-  const username = document.querySelector('#username').value;
-  const password = document.querySelector('#password').value;
-  const confirmationPassword = document.querySelector('#confPassword').value;
+  const username = document.querySelector('#registerUsername').value;
+  const password = document.querySelector('#registerPassword').value;
+  const confirmationPassword = document.querySelector('#registerConfPassword').value;
   
 
   const options = {
@@ -145,13 +146,71 @@ async function onRegisterForTeacher(e) {
 
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
+  Navbar();
+
+  Navigate('/');
+}
+
+
+function renderLoginForm() {
+  const main = document.querySelector('main');
+  const title = document.createElement('h2')
+  main.appendChild(title);
+  title.innerHTML = "Se connecter"
+  const loginForm = document.createElement('form');
+  loginForm.className = 'p-5';
+  const username = document.createElement('input');
+  username.type = 'text';
+  username.id = 'loginUsername';
+  username.placeholder = 'username';
+  username.required = true;
+  username.className = 'form-control mb-3';
+  const password = document.createElement('input');
+  password.type = 'password';
+  password.id = 'loginPassword';
+  password.required = true;
+  password.placeholder = 'password';
+  password.className = 'form-control mb-3';
+  const submit = document.createElement('input');
+  submit.value = 'Login';
+  submit.type = 'submit';
+  submit.className = 'btn btn-info';
+  loginForm.appendChild(username);
+  loginForm.appendChild(password);
+  loginForm.appendChild(submit);
+  main.appendChild(loginForm);
+  loginForm.addEventListener('submit', onLogin);
+}
+
+async function onLogin(e) {
+  e.preventDefault();
+
+  const username = document.querySelector('#loginUsername').value;
+  const password = document.querySelector('#loginPassword').value;
+  
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(`${process.env.API_BASE_URL}/users/login`, options);
+
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
   const authenticatedUser = await response.json();
 
-  console.log('Newly registered & authenticated user : ', authenticatedUser);
+  console.log('Authenticated user : ', authenticatedUser);
 
   setAuthenticatedUser(authenticatedUser);
 
   Navbar();
+  
 
   Navigate('/');
 }
