@@ -1,4 +1,7 @@
 const express = require('express');
+const { getOneCourses, getAllAnswersOneQuestions,
+  getAllQuestionsOneQuizz } = require('../models/Question');
+  
 const bcrypt = require('bcrypt');
 
 const {

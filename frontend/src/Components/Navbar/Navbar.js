@@ -36,7 +36,10 @@ function renderNavbar() {
             </li>
             <li id="registerItem" class="nav-item">
               <a class="nav-link" href="#" data-uri="/register">Register</a>
-            </li>            
+            </li>   
+            <li id="userAccountItem" class="nav-item">
+              <a class="nav-link" href="#" data-uri="/userAccount">User Account</a>
+            </li>           
           </ul>
         </div>
       </div>
@@ -65,7 +68,10 @@ function renderNavbar() {
             </li>            
             <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
-            </li>    
+            </li>
+            <li id="userAccountItem" class="nav-item">
+              <a class="nav-link" href="#" data-uri="/userAccount">User Account</a>
+            </li>     
             <li class="nav-item">
               <a class="nav-link disabled" href="#">${authenticatedUser?.username}</a>
             </li>           

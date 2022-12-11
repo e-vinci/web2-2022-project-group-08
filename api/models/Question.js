@@ -25,11 +25,14 @@ function getAllAnswersOneQuestions(question){
     return db.prepare('select * from questions where question = ?').get(question);
 };
 
+function getAllRegisteredQuestion(student_id){
+    return db.prepare('select * from registered_questions where student = ?').all(student_id);
+}
 
 
 module.exports={
     getOneCourses, getAllcourses, getAllAnswersOneQuestions,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion
 };
 
 
