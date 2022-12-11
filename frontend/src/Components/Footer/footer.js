@@ -4,7 +4,7 @@ const Footer = () => {
 
 
 function renderFooter() {
-    const main = document.querySelector('main');
+    const main = document.querySelector('footer');
 
     const footer = `
     <footer class="container-fluid bg-dark py-2 text-white">
