@@ -4,14 +4,11 @@ const { getAllcourses } = require('../models/Question');
 const router = express.Router();
 
 
-let courses;
+
 
 router.get('/', (req, res) =>{
-
-     courses = getAllcourses;
-    // eslint-disable-next-line no-console
-    console.log(courses)
-    res.json(courses);
+const courses = getAllcourses()
+    res.status(200).json(courses);
 });
 
 module.exports = router;
