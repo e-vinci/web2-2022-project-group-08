@@ -208,6 +208,7 @@ async function onLogin(e) {
 
   // eslint-disable-next-line no-console
   console.log('Newly registered & authenticated user : ', authenticatedUser);
+  console.log('Authenticated user : ', authenticatedUser);
 
   setAuthenticatedUser(authenticatedUser);
 

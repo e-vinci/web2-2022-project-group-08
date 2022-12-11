@@ -6,6 +6,12 @@ const HomePage = () => {
   main.innerHTML = `<h3>Welcome to your home page!</h3>`;
 //  main.innerHTML = courses;
 
+// fetch('localhost:3000/courses')
+//   .then((response) => response.json())
+//   .then((data) => console.log(data));
+
+
+
 };
 
 export default HomePage;
