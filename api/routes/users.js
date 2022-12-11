@@ -26,8 +26,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  const mail = req?.body?.username?.lenght !== 0 ? req.body.username : undefined;
-  const password = req?.body?.password?.lenght !== 0 ? req.body.password : undefined;
+  const mail = req?.body?.loginUsername?.lenght !== 0 ? req.body.loginUsername : undefined;
+  const password = req?.body?.loginPassword?.lenght !== 0 ? req.body.loginPassword : undefined;
 
   let isUser;
   if (!mail || !password) return res.status(400).json('utilisateur inexistant');
@@ -59,10 +59,10 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  const mail = req?.body?.mail?.lenght !== 0 ? req.body.username : undefined;
-  const password = req?.body?.password?.lenght !== 0 ? req.body.password : undefined;
+  const mail = req?.body?.mail?.lenght !== 0 ? req.body.registerUsername : undefined;
+  const password = req?.body?.registerPassword?.lenght !== 0 ? req.body.registerPassword : undefined;
   const passwordConfirm =
-    req?.body?.confirmationPassword?.lenght !== 0 ? req.body.confirmationPassword : undefined;
+    req?.body?.registerConfPassword?.lenght !== 0 ? req.body.registerConfPassword : undefined;
   if (!mail || !password || !passwordConfirm) return res.status(400).json('email ou password null');
 
   // comment configuer un message d'erreur ?
