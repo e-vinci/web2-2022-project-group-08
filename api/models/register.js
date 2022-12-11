@@ -10,7 +10,7 @@ function getAllTeachers() {
     return db.prepare("SELECT * FROM teachers ").all();    
 };
 
-function getOneTeacher(mail,password){
+function getOneTeacher(mail){
   const teacher = db.prepare('select  *  from teachers where mail = ? ').get(mail);
   if(!teacher) return undefined;
   const token = jwt.sign(
@@ -24,11 +24,10 @@ function getOneTeacher(mail,password){
   return authenticatedTeacher;
 };
 
-function getOneStudent(mail,password){
+function getOneStudent(mail){
     const student = db.prepare('select * from students where mail = ?').get(mail);
     if(!student) return undefined;
 
-    
     const token = jwt.sign(
       {mail},
       jwtSecret,
@@ -69,29 +68,28 @@ function getOneStudent(mail,password){
   function verifyIfStudentExists (mail){
     const commande = db.prepare("SELECT * FROM students WHERE mail = ?");
     const info = commande.all( mail )
-    if(info.length == 0){
+    if(info.length === 0){
         return false;
     }
-    else{
         return true;
-    }
   }
 
   function verifyIfTeacherExists (mail){
     const commande = db.prepare("SELECT * FROM teachers WHERE mail = ?");
     const info = commande.all( mail )
-    if(info.length == 0){
+    if(info.length === 0){
         return false;
     }
-    else{
         return true;
-    }
   }
 
 
 
 
 module.exports={
-    getAllTeachers, getOneTeacher, getOneStudent, toRegisterAStudent, toRegisterATeacher, verifyIfStudentExists, verifyIfTeacherExists
+    getAllTeachers, getOneTeacher, 
+    getOneStudent, toRegisterAStudent,
+     toRegisterATeacher, verifyIfStudentExists, 
+     verifyIfTeacherExists
 };
 
