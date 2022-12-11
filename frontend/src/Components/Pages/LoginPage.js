@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { setAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
@@ -72,3 +73,5 @@ async function onLogin(e) {
 }
 
 export default LoginPage;
+=======
+>>>>>>> 20e614c0c7723bf3da5a8b9b561cfc5c08018734
