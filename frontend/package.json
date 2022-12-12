@@ -30,6 +30,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@glidejs/glide": "^3.6.0",
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.1",
     "commit": "^0.0.4",

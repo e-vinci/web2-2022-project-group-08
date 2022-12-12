@@ -1,0 +1,51 @@
+.choix{
+    padding-top: 2%;
+    margin-left: 38%;
+    font-family: 'Marvel';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 77px;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgb(0, 0, 0);
+}
+
+.card-slider{
+    
+        background-color: #E9E9E8;
+        position: absolute;
+        width: 1085px;
+        height: 450px;
+        left: 250px;
+        top: 230px;
+        border-radius: 60px;
+        filter: drop-shadow(5px 5px 4px #000000);
+    
+}
+
+.splide__slide img {
+    width: 100%;
+    height: auto;
+  }
+
+.liste{
+    background-color: #E9E9E8;
+}
+
+.glide{
+    text-align: center;
+    align-items: center;
+   margin-top: 120px;
+    
+}
+
+.imgcardslider{
+    width: 270px;
+    height: 330px;
+}
+
+.element{
+    display: inline-block;
+    background-color: white;
+    border-radius: 50px;
+}

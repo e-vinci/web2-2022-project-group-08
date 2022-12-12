@@ -1,6 +1,7 @@
 module.exports = {
     secret: "",
-    dbPath: "/Users/kevinbationo/Desktop/js-projet.db",    // add your own configurations
+    dbPath: "C:/Users/Steven/DataGripProjects/quizz/identifier.sqlite",
+    // add your own configurations
     
 }
 

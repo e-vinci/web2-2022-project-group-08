@@ -1,20 +1,24 @@
 /* eslint-disable no-unused-vars */
 import HomePage from '../Pages/HomePage';
 import Logout from '../Logout/Logout';
-import LoginPage from '../Pages/LoginPage';
 import RegisterPage from '../Pages/RegisterPage';
 import ConfigQuiz from '../Pages/ConfigQuizPage';
+<<<<<<< HEAD
 import UserPage from '../Pages/UserPage';
+=======
+import userPage from '../Pages/userPage';
+import AddQuizPage from '../Pages/AddQuizPage'
+>>>>>>> 25e79eaf35acc70769c28dfeb3872767d3cc9669
 
 
 const routes = {
   '/': HomePage,
-  '/login': LoginPage,
+  '/login': RegisterPage,
   '/register': RegisterPage,
   '/logout': Logout,
   '/configurationQuiz' : ConfigQuiz,
-  '/users/userAccount' : UserPage 
-  
+  '/userAccount' : userPage ,
+  '/addQuiz' : AddQuizPage
 
 };
 

@@ -11,7 +11,10 @@ router.get('/', (req, res) =>{
      res.status(200).json(courses);
    //  res.status(200).json(registeredQuestions);
 
-});
+router.get('/', (req, res) =>{
+    const courses = getAllcourses()
+        res.json(courses);
+    });
 
 
 module.exports = router;
