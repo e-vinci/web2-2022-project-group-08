@@ -5,18 +5,18 @@ const { getAllRegisteredQuestion, getAllQuestionsOneQuizz, getOneCourses } = req
 const router = express.Router();
 
 
-router.get('/', (req, res) =>{
-    if(req.query.id){
-        res.json(getAllQuestionsOneQuizz(req.query.id));
-    }
-    res.json(getAllQuestionsOneQuizz()); // mieux vaut l'id du quiz direct ou le cours puis trouver le quiz via requete
-});
+// router.get('/', (req, res) =>{
+//     if(req.query.id){
+//         res.json(getAllQuestionsOneQuizz(req.query.id));
+//     }
+//     res.json(getAllQuestionsOneQuizz()); // mieux vaut l'id du quiz direct ou le cours puis trouver le quiz via requete
+// });
 
 
-router.get('/course', (req, res) =>{
+// router.get('/course', (req, res) =>{
     
-    res.json(getOneCourses(req.query.id)); // mieux vaut l'id du quiz direct ou le cours puis trouver le quiz via requete
-});
+//     res.json(getOneCourses(req.query.id)); // mieux vaut l'id du quiz direct ou le cours puis trouver le quiz via requete
+// });
 
 
 

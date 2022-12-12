@@ -4,7 +4,7 @@ import Logout from '../Logout/Logout';
 import LoginPage from '../Pages/LoginPage';
 import RegisterPage from '../Pages/RegisterPage';
 import ConfigQuiz from '../Pages/ConfigQuizPage';
-import userPage from '../Pages/userPage';
+import UserPage from '../Pages/UserPage';
 
 
 const routes = {
@@ -13,7 +13,8 @@ const routes = {
   '/register': RegisterPage,
   '/logout': Logout,
   '/configurationQuiz' : ConfigQuiz,
-  '/userAccount' : userPage 
+  '/users/userAccount' : UserPage 
+  
 
 };
 

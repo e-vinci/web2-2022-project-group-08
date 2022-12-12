@@ -4,11 +4,14 @@ const { getAllcourses } = require('../models/Question');
 const router = express.Router();
 
 
-
-
 router.get('/', (req, res) =>{
-const courses = getAllcourses()
-    res.status(200).json(courses);
+ const courses = getAllcourses()
+// const registeredQuestions = getAllRegisteredQuestion(3)
+
+     res.status(200).json(courses);
+   //  res.status(200).json(registeredQuestions);
+
 });
+
 
 module.exports = router;
