@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
 const { getOneCourses, getAllAnswersOneQuestions,
-  getAllQuestionsOneQuizz, getAllQuestions } = require('../models/Question');
+  getAllQuestionsOneQuizz, getAllQuestions, getAllRegisteredQuestion } = require('../models/Question');
 
 // eslint-disable-next-line import/order
 const bcrypt = require('bcrypt');
@@ -14,7 +14,7 @@ const {
   toRegisterAStudent,
   toRegisterATeacher,
   verifyIfStudentExists,
-  verifyIfTeacherExists,
+  verifyIfTeacherExists, getStudentId
 } = require('../models/register');
 
 const router = express.Router();
@@ -24,11 +24,18 @@ const { generate } = require('../utils/passwordGenerator');
 
 const saltRounds = 10;
 
-/* GET users listing. */
+
+/* GET USER PAGE */
 router.get('/', (req, res) => {
   const teachers = getAllTeachers();
-
   res.json(teachers);
+});
+
+/* GET users listing. */
+router.get('/userAccount', (req, res) => {
+  console.log('Router user account')
+  const registeredQuestions = getAllRegisteredQuestion(3);
+  res.json(registeredQuestions);
 });
 
 router.post('/login', (req, res) => {
@@ -60,7 +67,7 @@ router.post('/login', (req, res) => {
 
   if (!bcrypt.compareSync(password, cryptedPassword))
     return res.status(400).json("Le mot de passe n'est pas correct");
-
+  const userId = getStudentId(mail);
   return res.json(isUser);
 });
 
@@ -84,7 +91,7 @@ router.post('/register', (req, res) => {
   if (!potentialUser) return res.status(400).json('enregistrement impossible ');
 
   return res.json(potentialUser);
- 
+
 
 });
 

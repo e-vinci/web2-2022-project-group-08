@@ -8,17 +8,17 @@ POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-    "username" : "kevin.bationo@student.vinci.be",
+    "username" : "test@student.vinci.be",
     "password": "test"
 }
 
-### login one user
+### register
 POST {{baseUrl}}/users/register
 Content-Type: application/json
 
 {
-    "username" : "etudiant@student.vinci.be",
-    "password": "mdp",
-    "confirmationPassword":"mdp"
+    "username" : "kev@student.vinci.be",
+    "password": "test",
+    "confirmationPassword":"test"
     
 }

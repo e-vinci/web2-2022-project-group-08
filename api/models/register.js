@@ -84,12 +84,16 @@ function getOneStudent(mail){
   }
 
 
+  // GET STUDENT ID 
+  function getStudentId(mail) {
+    return db.prepare("SELECT student_id FROM students WHERE mail = ? ").get(mail);    
+};
 
 
 module.exports={
     getAllTeachers, getOneTeacher, 
     getOneStudent, toRegisterAStudent,
      toRegisterATeacher, verifyIfStudentExists, 
-     verifyIfTeacherExists
+     verifyIfTeacherExists, getStudentId
 };
 

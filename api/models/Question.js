@@ -5,9 +5,6 @@ const db = require('./db_conf');
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
 
-function getAllcourses(){
-    return db.prepare('select * from courses').all();
-};
 
 function getOneCourses(coursId){
     return db.prepare('select * from courses where courses_id =?').get(coursId);
@@ -36,7 +33,7 @@ function getAllQuestions(){
 
 
 module.exports={
-    getOneCourses, getAllcourses, getAllAnswersOneQuestions,
+    getOneCourses, getAllAnswersOneQuestions,
     getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions
 };
 
