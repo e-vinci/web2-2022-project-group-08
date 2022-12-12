@@ -91,7 +91,7 @@ router.post('/register', (req, res) => {
   if (!potentialUser) return res.status(400).json('enregistrement impossible ');
 
   return res.json(potentialUser);
- 
+
 
 });
 

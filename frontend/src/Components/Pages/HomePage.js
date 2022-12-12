@@ -14,12 +14,12 @@ import img2 from "../../img/javaScript.jpg"
 import img3 from "../../img/sql.jpg"
 
 const HomePage = () => {
+
   clearPage();
   renderPageTitle('');
   renderContent();
   renderHeader();
   renderListCourses();
-
 };
 
 
@@ -31,8 +31,6 @@ function renderContent(){
   const listeOfCourses= document.createElement('div');
   listeOfCourses.id='listeOfCourses';
   
-  
-
   header.appendChild(listeOfCourses);
   main.appendChild(header);
   
@@ -71,23 +69,26 @@ function renderHeader(){
 
 };
 
-function renderListCourses(){
-  const section = document.querySelector('section');
+function renderListCourses () {
+  const sectionCourse = document.querySelector('.sectionCourse');
+
+let storeData;
+
 fetch('http://localhost:3000/index')
   .then((response) => response.json())
   .then((data) =>  {
     // eslint-disable-next-line no-unused-vars
     data.forEach(element => {
-        const markup = ` <li> 
-                        <img src=${element.picture} </a>
-                        <a class="align-middle">${element.name}</a>
-                        <a class="align-middle">${element.presentation}</a>
-                        <a class="align-middle"><button class="btn btn-info">Demarrer</button></a>
-     </li>`;
-        section.innerHTML = markup;
+        const markup = `<h1>${element.code}</h1>`;
+        sectionCourse.innerHTML = markup;
     });
   }
 )
+
+.catch((error) => console.error("FETCH ERROR:", error));
+
+console.log(storeData)
+
 };
 
 
