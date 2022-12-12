@@ -5,7 +5,7 @@ import Navigate from '../Router/Navigate';
 
 const RegisterPage = () => {
   clearPage();
-  renderPageTitle('Register');
+  renderPageTitle("Se connecter ou s'inscrire");
   renderRegisterForm();
   renderLoginForm();
 };
