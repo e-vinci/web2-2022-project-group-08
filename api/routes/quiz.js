@@ -1,5 +1,6 @@
  const express = require('express');
 const { getAllcourses, getAllQuestionsOneQuizz, getAllAnswersOneQuestions } = require('../models/Question');
+const {addQuizzByCourseName} = require ('../models/Quiz');
 
 const router = express.Router();
 
@@ -20,6 +21,15 @@ router.get('/questions', (req, res) => {
 router.get('/answers', (req, res) => {
     const answers = getAllAnswersOneQuestions(1);
     return res.json(answers);
+  });
+
+
+
+router.post('/add', (req, res) => {
+  console.log(req.body.selectedCourse);
+  const quiz = addQuizzByCourseName(req.body.selectedCourse);
+  if (!quiz) return res.status(400).json("Il existe déjà un quizz pour ce cours");
+  return res.json(quiz);
   });
 
  module.exports = router;
