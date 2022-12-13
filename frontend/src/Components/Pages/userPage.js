@@ -5,35 +5,40 @@ import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
 
-const userPage = () => {  // mettre id entre parenthèse
-    clearPage();
+const UserPage = () => {  // mettre id entre parenthèse
+    clearPage(); 
+    renderContent();
     renderUserPage();
+    
 };
 
-async function renderUserPage () {
-    // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
-   // const main = document.querySelector('main');
-    
-   // const userPage = 
-
+ function renderContent(){
   const main = document.querySelector('main');
+  const title = document.createElement('h1');
+  title.innerText = 'Your account'
+  main.appendChild(title);
 
-    fetch('http://localhost:3000/users/userAccount')
+}
+
+function renderUserPage () {
+    // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
+console.log('render user page')
+const sectionCourse = document.querySelector('.sectionCourse');
+fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) =>  {
         // eslint-disable-next-line no-unused-vars
         data.forEach(element => {
-            const markup = `<h1>${element.student}</h1>`;
-            main.innerHTML = markup;
-        });
-      }
-    )
+            const markup = `<h1>${element.content}</h1>`;
+            
+            sectionCourse.innerHTML = markup;
+        });           
+      }                          
+    )            
     .catch((error) => console.error("FETCH ERROR:", error));
-    
-        main.innerHTML +=  userPage;
-
-    };
+        // main.innerHTML +=  userPage;
+  };
 
 
-export default userPage;
+export default UserPage;
 

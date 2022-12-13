@@ -2,7 +2,9 @@
 import { Navbar as BootstrapNavbar } from 'bootstrap';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 
-const SITE_NAME = 'yourSiteName';
+
+
+const SITE_NAME = 'IPLearn';
 
 const Navbar = () => {
   renderNavbar();
@@ -35,7 +37,7 @@ function renderNavbar() {
               <a class="nav-link" href="#" data-uri="/register">Register</a>
             </li>   
             <li id="userAccountItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/users/userAccount">User Account</a>
+              <a class="nav-link" href="#" data-uri="/users">User Account</a>
             </li>           
           </ul>
         </div>
@@ -67,11 +69,16 @@ function renderNavbar() {
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
             </li>
             <li id="userAccountItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/users/userAccount">User Account</a>
+              <a class="nav-link" href="#" data-uri="/users">User Account</a>
             </li>     
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">${authenticatedUser?.username}</a>
-            </li>           
+            <a class="nav-link" href="#" data-uri="/QuizzPage">YourQuizz</a>
+            </li> 
+           
+
+            <li class="nav-item" right =100 >
+            <a class="nav-link disabled" href="#">${authenticatedUser?.mail}</a>
+            </li>             
           </ul>
         </div>
       </div>

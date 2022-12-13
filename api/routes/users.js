@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
 const { getOneCourses, getAllAnswersOneQuestions,
-  getAllQuestionsOneQuizz, getAllQuestions, getAllRegisteredQuestion } = require('../models/Question');
+  getAllQuestionsOneQuizz, getAllQuestions, getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
 
 // eslint-disable-next-line import/order
 const bcrypt = require('bcrypt');
-
 
 const {
   getAllTeachers,
@@ -24,23 +23,28 @@ const { generate } = require('../utils/passwordGenerator');
 
 const saltRounds = 10;
 
-
 /* GET USER PAGE */
 router.get('/', (req, res) => {
-  const teachers = getAllTeachers();
-  res.json(teachers);
+  const registeredQuestions = getAllRegisteredQuestion(3);
+  const specificQuestion = getOneQuestion(1);
+  console.log(specificQuestion)
+  console.log(registeredQuestions)
+  res.status(200).json(specificQuestion);
 });
 
-/* GET users listing. */
-router.get('/userAccount', (req, res) => {
-  console.log('Router user account')
-  const registeredQuestions = getAllRegisteredQuestion(3);
-  res.json(registeredQuestions);
-});
+// /* GET users listing. */
+// router.get('/userAccount', (req, res) => {
+//   console.log('Router user account')
+//   const registeredQuestions = getAllRegisteredQuestion(3);
+//   res.json(registeredQuestions);
+// });
 
 router.post('/login', (req, res) => {
-  const mail = req?.body?.username?.lenght !== 0 ? req.body.username : undefined;
-  const password = req?.body?.password?.lenght !== 0 ? req.body.password : undefined;
+  // const mail = req?.body?.loginUsername?.length !== 0 ? req.body.loginUsername : undefined;
+  // const password = req?.body?.loginPassword?.length !== 0 ? req.body.loginPassword : undefined;
+
+  const {mail, password } = req.body
+
 
   let isUser;
   if (!mail || !password) return res.status(400).json('utilisateur inexistant');
@@ -73,8 +77,15 @@ router.post('/login', (req, res) => {
 
 router.post('/register', (req, res) => {
   
-  const {mail, registerPassword,registerConfPassword } = req.body
   
+  const {mail, registerPassword,registerConfPassword } = req.body
+
+  console.log('mail : ')
+  console.log(req.body.registerUsername)
+  console.log('password : ')
+  console.log(registerPassword)
+  console.log('confirmpassword : ')
+  console.log(registerConfPassword)
 // const mail = req?.body?.mail?.length !== 0 ? req.body.registerUsername : undefined;
 //   const password = req?.body?.registerPassword?.length !== 0 ? req.body.registerPassword : undefined;
 //   const passwordConfirm =
@@ -96,7 +107,9 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/registerTeacher', (req, res) => {
-  const mail = req?.body?.mail?.lenght !== 0 ? req.body.teacherUsername : undefined;
+  // const mail = req?.body?.mail?.lenght !== 0 ? req.body.teacherUsername : undefined;
+  const {mail, teacherUsername} = req.body;
+  // RAJOUTER INPUT ENREGISTREMENT TEACHER
   if (!mail) return res.status(400).json('email ou password null');
   if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/))
     /* gérer l'erreur */ return res
