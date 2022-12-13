@@ -5,13 +5,17 @@ const db = require('./db_conf');
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
 
+function getAllcourses(){
+    const cours = db.prepare('select * from courses').all();
+    return  cours;
+};
 
 function getOneCourses(coursId){
-    return db.prepare('select * from courses where courses_id =?').get(coursId);
+    return db.prepare('select * from courses where course_id =?').get(coursId);
 };
 
 function getAllQuizzOneCourses(coursId){
-    return db.prepare('select * from quizzes where course=?').get(coursId);
+    return db.prepare('select * from quizzes where course = ?').all(coursId);
 };
 
 function getAllQuestionsOneQuizz(quizzId){
@@ -37,9 +41,16 @@ function getOneQuestion(id_question){
 }
 
 
+function addQuestionByQuizId(question, quizID){
+    const maxNumber = db.prepare('SELECT max(number) FROM questions').get();
+    console.log("max", maxNumber);
+    return db.prepare('INSERT INTO questions (quizz, number, content) VALUES (?,?,?)').run(quizID,maxNumber['max(number)'] + 1,question);
+}
+
+
 module.exports={
-    getOneCourses, getAllAnswersOneQuestions,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion
+    getOneCourses, getAllAnswersOneQuestions, getAllcourses,
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId
 };
 
 

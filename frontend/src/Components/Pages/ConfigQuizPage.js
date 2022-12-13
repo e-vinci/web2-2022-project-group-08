@@ -31,7 +31,7 @@ async function renderConfigQuiz () {
                 </div>
             </div>
 
-            <div class="container border rounded-5 border-dark bg-light w-50">
+            <div class="container border rounded-5 border-dark bg-white w-50">
                 <div class="row  justify-content-center">
                     <div class="col-auto">
                         <h1 class="text-dark">tilte</h1>
@@ -56,7 +56,7 @@ async function renderConfigQuiz () {
 
                     <div class="col-auto my-auto">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault  ">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ async function renderConfigQuiz () {
 
                         <form action="" method="GET">
 							<input type="hidden" name="id" value="">
-							<button type="submit" class="btn btn-primary">
+							<button type="submit" class="btn btn-primary rounded-pill">
 								Démarrer
 							</button>
 						</form>

@@ -1,16 +1,17 @@
 import { getAuthenticatedUser } from '../utils/auths';
 
-const readAllMovies = async () => {
+const readAllQuizz = async () => {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/films`);
+    const response = await fetch(`${process.env.API_BASE_URL}/index`);
 
     if (!response.ok) {
-      throw new Error(`readAllMovies:: fetch error : ${response.status} : ${response.statusText}`);
+      throw new Error(`readAllQuizz:: fetch error : ${response.status} : ${response.statusText}`);
     }
-    const films = await response.json();
-    return films;
+    const quizz = await response.json();
+    console.log(quizz);
+    return quizz;
   } catch (err) {
-    console.error('readAllMovies::error: ', err);
+    console.error('readAllQuizz::error: ', err);
     throw err;
   }
 };
@@ -100,4 +101,4 @@ async function updateOneMovie(id, newMovieData) {
   }
 }
 
-export { readAllMovies, addOneMovie, deleteOneMovie, updateOneMovie };
+export { readAllQuizz, addOneMovie, deleteOneMovie, updateOneMovie };

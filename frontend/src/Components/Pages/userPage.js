@@ -6,8 +6,7 @@ import Navigate from '../Router/Navigate';
 
 
 const UserPage = () => {  // mettre id entre parenthèse
-    clearPage();
-    
+    clearPage(); 
     renderContent();
     renderUserPage();
     

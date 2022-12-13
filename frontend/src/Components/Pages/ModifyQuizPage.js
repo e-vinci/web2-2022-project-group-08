@@ -1,17 +1,19 @@
 /* import { setAuthenticatedUser } from '../../utils/auths'; */
 import { clearPage, renderPageTitle } from '../../utils/render';
 /* import Navbar from '../Navbar/Navbar'; */
-/* import Navigate from '../Router/Navigate'; */
+import Navigate from '../Router/Navigate'; 
 
-const QuizPage = () => {
+let currentQuiz = {};
+const ModifyQuizPage = (quiz) => {
+  currentQuiz = quiz;
   clearPage();
-  renderPageTitle('Quizz');
+  renderPageTitle('Quizz du cours :');
   renderQuizForm();
   renderQuizQuestionForm();
-  renderExistingQuestion();
+  renderExistingQuestions();
 };
 
-function renderQuizForm() {
+async function renderQuizForm() {
   const main = document.querySelector('main');
   const form = document.createElement('form');
   const title = document.createElement('h2');
@@ -19,15 +21,18 @@ function renderQuizForm() {
   main.appendChild(title);
   form.className = 'p-5';
   const courses = document.createElement('select')
-  courses.id = 'courses';
-  fetch('http://localhost:3000/index')
+  fetch('http://localhost:3000/courses')
     .then((response) => response.json())
     .then((data) =>  {
+      courses.id = 'courses';
       data.forEach(element => {
-        courses.innerHTML += `<option value = ${element.name}> ${element.name}</option>`
+
+        if(element.course_id === currentQuiz.course) courses.innerHTML += `<option selected value = ${element.name}> ${element.name}</option>` /* modifier */
+        else courses.innerHTML += `<option value = ${element.name}> ${element.name}</option>`
       });
     }
   )
+
   const submit = document.createElement('input');
   submit.value = 'Modifier';
   submit.type = 'submit';
@@ -35,49 +40,16 @@ function renderQuizForm() {
   form.appendChild(courses);
   form.appendChild(submit)
   main.appendChild(form);
-  form.addEventListener('submit', addQuizz); 
+  /* form.addEventListener('submit', addQuizz); */
 
 }
 
-
-async function addQuizz(e) {
-    e.preventDefault();
-  
-    const courses = document.querySelector('#course');
-    const selectedIndex = courses.selectedIndex();
-    const selectedCourse = courses.options[selectedIndex];
-    const options = {
-      method: 'POST',
-      body: JSON.stringify({
-        selectedCourse
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-  
-    const response = await fetch(`${process.env.API_BASE_URL}/quiz/add`, options);
-  
-    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-  
-    const authenticatedUser = await response.json();
-  
-    // eslint-disable-next-line no-console
-    console.log('Newly registered & authenticated user : ', authenticatedUser);
-    /*
-    setAuthenticatedUser(authenticatedUser);
-  
-    Navbar();
-  
-    Navigate('/');
-    */
-  }
 
 
 function renderQuizQuestionForm() {
     const main = document.querySelector('main');
     const title = document.createElement('h2');
-    title.innerHTML = "Ajoutez une question"
+    title.innerHTML = "Ajouter une question"
     main.appendChild(title);
     const form = document.createElement('form');
     form.className = 'p-5';
@@ -100,7 +72,7 @@ function renderQuizQuestionForm() {
     answer2.type = 'text';
     answer2.id = 'second_answer';
     answer2.placeholder = "Entrez la deuxième réponse possible";
-    answer2.required = true;
+    answer2.required = true; 
     answer2.className = 'form-control mb-3';
 
     const answer3 = document.createElement('input');
@@ -114,7 +86,7 @@ function renderQuizQuestionForm() {
     answer4.type = 'text';
     answer4.id = 'fourth_answer';
     answer4.placeholder = "Entrez la quatrième réponse possible";
-    answer4.required = true;
+    answer4.required = true; 
     answer4.className = 'form-control mb-3';
 
     const submit = document.createElement('input');
@@ -128,23 +100,70 @@ function renderQuizQuestionForm() {
     form.appendChild(answer4);
     form.appendChild(submit)
     main.appendChild(form);
-    /* form.addEventListener('submit', onRegister); */
+    form.addEventListener('submit', addQuestion);
   
   }
 
-function renderExistingQuestion(){
+  async function addQuestion(e) {
+    e.preventDefault();
+  
+    const question = document.querySelector('#question').value;
+    const quizID = currentQuiz.quizz_id;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        question,
+        quizID
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    const response = await fetch(`${process.env.API_BASE_URL}/questions`, options);
+    const addedQuestion = await response.json();
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const answer1 = document.querySelector('#first_answer').value;
+    const answer2 = document.querySelector('#second_answer').value;
+    const answer3 = document.querySelector('#third_answer').value;
+    const answer4 = document.querySelector('#fourth_answer').value;
+    const questionID = addedQuestion.lastInsertRowid;
+    const options2 = {
+      method: 'POST',
+      body: JSON.stringify({
+        answer1,
+        answer2,
+        answer3,
+        answer4,
+        questionID
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response2 = await fetch(`${process.env.API_BASE_URL}/answers`, options2);
+    if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
+    Navigate('/ModifyQuizPage');
+    ModifyQuizPage(currentQuiz);
+  }
+
+
+
+function renderExistingQuestions(){
     const main = document.querySelector('main');
     const title = document.createElement('h2');
     title.innerHTML = "Modifier les questions existantes"
     main.appendChild(title);
-    fetch('http://localhost:3000/quiz/questions')
+    fetch(`http://localhost:3000/questions?quiz=${currentQuiz.quizz_id}`) /* remplacer par quiz.quizz_id */
     .then((response) => response.json())    
     .then((data) =>  {
       data.forEach(element => {
         const form = document.createElement('form');
-        const titleq = document.createElement('h2');
-        titleq.innerHTML = 'Question n°'
-        main.appendChild(titleq);
+        const questionTitle = document.createElement('h2');
+        questionTitle.innerHTML = 'Question n°'
+        main.appendChild(questionTitle);
         main.appendChild(form);
         form.className = 'p-5';
         const question = document.createElement('input');
@@ -152,7 +171,7 @@ function renderExistingQuestion(){
         question.value = element.content;
         question.className = 'form-control mb-3';
 
-        fetch('http://localhost:3000/quiz/answers')
+        fetch(`http://localhost:3000/answers?question=${element.question_id}`)
         .then((response2) => response2.json())    
         .then((data2) =>  {
         form.appendChild(question);
@@ -180,4 +199,4 @@ function renderExistingQuestion(){
 
 
 
-export default QuizPage;
+export default ModifyQuizPage;

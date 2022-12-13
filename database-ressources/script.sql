@@ -108,10 +108,28 @@ INSERT INTO teachers( mail, user_password) VALUES ('ramtin@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('kevin@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('dorcas@vinci.be','mdp') ;
 
+insert into courses(name, code, presentation) VALUES ('UML','BINV-2041','ce cours aborde le sujet des différents diagrames' );
+insert into quizzes(course, isOnline) values (1,false);
+insert into questions(quizz, number, content) VALUES (1,1, 'comment appelle-t-on une relation qui est une forme agrégation');
+insert into questions (quizz, number, content) values (1, 2, 'comment appelle t-on un changement de état considéré comme instantané');
+insert into questions (quizz, number, content) values (1, 3, 'c est quoi une classe abstraite ?');
 
 
+insert into answers (question, content, correct, good_answer_feedback) VALUES (1,'une spécialisation', false, 'on va donner des feedback après check pour le moment ton cours');
+insert into answers (question, content, correct, good_answer_feedback) values (1,'une généralisation', false, 'on va donner des feedback après check pour le moment ton cours');
+insert into answers (question, content, correct, good_answer_feedback) values (1,'une composition', true,'bravo');
+insert into answers (question, content, correct, good_answer_feedback) values (1,'une classification', false,'on va donner des feedback après check pour le moment ton cours' );
 
-INSERT INTO students( mail, user_password) VALUES ('stud@student.vinci.be','mdp');
-INSERT INTO students ( mail, user_password) VALUES ('etudiant@student.vinci.be','mdp');
+insert into answers (question, content, correct, good_answer_feedback) VALUES (2,'un changement instantané ', false, 'on va donner des feedback après check pour le moment ton cours');
+insert into answers (question, content, correct, good_answer_feedback) values (2,'une transition', false, 'on va donner des feedback après check pour le moment ton cours');
+insert into answers (question, content, correct, good_answer_feedback) values (2,'un bouleversement ', false,'bravo');
+insert into answers (question, content, correct, good_answer_feedback) values (2,'une alternance', false,'on va donner des feedback après check pour le moment ton cours' );
+
+
+insert into answers (question, content, correct, good_answer_feedback) VALUES (3,'une classe dont son implémentation n est pas complète ', true, 'yessssss ');
+insert into answers (question, content, correct, good_answer_feedback) values (3,'une classe qui n est pas destinée à être instancier', true, 'good job');
+insert into answers (question, content, correct, good_answer_feedback) values (3,'tout classe qui possède une méthode abstraite ', true,'bravo');
+insert into answers (question, content, correct, good_answer_feedback) values (3,'une classe incompréhensible à cause de son abstraction', false,'on va donner des feedback après check pour le moment ton cours' );
+
 
 
