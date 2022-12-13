@@ -54,14 +54,14 @@ function getOneStudent(mail){
   };
 
   function toRegisterATeacher(mail, password){
-    const teacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').get(mail,password);
-    if(teacher === undefined ) return undefined;
+    const idTeacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').get(mail,password);
+    if(idTeacher === undefined ) return undefined;
     const token = jwt.sign(
       {mail},
       jwtSecret,
       {expiresIn : lifetimeJwt}
     );
-    const  authenticatedStudent = {mail,token, teacher};
+    const  authenticatedStudent = {mail,token, idTeacher};
     return authenticatedStudent;
   };
 

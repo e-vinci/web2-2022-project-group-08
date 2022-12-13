@@ -7,12 +7,11 @@ const db = require('./db_conf');
 
 function getAllcourses(){
     const cours = db.prepare('select * from courses').all();
-   
     return  cours;
 };
 
 function getOneCourses(coursId){
-    return db.prepare('select * from courses where courses_id =?').get(coursId);
+    return db.prepare('select * from courses where course_id =?').get(coursId);
 };
 
 function getAllQuizzOneCourses(coursId){
@@ -20,7 +19,8 @@ function getAllQuizzOneCourses(coursId){
 };
 
 function getAllQuestionsOneQuizz(quizzeId){
-    return db.prepare('select *  from questions where quizz=?').all(quizzeId);
+    const questions =  db.prepare('select *  from questions where quizz = ?').all(quizzeId);
+    return questions;
 };
 
 function getAllAnswersOneQuestions(question){
