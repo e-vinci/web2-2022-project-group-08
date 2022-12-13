@@ -89,7 +89,43 @@ fetch('http://localhost:3000/index')
 
 };
 
-
+<div class="container my-3  border border-dark rounded-5 bg-white ">
+        <div class="row">
+            <div class="col-3 my-auto">
+                <img class="logoFooter" src="/Logo_bootstrap.png" alt="" style="width:100%; height:auto"></a>
+            </div>
+    
+            <div class="col-9">
+                <div class="container-fluid my-3">
+                    <div class="row justify-content-center">
+                        <div class="col-auto"> <h1 class="text-dark"> javascript</h1> </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="text-dark">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Nobis sequi cum voluptatem minus perferendis porro laboriosam aliquam quia repellendus a, 
+                                amet dolorum nam nihil neque mollitia sint itaque aut minima!
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Nobis sequi cum voluptatem minus perferendis porro laboriosam aliquam quia repellendus a, 
+                                amet dolorum nam nihil neque mollitia sint itaque aut minima!
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Nobis sequi cum voluptatem minus perferendis porro laboriosam aliquam quia repellendus a, 
+                                amet dolorum nam nihil neque mollitia sint itaque aut minima!
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Nobis sequi cum voluptatem minus perferendis porro laboriosam aliquam quia repellendus a, 
+                                amet dolorum nam nihil neque mollitia sint itaque aut minima!
+                            </p>
+                        
+                        </div>
+    
+                        <div class="col-2 my-auto"> <button class="btn btn-primary rounded-pill"> démarrer</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 export default HomePage;
