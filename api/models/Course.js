@@ -3,7 +3,7 @@ const db = require('./db_conf');
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
 
-function getAllcourses(){
+function getAllCourses(){
     return db.prepare('SELECT * FROM courses').all();
 };
 
@@ -19,5 +19,5 @@ function getACourseImage(name){
 }
 
 module.exports={
- getACourse, getAllcourses, getACourseImage
+ getACourse, getAllCourses, getACourseImage
 };
