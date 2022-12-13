@@ -104,7 +104,7 @@ fetch('http://localhost:3000/index')
             </div>
 
        
-           <div class="col-2 my-auto"> <a>  <button class="btn btn-primary rounded-pill"> démarrer</button></div>
+           <div class="col-2 my-auto"> <a href="/configurationQuiz?${element.course_id}"> <button class="btn btn-primary rounded-pill"> démarrer</button> </a> </div>
 
                   </div>
                 </div>
