@@ -105,7 +105,9 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/registerTeacher', (req, res) => {
-  const mail = req?.body?.mail?.lenght !== 0 ? req.body.teacherUsername : undefined;
+  // const mail = req?.body?.mail?.lenght !== 0 ? req.body.teacherUsername : undefined;
+  const {mail, teacherUsername} = req.body;
+  // RAJOUTER INPUT ENREGISTREMENT TEACHER
   if (!mail) return res.status(400).json('email ou password null');
   if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/))
     /* gérer l'erreur */ return res
