@@ -1,23 +1,30 @@
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
-const { getAllRegisteredQuestion, getAllQuestionsOneQuizz, getOneCourses } = require('../models/Question');
+const {getAllQuestionsOneQuizz, addQuestionByQuizId} = require('../models/Question');
 
 const router = express.Router();
 
 
-// router.get('/', (req, res) =>{
-//     if(req.query.id){
-//         res.json(getAllQuestionsOneQuizz(req.query.id));
-//     }
-//     res.json(getAllQuestionsOneQuizz()); // mieux vaut l'id du quiz direct ou le cours puis trouver le quiz via requete
-// });
+router.get('/', function (req, res) {
+    const quiz = req?.query
+      ? parseInt(req.query.quiz)
+      : undefined;
+    console.log(quiz);
+    if (
+      quiz &&
+      (typeof quiz !== 'number' || quiz <= 0)
+    )
+      return res.sendStatus(400);
+  
+    if (!quiz) return res.json([]);
+  
+    return res.json(getAllQuestionsOneQuizz(quiz));
+  });
 
 
-// router.get('/course', (req, res) =>{
-    
-//     res.json(getOneCourses(req.query.id)); // mieux vaut l'id du quiz direct ou le cours puis trouver le quiz via requete
-// });
-
-
+router.post('/', function (req, res) {
+  const question = addQuestionByQuizId(req.body.question, req.body.quizID);
+  return res.json(question); 
+  });
 
 module.exports = router;

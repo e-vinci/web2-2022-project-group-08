@@ -1,13 +1,17 @@
+/* eslint-disable no-console */
 const express = require('express');
-const { getAllcourses , getAllAnswersOneQuestions, getAllQuestionsOneQuizz, 
+const { getAllCourses , getACourseImage} = require('../models/Course');
+const {  getAllAnswersOneQuestions, getAllQuestionsOneQuizz, 
      } = require('../models/Question');
 
 const router = express.Router();
 
 router.get('/', (req, res) =>{
-    const courses = getAllcourses()
+    const courses = getAllCourses()
     console.log(courses)
     res.status(200).json(courses);
+   const picture = getACourseImage()
+    res.status(200).json(picture); 
 });
 
 

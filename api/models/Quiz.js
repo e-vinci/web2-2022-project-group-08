@@ -9,7 +9,13 @@ function addQuizzByCourseName(course){
         return;
     }
     const date = new Date().toLocaleDateString();
+<<<<<<< HEAD
     return  db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
+=======
+    const add  = db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
+
+    return db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
+>>>>>>> 4cc3e92d65dcfcdbcb72c011179d47f6cb1df0fe
 }
 
 function verifyIfQuizzExists(courseID){
@@ -18,6 +24,21 @@ function verifyIfQuizzExists(courseID){
     return true; 
 }
 
+
+function getQuizById(quizz){
+    return db.prepare('SELECT * FROM quizzes WHERE quizz_id = ?').get(quizz);
+    
+}
+
+
+function getQuizzes(){
+    return db.prepare('SELECT * FROM quizzes').all();
+    
+}
+
+
 module.exports={
-    addQuizzByCourseName
+    addQuizzByCourseName,
+    getQuizById,
+    getQuizzes
    };
