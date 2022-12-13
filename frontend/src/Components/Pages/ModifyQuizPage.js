@@ -4,7 +4,7 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate'; 
 
 let currentQuiz = {};
-const QuizPage = (quiz) => {
+const ModifyQuizPage = (quiz) => {
   currentQuiz = quiz;
   clearPage();
   renderPageTitle('Quizz du cours :');
@@ -40,43 +40,10 @@ async function renderQuizForm() {
   form.appendChild(courses);
   form.appendChild(submit)
   main.appendChild(form);
-  form.addEventListener('submit', addQuizz); 
+  /* form.addEventListener('submit', addQuizz); */
 
 }
 
-
-async function addQuizz(e) {
-    e.preventDefault();
-  
-    const courses = document.querySelector('#course');
-    const selectedIndex = courses.selectedIndex();
-    const selectedCourse = courses.options[selectedIndex];
-    const options = {
-      method: 'POST',
-      body: JSON.stringify({
-        selectedCourse
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-  
-    const response = await fetch(`${process.env.API_BASE_URL}/quiz/add`, options);
-  
-    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-  
-    const authenticatedUser = await response.json();
-  
-    // eslint-disable-next-line no-console
-    console.log('Newly registered & authenticated user : ', authenticatedUser);
-    /*
-    setAuthenticatedUser(authenticatedUser);
-  
-    Navbar();
-  
-    Navigate('/');
-    */
-  }
 
 
 function renderQuizQuestionForm() {
@@ -157,8 +124,8 @@ function renderQuizQuestionForm() {
     const addedQuestion = await response.json();
     console.log(addedQuestion);
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-    Navigate('/QuizPage');
-    QuizPage(currentQuiz);
+    Navigate('/ModifyQuizPage');
+    ModifyQuizPage(currentQuiz);
   }
 
 
@@ -212,4 +179,4 @@ function renderExistingQuestions(){
 
 
 
-export default QuizPage;
+export default ModifyQuizPage;

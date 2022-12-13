@@ -2,7 +2,7 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 /* import Navbar from '../Navbar/Navbar'; */
-import QuizPage from './QuizPage';
+import ModifyQuizPage from './ModifyQuizPage';
 
 const AddQuizPAge = () => {
   clearPage();
@@ -61,8 +61,8 @@ async function addQuizz(e) {
   
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
-    Navigate('/QuizPage');
-    QuizPage(addedQuiz);
+    Navigate('/ModifyQuizPage');
+    ModifyQuizPage(addedQuiz);
   }
 
 
