@@ -49,3 +49,20 @@
     background-color: white;
     border-radius: 50px;
 }
+
+.cours{
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+}
+
+.courselement{
+    display: inline-block;
+   margin-left: 150px;
+}
+
+.courselementbutton{
+    display: inline-block;
+   position: absolue;
+
+}
