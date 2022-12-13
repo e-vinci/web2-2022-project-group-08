@@ -29,11 +29,10 @@ function renderContent(){
   const main = document.querySelector('main');
   const header = document.createElement('p');
   header.id='header';
+  main.appendChild(header);  
   const listeOfCourses= document.createElement('div');
-  listeOfCourses.id='listeOfCourses';
-  header.appendChild(listeOfCourses);
-  main.appendChild(header);
-  
+  listeOfCourses.className= 'listeOfCourses';
+  main.appendChild(listeOfCourses);
 };
 
 
@@ -70,7 +69,7 @@ function renderHeader(){
 };
 
 function renderListCourses () {
-  const sectionCourse = document.querySelector('.sectionCourse');
+  const listeOfCourses = document.querySelector('.listeOfCourses');
 
 fetch('http://localhost:3000/index')
   .then((response) => response.json())
@@ -105,7 +104,7 @@ fetch('http://localhost:3000/index')
             </div>
 
        
-           <div class="col-2 my-auto"> <button class="btn btn-primary rounded-pill"> démarrer</button></div>
+           <div class="col-2 my-auto"> <a>  <button class="btn btn-primary rounded-pill"> démarrer</button></div>
 
                   </div>
                 </div>
@@ -116,7 +115,7 @@ fetch('http://localhost:3000/index')
         `
         compt+=1;
         ;
-        sectionCourse.innerHTML = markup;
+        listeOfCourses.innerHTML = markup;
     });
   }
 )
