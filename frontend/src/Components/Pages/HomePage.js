@@ -9,7 +9,7 @@ import Glide from '@glidejs/glide';
 import { clearPage, renderPageTitle } from "../../utils/render";
 import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
-import img from "../../img/uml.jpg"
+import img1 from "../../img/uml.jpg"
 import img2 from "../../img/javaScript.jpg"
 import img3 from "../../img/sql.jpg"
 
@@ -30,7 +30,6 @@ function renderContent(){
   header.id='header';
   const listeOfCourses= document.createElement('div');
   listeOfCourses.id='listeOfCourses';
-  
   header.appendChild(listeOfCourses);
   main.appendChild(header);
   
@@ -78,10 +77,16 @@ fetch('http://localhost:3000/index')
   .then((response) => response.json())
   .then((data) =>  {
     // eslint-disable-next-line no-unused-vars
+     let markup = '';
+     let images = [];
+     images.push(img1,img2,img3);
+     
     data.forEach(element => {
-        const markup = ` <p class=""> <h1>${element.picture}</h1></p>
-                          <p class=""> <h1>${element.name}</h1></p>
-                          <p class=""> <h1>${element.presentation}</h1></p>
+        markup +=
+        ` <div class="cours"> <p class="courselement"><img src="${element.picture}" alt=""></p>
+                           <p class="courselement"> ${element.name}</p>
+                           <p class="courselement">${element.presentation}</p>
+                           <a class="courselementbutton"><button class="btn btn-info">Demarrer</button></a></div>
         `;
         sectionCourse.innerHTML = markup;
     });
