@@ -1,8 +1,15 @@
 const express = require('express');
-const {  getAllAnswersOneQuestions, getAllQuestionsOneQuizz,
+const { getAllcourses , getAllAnswersOneQuestions, getAllQuestionsOneQuizz, 
      } = require('../models/Question');
 
 const router = express.Router();
+
+router.get('/', (req, res) =>{
+    const courses = getAllcourses()
+    console.log(courses)
+    res.status(200).json(courses);
+});
+
 
 router.get('/', (req, res) =>{ 
     const  questions   = getAllQuestionsOneQuizz(1);
@@ -12,10 +19,6 @@ router.get('/', (req, res) =>{
      console.log( answers );
     res.json({questions,answers});
 });
-
-
-
-
 
 
 module.exports = router;

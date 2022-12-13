@@ -12,7 +12,7 @@ Content-Type: application/json
     "password": "1"
 }
 
-### login one user
+### register
 POST {{baseUrl}}/users/register
 Content-Type: application/json
 

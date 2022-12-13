@@ -33,12 +33,12 @@ function renderNavbar() {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
             </li>      
-            <li id="loginItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/login">Login</a>
-            </li>
             <li id="registerItem" class="nav-item">
               <a class="nav-link" href="#" data-uri="/register">Register</a>
-            </li>            
+            </li>   
+            <li id="userAccountItem" class="nav-item">
+              <a class="nav-link" href="#" data-uri="/users">User Account</a>
+            </li>           
           </ul>
         </div>
       </div>
@@ -67,8 +67,10 @@ function renderNavbar() {
             </li>            
             <li class="nav-item">
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
-            </li>  
-
+            </li>
+            <li id="userAccountItem" class="nav-item">
+              <a class="nav-link" href="#" data-uri="/users">User Account</a>
+            </li>     
             <li class="nav-item">
             <a class="nav-link" href="#" data-uri="/QuizzPage">YourQuizz</a>
             </li> 
