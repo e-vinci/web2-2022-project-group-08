@@ -1,7 +1,8 @@
 /* import { setAuthenticatedUser } from '../../utils/auths'; */
 import { clearPage, renderPageTitle } from '../../utils/render';
+import Navigate from '../Router/Navigate';
 /* import Navbar from '../Navbar/Navbar'; */
-import Navigate from '../Router/Navigate'; 
+import QuizPage from './QuizPage';
 
 const AddQuizPAge = () => {
   clearPage();
@@ -21,7 +22,7 @@ function renderQuizForm() {
   form.className = 'p-5';
   const courses = document.createElement('select')
   courses.id = 'courses';
-  fetch('http://localhost:3000/index')
+  fetch('http://localhost:3000/courses')
     .then((response) => response.json())
     .then((data) =>  {
       data.forEach(element => {
@@ -55,13 +56,13 @@ async function addQuizz(e) {
       },
     };
   
-    const response = await fetch(`${process.env.API_BASE_URL}/quiz/add`, options);
+    const response = await fetch(`${process.env.API_BASE_URL}/quiz`, options);
+    const addedQuiz = await response.json();
   
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-  
-    /* Navbar(); */
-  
-    Navigate('/quizPage');
+
+    Navigate('/QuizPage');
+    QuizPage(addedQuiz);
   }
 
 
