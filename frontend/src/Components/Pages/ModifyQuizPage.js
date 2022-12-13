@@ -89,16 +89,40 @@ function renderQuizQuestionForm() {
     answer4.required = true; 
     answer4.className = 'form-control mb-3';
 
+    const goodAnswer = document.createElement('select');
+    goodAnswer.id = 'goodAnswer'
+    const option1 = document.createElement('option');
+    option1.innerHTML = '1';
+    option1.value = '1';
+    const option2 = document.createElement('option');
+    option2.innerHTML = '2';
+    option2.value = '2';
+    const option3 = document.createElement('option');
+    option3.innerHTML = '3';
+    option3.value = '3';
+    const option4 = document.createElement('option');
+    option4.innerHTML = '4';
+    option4.value = '4';
+
+    goodAnswer.appendChild(option1);
+    goodAnswer.appendChild(option2);
+    goodAnswer.appendChild(option3);
+    goodAnswer.appendChild(option4);
+
+
     const submit = document.createElement('input');
     submit.value = 'Ajouter';
     submit.type = 'submit';
     submit.className = 'btn btn-info';
+
+
     form.appendChild(question)
     form.appendChild(answer1);
     form.appendChild(answer2);
     form.appendChild(answer3);
     form.appendChild(answer4);
-    form.appendChild(submit)
+    form.appendChild(goodAnswer);
+    form.appendChild(submit);
     main.appendChild(form);
     form.addEventListener('submit', addQuestion);
   
@@ -128,6 +152,7 @@ function renderQuizQuestionForm() {
     const answer2 = document.querySelector('#second_answer').value;
     const answer3 = document.querySelector('#third_answer').value;
     const answer4 = document.querySelector('#fourth_answer').value;
+    const goodAnswerNumber = document.querySelector('#goodAnswer').value;
     const questionID = addedQuestion.lastInsertRowid;
     const options2 = {
       method: 'POST',
@@ -136,7 +161,8 @@ function renderQuizQuestionForm() {
         answer2,
         answer3,
         answer4,
-        questionID
+        questionID,
+        goodAnswerNumber
       }),
       headers: {
         'Content-Type': 'application/json',
