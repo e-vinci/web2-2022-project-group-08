@@ -10,8 +10,8 @@ import Glide from '@glidejs/glide';
 import { clearPage, renderPageTitle } from "../../utils/render";
 import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
-import img1 from "../../img/uml.jpg";
-import img2 from "../../img/javaScript.jpg";
+import img1 from "../../img/javaScript.jpg";
+import img2 from "../../img/uml.jpg";
 import img3 from "../../img/sql.jpg";
 
 const HomePage = () => {
@@ -38,6 +38,7 @@ function renderContent(){
 
 
 function renderHeader(){
+  
   document.getElementById('header').innerHTML=`
 
   <div class="choix">Choisissez un cours</div>
@@ -45,9 +46,9 @@ function renderHeader(){
   <div class="glide">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
-    <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img1}" alt=""></li></a>
-    <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img2}" alt=""></li></a>  
-    <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img3}" alt=""></li></a>
+    <a href="/configurationQuiz?1" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img1}" alt=""></li></a>
+    <a href="/configurationQuiz?2" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img2}" alt=""></li></a>  
+    <a href="/configurationQuiz?3" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img3}" alt=""></li></a>
     </ul>
   </div>
 
