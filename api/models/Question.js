@@ -14,12 +14,12 @@ function getAllQuizzOneCourses(coursId){
     return db.prepare('select * from quizzes where course=?').get(coursId);
 };
 
-function getAllQuestionsOneQuizz(quizzeId){
-    return db.prepare('select *  from questions where quizz=?').get(quizzeId);
+function getAllQuestionsOneQuizz(quizzId){
+    return db.prepare('select *  from questions where quizz=?').all(quizzId);
 };
 
 function getAllAnswersOneQuestions(question){
-    return db.prepare('select * from questions where question = ?').get(question);
+    return db.prepare('select * from answers where question = ?').all(question);
 };
 
 // eslint-disable-next-line camelcase
