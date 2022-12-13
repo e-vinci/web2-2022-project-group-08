@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
 const { getOneCourses, getAllAnswersOneQuestions,
-  getAllQuestionsOneQuizz, getAllQuestions, getAllRegisteredQuestion } = require('../models/Question');
+  getAllQuestionsOneQuizz, getAllQuestions, getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
 
 // eslint-disable-next-line import/order
 const bcrypt = require('bcrypt');
@@ -25,9 +25,11 @@ const saltRounds = 10;
 
 /* GET USER PAGE */
 router.get('/', (req, res) => {
-  const teachers = getAllTeachers();
-  console.log(teachers)
-  res.status(200).json(teachers);
+  const registeredQuestions = getAllRegisteredQuestion(3);
+  const specificQuestion = getOneQuestion(1);
+  console.log(specificQuestion)
+  console.log(registeredQuestions)
+  res.status(200).json(specificQuestion);
 });
 
 // /* GET users listing. */

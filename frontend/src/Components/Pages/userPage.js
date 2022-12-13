@@ -30,7 +30,7 @@ fetch('http://localhost:3000/users')
       .then((data) =>  {
         // eslint-disable-next-line no-unused-vars
         data.forEach(element => {
-            const markup = `<h1>${element.mail}</h1>`;
+            const markup = `<h1>${element.content}</h1>`;
             
             sectionCourse.innerHTML = markup;
         });           

@@ -31,10 +31,15 @@ function getAllQuestions(){
     return db.prepare('select * from questions').all();
 }
 
+// eslint-disable-next-line camelcase
+function getOneQuestion(id_question){
+    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(id_question);
+}
+
 
 module.exports={
     getOneCourses, getAllAnswersOneQuestions,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion
 };
 
 
