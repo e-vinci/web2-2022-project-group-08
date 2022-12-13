@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-shadow */
 /* eslint-disable prefer-const */
@@ -9,9 +10,9 @@ import Glide from '@glidejs/glide';
 import { clearPage, renderPageTitle } from "../../utils/render";
 import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
-import img1 from "../../img/uml.jpg"
-import img2 from "../../img/javaScript.jpg"
-import img3 from "../../img/sql.jpg"
+import img1 from "../../img/uml.jpg";
+import img2 from "../../img/javaScript.jpg";
+import img3 from "../../img/sql.jpg";
 
 const HomePage = () => {
 
@@ -45,7 +46,7 @@ function renderHeader(){
   <div class="glide">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
-    <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img}" alt=""></li></a>
+    <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img1}" alt=""></li></a>
     <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img2}" alt=""></li></a>  
     <a href="" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img3}" alt=""></li></a>
     </ul>
@@ -71,8 +72,6 @@ function renderHeader(){
 function renderListCourses () {
   const sectionCourse = document.querySelector('.sectionCourse');
 
-let storeData;
-
 fetch('http://localhost:3000/index')
   .then((response) => response.json())
   .then((data) =>  {
@@ -80,22 +79,49 @@ fetch('http://localhost:3000/index')
      let markup = '';
      let images = [];
      images.push(img1,img2,img3);
-     
+     let compt=0;
     data.forEach(element => {
         markup +=
-        ` <div class="cours"> <p class="courselement"><img src="${element.picture}" alt=""></p>
-                           <p class="courselement"> ${element.name}</p>
-                           <p class="courselement">${element.presentation}</p>
-                           <a class="courselementbutton"><button class="btn btn-info">Demarrer</button></a></div>
-        `;
+        ` 
+  <div class="container my-3  border border-dark rounded-5 bg-white ">
+    <div class="row">
+  
+        <div class="col-3 my-auto">
+        <a> <img class="" src="${images[compt]}" alt="" style="width:50%; height:auto"></a>
+        </div>
+  
+            <div class="col-9">
+              <div class="container-fluid my-3">
+                <div class="row justify-content-center">
+                    <div class="col-auto"> <h3 class="text-dark">${element.name}</h3> </div>
+                </div>
+
+        
+            <div class="row">
+            <div class="col-10">
+                <p class="text-dark">
+              ${element.presentation}
+                </p>
+            </div>
+
+       
+           <div class="col-2 my-auto"> <button class="btn btn-primary rounded-pill"> démarrer</button></div>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        `
+        compt+=1;
+        ;
         sectionCourse.innerHTML = markup;
     });
   }
 )
 
-.catch((error) => console.error("FETCH ERROR:", error));
 
-console.log(storeData)
 
 };
 

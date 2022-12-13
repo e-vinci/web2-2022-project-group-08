@@ -5,13 +5,17 @@ const db = require('./db_conf');
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
 
+function getAllcourses(){
+    const cours = db.prepare('select * from courses').all();
+    return  cours;
+};
 
 function getOneCourses(coursId){
-    return db.prepare('select * from courses where courses_id =?').get(coursId);
+    return db.prepare('select * from courses where course_id =?').get(coursId);
 };
 
 function getAllQuizzOneCourses(coursId){
-    return db.prepare('select * from quizzes where course=?').get(coursId);
+    return db.prepare('select * from quizzes where course = ?').all(coursId);
 };
 
 function getAllQuestionsOneQuizz(quizzId){
@@ -31,10 +35,21 @@ function getAllQuestions(){
     return db.prepare('select * from questions').all();
 }
 
+// eslint-disable-next-line camelcase
+function getOneQuestion(id_question){
+    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(id_question);
+}
+
+
+function addQuestionByQuizId(question, quizID){
+    console.log('question', question, quizID);
+    return db.prepare('INSERT INTO questions (question_id, quizz, number, content) VALUES (?,?,?,?)').run(3,quizID,3,question);
+}
+
 
 module.exports={
-    getOneCourses, getAllAnswersOneQuestions,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions
+    getOneCourses, getAllAnswersOneQuestions, getAllcourses,
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId
 };
 
 
