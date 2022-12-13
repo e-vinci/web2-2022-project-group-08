@@ -42,8 +42,9 @@ function getOneQuestion(id_question){
 
 
 function addQuestionByQuizId(question, quizID){
-    console.log('question', question, quizID);
-    return db.prepare('INSERT INTO questions (question_id, quizz, number, content) VALUES (?,?,?,?)').run(3,quizID,3,question);
+    const maxNumber = db.prepare('SELECT max(number) FROM questions').get();
+    console.log("max", maxNumber);
+    return db.prepare('INSERT INTO questions (quizz, number, content) VALUES (?,?,?)').run(quizID,maxNumber['max(number)'] + 1,question);
 }
 
 

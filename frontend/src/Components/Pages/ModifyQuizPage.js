@@ -64,7 +64,7 @@ function renderQuizQuestionForm() {
     answer1.type = 'text';
     answer1.id = 'first_answer';
     answer1.placeholder = "Entrez la première réponse possible";
-     /* answer1.required = true; */
+    answer1.required = true;
     answer1.className = 'form-control mb-3';
 
 
@@ -72,21 +72,21 @@ function renderQuizQuestionForm() {
     answer2.type = 'text';
     answer2.id = 'second_answer';
     answer2.placeholder = "Entrez la deuxième réponse possible";
-     /* answer2.required = true; */
+    answer2.required = true; 
     answer2.className = 'form-control mb-3';
 
     const answer3 = document.createElement('input');
     answer3.type = 'text';
     answer3.id = 'third_answer';
     answer3.placeholder = "Entrez la troisième réponse possible";
-   /* answer3.required = true; */
+    answer3.required = true;
     answer3.className = 'form-control mb-3';
 
     const answer4 = document.createElement('input');
     answer4.type = 'text';
     answer4.id = 'fourth_answer';
     answer4.placeholder = "Entrez la quatrième réponse possible";
-    /* answer4.required = true; */
+    answer4.required = true; 
     answer4.className = 'form-control mb-3';
 
     const submit = document.createElement('input');
@@ -100,7 +100,7 @@ function renderQuizQuestionForm() {
     form.appendChild(answer4);
     form.appendChild(submit)
     main.appendChild(form);
-    form.addEventListener('submit', addQuestion); 
+    form.addEventListener('submit', addQuestion);
   
   }
 
@@ -122,12 +122,32 @@ function renderQuizQuestionForm() {
   
     const response = await fetch(`${process.env.API_BASE_URL}/questions`, options);
     const addedQuestion = await response.json();
-    console.log(addedQuestion);
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const answer1 = document.querySelector('#first_answer').value;
+    const answer2 = document.querySelector('#second_answer').value;
+    const answer3 = document.querySelector('#third_answer').value;
+    const answer4 = document.querySelector('#fourth_answer').value;
+    const questionID = addedQuestion.lastInsertRowid;
+    const options2 = {
+      method: 'POST',
+      body: JSON.stringify({
+        answer1,
+        answer2,
+        answer3,
+        answer4,
+        questionID
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response2 = await fetch(`${process.env.API_BASE_URL}/answers`, options2);
+    if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
     Navigate('/ModifyQuizPage');
     ModifyQuizPage(currentQuiz);
   }
-
 
 
 
