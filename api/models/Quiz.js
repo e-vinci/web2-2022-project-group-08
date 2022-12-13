@@ -9,7 +9,7 @@ function addQuizzByCourseName(course){
         return;
     }
     const date = new Date().toLocaleDateString();
-    return db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
+    return  db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
 }
 
 function verifyIfQuizzExists(courseID){

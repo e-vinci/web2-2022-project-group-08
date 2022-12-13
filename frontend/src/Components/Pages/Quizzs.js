@@ -66,9 +66,9 @@ function renderQuizzForm(quizz) {
  return htmlMovieTable;
   };
 
-  const QuizzPage = () =>{
+  const Quizzs = () =>{
     ViewQuestionPage();
   }
-export default QuizzPage ;
+export default Quizzs;
 
   
