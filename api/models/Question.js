@@ -32,9 +32,15 @@ function getAllQuestions(){
 }
 
 
+function addQuestionByQuizId(question, quizID){
+    console.log('question', question, quizID);
+    return db.prepare('INSERT INTO questions (question_id, quizz, number, content) VALUES (?,?,?,?)').run(3,quizID,3,question);
+}
+
+
 module.exports={
     getOneCourses, getAllAnswersOneQuestions,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, addQuestionByQuizId
 };
 
 
