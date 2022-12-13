@@ -12,7 +12,7 @@ const corsOptions = {
 const usersRouter = require('./routes/users');
 const indexRouter = require('./routes/index');
 const questionsRouter = require('./routes/questions');
-
+const quizRouter = require('./routes/quiz')
 
 
 const app = express();
@@ -25,5 +25,6 @@ app.use(cookieParser());
 app.use('/users', cors(corsOptions), usersRouter);
 app.use('/index', cors(corsOptions), indexRouter);
 app.use('/questions', cors(corsOptions), questionsRouter);
+app.use('/quiz', cors(corsOptions), quizRouter);
 
 module.exports = app;

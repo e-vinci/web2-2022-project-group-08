@@ -5,6 +5,7 @@ import RegisterPage from '../Pages/RegisterPage';
 import ConfigQuiz from '../Pages/ConfigQuizPage';
 import UserPage from '../Pages/UserPage';
 import AddQuizPage from '../Pages/AddQuizPage'
+import QuizPage from '../Pages/QuizPage';
 
 
 const routes = {

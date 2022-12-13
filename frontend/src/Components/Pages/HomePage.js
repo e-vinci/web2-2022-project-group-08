@@ -77,7 +77,10 @@ fetch('http://localhost:3000/index')
   .then((data) =>  {
     // eslint-disable-next-line no-unused-vars
     data.forEach(element => {
-        const markup = `<h1>${element.code}</h1>`;
+        const markup = ` <p class=""> <h1>${element.picture}</h1></p>
+                          <p class=""> <h1>${element.name}</h1></p>
+                          <p class=""> <h1>${element.presentation}</h1></p>
+        `;
         sectionCourse.innerHTML = markup;
     });
   }
