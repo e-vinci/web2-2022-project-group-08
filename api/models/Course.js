@@ -14,6 +14,11 @@ function getACourse(name){
     return course;
 };
 
+function getACourseImage(name){
+    const imageCourse = db.prepare('select picture from courses where name = ?').get(name);
+    return imageCourse;
+}
+
 module.exports={
- getACourse, getAllcourses
+ getACourse, getAllcourses, getACourseImage
 };
