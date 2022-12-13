@@ -72,8 +72,6 @@ function renderHeader(){
 function renderListCourses () {
   const sectionCourse = document.querySelector('.sectionCourse');
 
-let storeData;
-
 fetch('http://localhost:3000/index')
   .then((response) => response.json())
   .then((data) =>  {
@@ -84,10 +82,7 @@ fetch('http://localhost:3000/index')
     });
   }
 )
-
 .catch((error) => console.error("FETCH ERROR:", error));
-
-console.log(storeData)
 
 };
 

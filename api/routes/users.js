@@ -6,7 +6,6 @@ const { getOneCourses, getAllAnswersOneQuestions,
 // eslint-disable-next-line import/order
 const bcrypt = require('bcrypt');
 
-
 const {
   getAllTeachers,
   getOneTeacher,
@@ -24,23 +23,26 @@ const { generate } = require('../utils/passwordGenerator');
 
 const saltRounds = 10;
 
-
 /* GET USER PAGE */
 router.get('/', (req, res) => {
   const teachers = getAllTeachers();
-  res.json(teachers);
+  console.log(teachers)
+  res.status(200).json(teachers);
 });
 
-/* GET users listing. */
-router.get('/userAccount', (req, res) => {
-  console.log('Router user account')
-  const registeredQuestions = getAllRegisteredQuestion(3);
-  res.json(registeredQuestions);
-});
+// /* GET users listing. */
+// router.get('/userAccount', (req, res) => {
+//   console.log('Router user account')
+//   const registeredQuestions = getAllRegisteredQuestion(3);
+//   res.json(registeredQuestions);
+// });
 
 router.post('/login', (req, res) => {
-  const mail = req?.body?.loginUsername?.lenght !== 0 ? req.body.loginUsername : undefined;
-  const password = req?.body?.loginPassword?.lenght !== 0 ? req.body.loginPassword : undefined;
+  // const mail = req?.body?.loginUsername?.length !== 0 ? req.body.loginUsername : undefined;
+  // const password = req?.body?.loginPassword?.length !== 0 ? req.body.loginPassword : undefined;
+
+  const {mail, password } = req.body
+
 
   let isUser;
   if (!mail || !password) return res.status(400).json('utilisateur inexistant');
@@ -73,8 +75,15 @@ router.post('/login', (req, res) => {
 
 router.post('/register', (req, res) => {
   
-  const {mail, registerPassword,registerConfPassword } = req.body
   
+  const {mail, registerPassword,registerConfPassword } = req.body
+
+  console.log('mail : ')
+  console.log(req.body.registerUsername)
+  console.log('password : ')
+  console.log(registerPassword)
+  console.log('confirmpassword : ')
+  console.log(registerConfPassword)
 // const mail = req?.body?.mail?.length !== 0 ? req.body.registerUsername : undefined;
 //   const password = req?.body?.registerPassword?.length !== 0 ? req.body.registerPassword : undefined;
 //   const passwordConfirm =

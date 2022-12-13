@@ -92,17 +92,17 @@ function onCheckboxClicked(e) {
 async function onRegister(e) {
   e.preventDefault();
 
-  const username = document.querySelector('#registerUsername').value;
-  const password = document.querySelector('#registerPassword').value;
-  const confirmationPassword = document.querySelector('#registerConfPassword').value;
+  const mail = document.querySelector('#registerUsername').value;
+  const registerPassword = document.querySelector('#registerPassword').value;
+  const registerConfPassword = document.querySelector('#registerConfPassword').value;
   
 
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      username,
-      password,
-      confirmationPassword,
+      mail,
+      registerPassword,
+      registerConfPassword,
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -186,13 +186,13 @@ function renderLoginForm() {
 async function onLogin(e) {
   e.preventDefault();
 
-  const username = document.querySelector('#loginUsername').value;
+  const mail = document.querySelector('#loginUsername').value;
   const password = document.querySelector('#loginPassword').value;
   
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      username,
+      mail,
       password,
     }),
     headers: {
