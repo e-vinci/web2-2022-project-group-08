@@ -26,9 +26,10 @@ const saltRounds = 10;
 /* GET USER PAGE */
 router.get('/', (req, res) => {
   const registeredQuestions = getAllRegisteredQuestion(3);
-  const specificQuestion = getOneQuestion(1);
-  console.log(specificQuestion)
+  const specificQuestion = getOneQuestion(registeredQuestions.question);
   console.log(registeredQuestions)
+  console.log('specific question :')
+  console.log(specificQuestion)
   res.status(200).json(specificQuestion);
 });
 
