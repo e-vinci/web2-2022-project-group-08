@@ -28,8 +28,11 @@ function getAllAnswersOneQuestions(question){
 };
 
 // eslint-disable-next-line camelcase
-function getAllRegisteredQuestion(student_id){
-    return db.prepare('select * from registered_questions where student = ?').all(student_id);
+function getAllRegisteredQuestion(studentId){
+    return db.prepare('select * from registered_questions where student = ?').get(studentId);
+    // console.log('question')
+    // console.log(question)
+    // return question.student;
 }
 
 function getAllQuestions(){
@@ -37,8 +40,8 @@ function getAllQuestions(){
 }
 
 // eslint-disable-next-line camelcase
-function getOneQuestion(id_question){
-    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(id_question);
+function getOneQuestion(data){
+    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(data);
 }
 
 

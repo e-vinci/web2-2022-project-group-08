@@ -26,9 +26,10 @@ const saltRounds = 10;
 /* GET USER PAGE */
 router.get('/', (req, res) => {
   const registeredQuestions = getAllRegisteredQuestion(3);
-  const specificQuestion = getOneQuestion(1);
-  console.log(specificQuestion)
+  const specificQuestion = getOneQuestion(registeredQuestions.question);
   console.log(registeredQuestions)
+  console.log('specific question :')
+  console.log(specificQuestion)
   res.status(200).json(specificQuestion);
 });
 
@@ -44,7 +45,7 @@ router.post('/login', (req, res) => {
   // const password = req?.body?.loginPassword?.length !== 0 ? req.body.loginPassword : undefined;
 
   const {mail, password } = req.body
-
+  
 
   let isUser;
   if (!mail || !password) return res.status(400).json('utilisateur inexistant');
@@ -55,6 +56,7 @@ router.post('/login', (req, res) => {
       return res.status(400).json("Cet utilisateur n'existe pas ou l'email est non valide");
       
     isUser = getOneStudent(mail, password);
+    
 
   } else if (mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@vinci.be$/)) {
     /*   ATTENTION CHANGEMENT POUR LES TESTS */
