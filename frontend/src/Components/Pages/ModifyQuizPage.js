@@ -38,7 +38,7 @@ async function deleteQuizz(e) {
     },
   };
 
-  console.log("quizz", currentQuiz);
+  console.log("quizz dans delete", currentQuiz);
   const response = await fetch(`${process.env.API_BASE_URL}/quiz/${currentQuiz.quizz_id}`, options);
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
@@ -55,10 +55,10 @@ async function renderQuizForm() {
   main.appendChild(title);
   form.className = 'p-5';
   const courses = document.createElement('select')
+  courses.id = 'courses';
   fetch('http://localhost:3000/courses')
     .then((response) => response.json())
     .then((data) =>  {
-      courses.id = 'courses';
       data.forEach(element => {
 
         if(element.course_id === currentQuiz.course) courses.innerHTML += `<option selected value = ${element.name}> ${element.name}</option>` /* modifier */
@@ -74,9 +74,38 @@ async function renderQuizForm() {
   form.appendChild(courses);
   form.appendChild(submit)
   main.appendChild(form);
-  /* form.addEventListener('submit', addQuizz); */
+  form.addEventListener('submit', modifyCourse);
 
 }
+
+async function modifyCourse(e) {
+  e.preventDefault();
+  const newCourse = document.querySelector('#courses').value;
+  const options = {
+    method: 'PATCH',
+    body: JSON.stringify({
+      newCourse
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(`${process.env.API_BASE_URL}/quiz/${currentQuiz.quizz_id}`, options);
+  try{
+  const newCourseId = await response.json();
+  currentQuiz.course = newCourseId;
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  Navigate('/ModifyQuizPage');
+  ModifyQuizPage(currentQuiz);
+  }catch(error){
+    alert("Attention, un quizz existe déjà pour ce cours. Veuillez le supprimer ou choisir un autre cours");
+  }
+}
+
+
+
 
 
 
