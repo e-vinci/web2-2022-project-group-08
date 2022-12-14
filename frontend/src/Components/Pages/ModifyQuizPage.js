@@ -38,11 +38,14 @@ async function deleteQuizz(e) {
     },
   };
 
-  console.log("quizz dans delete", currentQuiz);
   const response = await fetch(`${process.env.API_BASE_URL}/quiz/${currentQuiz.quizz_id}`, options);
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
-  Navigate('/addQuiz');
+    try{
+      if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+      alert("Le quizz a bien été supprimé.");
+      Navigate('/addQuiz');
+    }catch(error){
+      alert(response.statusText);
+    }
 }
 
 
@@ -96,7 +99,7 @@ async function modifyCourse(e) {
   const newCourseId = await response.json();
   currentQuiz.course = newCourseId;
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
+  alert('Cours modifié avec succès');
   Navigate('/ModifyQuizPage');
   ModifyQuizPage(currentQuiz);
   }catch(error){
@@ -263,9 +266,15 @@ function renderQuizQuestionForm() {
     };
 
     const response2 = await fetch(`${process.env.API_BASE_URL}/answers`, options2);
+    try{
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
+    alert("Question ajoutée avec succès ! ")
     Navigate('/ModifyQuizPage');
     ModifyQuizPage(currentQuiz);
+  }catch(error){
+    alert(response2.statusText)
+    }
+    
   }
 
 
@@ -282,6 +291,7 @@ function renderExistingQuestions(){
       let feedbackContent = "";
       data.forEach(element => {
         const form = document.createElement('form');
+        form.addEventListener('submit', modifyExistingQuestion);
         const questionTitle = document.createElement('h2');
         questionTitle.innerHTML = `Question n° ${j}`
         main.appendChild(questionTitle);
@@ -365,6 +375,55 @@ function renderExistingQuestions(){
   )
   .catch((error) => console.error("FETCH ERROR:", error));
 
+}
+
+async function modifyExistingQuestion(e) {
+  e.preventDefault();
+
+  const question = document.querySelector('#question').value;
+  const quizID = currentQuiz.quizz_id;
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      question,
+      quizID
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(`${process.env.API_BASE_URL}/questions`, options);
+  const addedQuestion = await response.json();
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  const answer1 = document.querySelector('#first_answer').value;
+  const answer2 = document.querySelector('#second_answer').value;
+  const answer3 = document.querySelector('#third_answer').value;
+  const answer4 = document.querySelector('#fourth_answer').value;
+  const goodAnswerNumber = document.querySelector('#goodAnswer').value;
+  const feedback = document.querySelector('#feedback').value;
+  const questionID = addedQuestion.lastInsertRowid;
+  const options2 = {
+    method: 'POST',
+    body: JSON.stringify({
+      answer1,
+      answer2,
+      answer3,
+      answer4,
+      questionID,
+      goodAnswerNumber,
+      feedback
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response2 = await fetch(`${process.env.API_BASE_URL}/answers`, options2);
+  if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
+  Navigate('/ModifyQuizPage');
+  ModifyQuizPage(currentQuiz);
 }
 
 
