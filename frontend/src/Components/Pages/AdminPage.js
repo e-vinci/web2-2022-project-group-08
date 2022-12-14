@@ -6,6 +6,17 @@ const AdminPage = () => {
     renderAdminPage();
 };
 
+function createOptionCoursesAsString (courses){
+    let coursesOptions = '';
+    courses?.forEach((course)=>{
+    coursesOptions += `
+        <option>${course.name}</option>
+    
+    `;
+});
+return coursesOptions;
+}
+
 async function renderAdminPage () {
     const main = document.querySelector('main');
 
@@ -13,8 +24,9 @@ async function renderAdminPage () {
     const response = await fetch(`${process.env.API_BASE_URL}/courses`);
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
     const courses = await response.json();
-    console.log(courses);
+    const OptionAsString = createOptionCoursesAsString(courses);
 
+    
     
     
 
@@ -48,11 +60,7 @@ async function renderAdminPage () {
                                 <div class="form-group">
                                     <label for="exampleSelect1" class="form-label mt-4">Attribuez les cours* :</label>
                                     <select multiple="" class="form-select" id="exampleSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
                                 </div>
@@ -117,11 +125,7 @@ async function renderAdminPage () {
                                 <div class="form-group">
                                     <label for="exampleSelect2" class="form-label mt-4">Attribuez les cours* :</label>
                                     <select multiple="" class="form-select" id="exampleSelect2">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
                                 </div>
