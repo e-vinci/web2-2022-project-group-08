@@ -1,5 +1,5 @@
 const express = require('express');
-const {getAllcourses} = require('../models/Course')
+const {getAllCourses} = require('../models/Course')
 
 
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.get('/', (req, res) =>{
-    const courses = getAllcourses();
+    const courses = getAllCourses();
     return res.json(courses);
    });
 
