@@ -6,6 +6,7 @@ import Quizzs from '../Pages/Quizzs';
 import userPage from '../Pages/userPage';
 import ConfigQuizPage from '../Pages/ConfigQuizPage';
 import AddQuizPage from '../Pages/AddQuizPage';
+import AdminPage from '../Pages/AdminPage';
 
 const routes = {
   '/': HomePage,
@@ -15,7 +16,8 @@ const routes = {
   '/logout': Logout,
   '/configurationQuiz' : ConfigQuizPage,
   '/users' : userPage,
-  '/addQuiz' : AddQuizPage
+  '/addQuiz' : AddQuizPage,
+  '/admin' : AdminPage
 
 };
 
