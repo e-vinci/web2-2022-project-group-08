@@ -8,7 +8,16 @@ const AdminPage = () => {
 
 async function renderAdminPage () {
     const main = document.querySelector('main');
+
+
+    const response = await fetch(`${process.env.API_BASE_URL}/courses`);
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    const courses = await response.json();
+    console.log(courses);
+
     
+    
+
     const configQuizHTML = `
     <div class="container my-3">
 
