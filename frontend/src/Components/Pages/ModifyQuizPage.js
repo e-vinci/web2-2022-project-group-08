@@ -50,7 +50,7 @@ async function deleteQuizz(e) {
 
 
 
-async function renderQuizForm() {
+function renderQuizForm() {
   const main = document.querySelector('main');
   const form = document.createElement('form');
   const title = document.createElement('h2');
