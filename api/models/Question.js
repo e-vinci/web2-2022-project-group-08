@@ -1,6 +1,7 @@
 // const jwt = require('jsonwebtoken');
 
 const db = require('./db_conf');
+const {deleteAnswersByQuizId} = require('../models/Answer')
 
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
@@ -27,8 +28,11 @@ function getAllAnswersOneQuestions(question){
 };
 
 // eslint-disable-next-line camelcase
-function getAllRegisteredQuestion(student_id){
-    return db.prepare('select * from registered_questions where student = ?').all(student_id);
+function getAllRegisteredQuestion(studentId){
+    return db.prepare('select * from registered_questions where student = ?').get(studentId);
+    // console.log('question')
+    // console.log(question)
+    // return question.student;
 }
 
 function getAllQuestions(){
@@ -36,8 +40,8 @@ function getAllQuestions(){
 }
 
 // eslint-disable-next-line camelcase
-function getOneQuestion(id_question){
-    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(id_question);
+function getOneQuestion(data){
+    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(data);
 }
 
 
@@ -48,9 +52,22 @@ function addQuestionByQuizId(question, quizID){
 }
 
 
+function deleteQuestionsByQuizId(quizID){
+    deleteAnswersByQuizId(quizID);
+    return db.prepare('DELETE FROM questions WHERE quizz = ?').run(quizID);
+    
+    
+}
+
+function modifyQuestionByID(questionID, content){
+    return db.prepare('UPDATE questions SET content = ? WHERE question_id = ?').run(content,questionID);
+
+}
+
+
 module.exports={
     getOneCourses, getAllAnswersOneQuestions, getAllcourses,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, modifyQuestionByID
 };
 
 

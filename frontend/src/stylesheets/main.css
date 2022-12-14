@@ -20,6 +20,7 @@
         top: 230px;
         border-radius: 60px;
         filter: drop-shadow(5px 5px 4px #000000);
+        
     
 }
 
@@ -64,5 +65,13 @@
 .courselementbutton{
     display: inline-block;
    position: absolue;
+
+}
+
+/* #logo{
+    margin-left: 570px;
+} */
+
+#navbarElement {
 
 }

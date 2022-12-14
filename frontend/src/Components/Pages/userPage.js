@@ -23,15 +23,15 @@ const UserPage = () => {  // mettre id entre parenthèse
 function renderUserPage () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
 console.log('render user page')
-const sectionCourse = document.querySelector('.sectionCourse');
+const main = document.querySelector('main');
 fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) =>  {
         // eslint-disable-next-line no-unused-vars
         data.forEach(element => {
             const markup = `<h1>${element.content}</h1>`;
-            
-            sectionCourse.innerHTML = markup;
+            console.log(element.content);
+            main.innerHTML = markup;
         });           
       }                          
     )            
