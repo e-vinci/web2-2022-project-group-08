@@ -2,7 +2,7 @@ import { getAuthenticatedUser } from '../utils/auths';
 
 const readAllQuizz = async () => {
   try {
-    const response = await fetch(`${process.env.API_BASE_URL}/index`);
+    const response = await fetch(`${process.env.API_BASE_URL}/index/questions`);
 
     if (!response.ok) {
       throw new Error(`readAllQuizz:: fetch error : ${response.status} : ${response.statusText}`);

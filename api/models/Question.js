@@ -1,6 +1,7 @@
 // const jwt = require('jsonwebtoken');
 
 const db = require('./db_conf');
+const {deleteAnswersByQuizId} = require('../models/Answer')
 
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
@@ -51,9 +52,17 @@ function addQuestionByQuizId(question, quizID){
 }
 
 
+function deleteQuestionsByQuizId(quizID){
+    deleteAnswersByQuizId(quizID);
+    return db.prepare('DELETE FROM questions WHERE quizz = ?').run(quizID);
+    
+    
+}
+
+
 module.exports={
     getOneCourses, getAllAnswersOneQuestions, getAllcourses,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId
 };
 
 

@@ -15,8 +15,8 @@ router.get('/', (req, res) =>{
 });
 
 
-router.get('/', (req, res) =>{ 
-    const  questions   = getAllQuestionsOneQuizz(1);
+router.get('/questions', (req, res) =>{ 
+    const  questions  = getAllQuestionsOneQuizz(1);
     const  answers = [];
      questions.forEach(element => (
      answers.push(getAllAnswersOneQuestions(element.question_id))));
