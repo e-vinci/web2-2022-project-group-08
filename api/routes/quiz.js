@@ -1,5 +1,5 @@
  const express = require('express');
-const {addQuizzByCourseName, getQuizById, getQuizzes, deleteQuizById} = require ('../models/Quiz');
+const {addQuizzByCourseName, getQuizById, getQuizzes, deleteQuizById, updateQuizById} = require ('../models/Quiz');
 
 
 const router = express.Router();
@@ -31,5 +31,13 @@ router.delete('/:id', (req,res) => {
   const deletedQuiz = deleteQuizById(req.params.id);
   return res.json(deletedQuiz);
 });
+
+
+router.patch('/:id', (req, res) => {
+  const updatedQuiz = updateQuizById(req.params.id, req.body.newCourse)
+  console.log(updatedQuiz);
+  if(!updateQuizById) return res.status(400).json("Le cours possède déjà un quizz ! Veuillez d'abord supprimer le quizz pour le cours en question ou choisir un autre cours.");
+  return res.json(updatedQuiz);
+})
 
  module.exports = router;
