@@ -17,6 +17,17 @@ function createOptionCoursesAsString (courses){
 return coursesOptions;
 }
 
+function createOptionTeachers(teachers){
+    let teachersOptions = '';
+    teachers?.forEach((teacher)=>{
+        teachersOptions += `
+        <option>${teacher.mail}</option>
+    
+    `;
+});
+return teachersOptions;
+}
+
 async function renderAdminPage () {
     const main = document.querySelector('main');
 
@@ -26,8 +37,10 @@ async function renderAdminPage () {
     const courses = await response.json();
     const OptionAsString = createOptionCoursesAsString(courses);
 
-    
-    
+    const response2 = await fetch(`${process.env.API_BASE_URL}/admin`);
+    if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
+    const teachers = await response2.json();
+    const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
 
     const configQuizHTML = `
@@ -101,11 +114,7 @@ async function renderAdminPage () {
                                     <div class="form-group">
                                         <label for="exampleSelect1" class="form-label mt-4">Example select</label>
                                         <select class="form-select" id="exampleSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                            ${OptionAsStringForTeachers}
                                         </select>
                                     </div>
                                     
