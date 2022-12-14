@@ -23,7 +23,7 @@ router.get('/:id', (req, res) =>{
 router.post('/', (req, res) => {
   const quiz = addQuizzByCourseName(req.body.selectedCourse);
   if (!quiz) {
-    return res.status(400).json("");
+    return res.status(409).json("Il existe déjà un quizz pour ce cours.");
   }
   return res.json(quiz);
   });
@@ -38,7 +38,7 @@ router.delete('/:id', (req,res) => {
 router.patch('/:id', (req, res) => {
   const updatedQuiz = updateQuizById(req.params.id, req.body.newCourse)
   console.log(updatedQuiz);
-  if(!updateQuizById) return res.status(400).json("");
+  if(!updateQuizById) return res.status(409).json("");
   return res.json(updatedQuiz);
 })
 

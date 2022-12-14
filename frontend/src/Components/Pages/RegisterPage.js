@@ -5,15 +5,19 @@ import Navigate from '../Router/Navigate';
 
 const RegisterPage = () => {
   clearPage();
-  renderPageTitle("Se connecter ou s'inscrire");
+  renderPageTitle();
   renderRegisterForm();
   renderLoginForm();
+  renderTeacherForm();
 };
 
 function renderRegisterForm() {
   /*  student form  */
   const main = document.querySelector('main');
   const form = document.createElement('form');
+  const registerTitle = document.createElement('h2');
+  registerTitle.innerHTML = "S'enregistrer";
+  main.appendChild(registerTitle);
   form.className = 'p-5';
   const username = document.createElement('input');
   username.type = 'text';
@@ -62,27 +66,6 @@ function renderRegisterForm() {
   main.appendChild(form);
   form.addEventListener('submit', onRegister);
 
-  /*  teacher form  */
-  const title = document.createElement('h2')
-  main.appendChild(title);
-  title.innerHTML = "Formulaire d'enregistrement d'un professeur"
-  const teacherForm = document.createElement('form');
-  teacherForm.className = 'p-5';
-  const teacherUsername = document.createElement('input');
-  teacherUsername.type = 'text';
-  teacherUsername.id = 'teacherUsername';
-  teacherUsername.placeholder = 'email vinci';
-  teacherUsername.required = true;
-  teacherUsername.className = 'form-control mb-3';
-  const teacherSubmit = document.createElement('input');
-  teacherSubmit.value = 'Enregistrer un nouveau professeur';
-  teacherSubmit.type = 'submit';
-  teacherSubmit.className = 'btn btn-info';
-
-  teacherForm.appendChild(teacherUsername);
-  teacherForm.appendChild(teacherSubmit);
-  main.appendChild(teacherForm);
-  teacherForm.addEventListener('submit', onRegisterForTeacher);
 }
 
 function onCheckboxClicked(e) {
@@ -110,22 +93,46 @@ async function onRegister(e) {
   };
 
   const response = await fetch(`${process.env.API_BASE_URL}/users/register`, options);
-
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
   const authenticatedUser = await response.json();
 
-  // eslint-disable-next-line no-console
-  console.log('Newly registered & authenticated user : ', authenticatedUser);
+  try{
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    // eslint-disable-next-line no-console
+    console.log('Newly registered & authenticated user : ', authenticatedUser);
 
-  setAuthenticatedUser(authenticatedUser);
-
-  Navbar();
-
-  Navigate('/');
+    setAuthenticatedUser(authenticatedUser);
+    Navbar();
+    Navigate('/');
+  }catch(error){
+    alert(authenticatedUser);
+  }
+  
 }
 
-
+function renderTeacherForm(){
+    /*  teacher form  */
+    const main = document.querySelector('main');
+    const title = document.createElement('h2')
+    main.appendChild(title);
+    title.innerHTML = "Formulaire d'enregistrement d'un professeur"
+    const teacherForm = document.createElement('form');
+    teacherForm.className = 'p-5';
+    const teacherUsername = document.createElement('input');
+    teacherUsername.type = 'text';
+    teacherUsername.id = 'teacherUsername';
+    teacherUsername.placeholder = 'email vinci';
+    teacherUsername.required = true;
+    teacherUsername.className = 'form-control mb-3';
+    const teacherSubmit = document.createElement('input');
+    teacherSubmit.value = 'Enregistrer un nouveau professeur';
+    teacherSubmit.type = 'submit';
+    teacherSubmit.className = 'btn btn-info';
+  
+    teacherForm.appendChild(teacherUsername);
+    teacherForm.appendChild(teacherSubmit);
+    main.appendChild(teacherForm);
+    teacherForm.addEventListener('submit', onRegisterForTeacher);
+}
 
 async function onRegisterForTeacher(e) {
   e.preventDefault();
@@ -201,21 +208,22 @@ async function onLogin(e) {
   };
 
   const response = await fetch(`${process.env.API_BASE_URL}/users/login`, options);
-
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
   const authenticatedUser = await response.json();
+  try{
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+      // eslint-disable-next-line no-console
+      console.log('Newly registered & authenticated user : ', authenticatedUser);
+      console.log('Authenticated user : ', authenticatedUser);
 
-  // eslint-disable-next-line no-console
-  console.log('Newly registered & authenticated user : ', authenticatedUser);
-  console.log('Authenticated user : ', authenticatedUser);
+      setAuthenticatedUser(authenticatedUser);
 
-  setAuthenticatedUser(authenticatedUser);
+      Navbar();
+      
 
-  Navbar();
-  
-
-  Navigate('/');
+      Navigate('/');
+  }catch (error){
+    alert(authenticatedUser);
+  }
 }
 
 export default RegisterPage;
