@@ -59,10 +59,15 @@ function deleteQuestionsByQuizId(quizID){
     
 }
 
+function modifyQuestionByID(questionID, content){
+    return db.prepare('UPDATE questions SET content = ? WHERE question_id = ?').run(content,questionID);
+
+}
+
 
 module.exports={
     getOneCourses, getAllAnswersOneQuestions, getAllcourses,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, modifyQuestionByID
 };
 
 

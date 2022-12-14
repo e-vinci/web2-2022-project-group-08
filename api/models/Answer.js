@@ -24,6 +24,14 @@ function deleteAnswersByQuizId(quizID){
     }
 }
 
+function deleteAnswersByQuestionId(questionID){
+    db.prepare('DELETE FROM answers WHERE question = ? ').run(questionID);  
+    
+}
+
+
+
+
 module.exports={
-    deleteAnswersByQuizId, addAnswerByQuestionId
+    deleteAnswersByQuizId, addAnswerByQuestionId, deleteAnswersByQuestionId
 };
