@@ -48,7 +48,7 @@ function renderNavbar() {
   const authenticatedUserNavbar = `
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">myMovies</a>
+        <a class="navbar-brand" href="#"  data-uri="/" >myMovies</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -69,10 +69,10 @@ function renderNavbar() {
               <a class="nav-link" href="#" data-uri="/logout">Logout</a>
             </li>
             <li id="userAccountItem" class="nav-item">
-              <a class="nav-link" href="#" data-uri="/users">User Account</a>
+              <a class="nav-link" href="#" data-uri="/user">User Account</a>
             </li>     
             <li class="nav-item">
-            <a class="nav-link" href="#" data-uri="/QuizzPage">YourQuizz</a>
+            <a class="nav-link" href="#" data-uri="/Quizzs">YourQuizz</a>
             </li> 
            
 
