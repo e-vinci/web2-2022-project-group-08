@@ -1,5 +1,7 @@
 const db = require('./db_conf');
 
+const {deleteQuestionsByQuizId} = require('../models/Question')
+
 
 
 
@@ -9,13 +11,8 @@ function addQuizzByCourseName(course){
         return;
     }
     const date = new Date().toLocaleDateString();
-<<<<<<< HEAD
-    return  db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
-=======
     const add  = db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
-
     return db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
->>>>>>> 4cc3e92d65dcfcdbcb72c011179d47f6cb1df0fe
 }
 
 function verifyIfQuizzExists(courseID){
@@ -36,9 +33,15 @@ function getQuizzes(){
     
 }
 
+function deleteQuizById(quizID){
+    deleteQuestionsByQuizId(quizID);
+    return db.prepare('DELETE FROM quizzes WHERE quizz_id = ? ').run(quizID);
+}
+
 
 module.exports={
     addQuizzByCourseName,
     getQuizById,
-    getQuizzes
+    getQuizzes,
+    deleteQuizById
    };

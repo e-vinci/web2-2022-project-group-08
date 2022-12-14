@@ -8,10 +8,44 @@ const ModifyQuizPage = (quiz) => {
   currentQuiz = quiz;
   clearPage();
   renderPageTitle('Quizz du cours :');
+  renderDeleteButton();
   renderQuizForm();
   renderQuizQuestionForm();
   renderExistingQuestions();
 };
+
+
+function renderDeleteButton(){
+  const main = document.querySelector('main');
+  const deleteForm = document.createElement('form');
+  const deleteButton = document.createElement('input');
+  deleteButton.type = 'submit';
+  deleteButton.value = 'Supprimer le Quizz'
+  deleteButton.className = 'btn btn-info';
+  deleteForm.appendChild(deleteButton);
+  main.appendChild(deleteForm);
+  deleteForm.addEventListener('submit', deleteQuizz);
+}
+
+async function deleteQuizz(e) {
+  e.preventDefault();
+  const options = {
+    method: 'DELETE',
+    body: JSON.stringify({
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  console.log("quizz", currentQuiz);
+  const response = await fetch(`${process.env.API_BASE_URL}/quiz/${currentQuiz.quizz_id}`, options);
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  Navigate('/addQuiz');
+}
+
+
 
 async function renderQuizForm() {
   const main = document.querySelector('main');

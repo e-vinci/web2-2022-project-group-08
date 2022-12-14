@@ -1,5 +1,5 @@
  const express = require('express');
-const {addQuizzByCourseName, getQuizById, getQuizzes} = require ('../models/Quiz');
+const {addQuizzByCourseName, getQuizById, getQuizzes, deleteQuizById} = require ('../models/Quiz');
 
 
 const router = express.Router();
@@ -25,5 +25,11 @@ router.post('/', (req, res) => {
   if (!quiz) return res.status(400).json("Il existe déjà un quizz pour ce cours");
   return res.json(quiz);
   });
+
+
+router.delete('/:id', (req,res) => {
+  const deletedQuiz = deleteQuizById(req.params.id);
+  return res.json(deletedQuiz);
+});
 
  module.exports = router;
