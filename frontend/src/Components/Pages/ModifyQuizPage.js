@@ -59,6 +59,7 @@ async function renderQuizForm() {
   form.className = 'p-5';
   const courses = document.createElement('select')
   courses.id = 'courses';
+  courses.className = "form-label mt-4";
   fetch('http://localhost:3000/courses')
     .then((response) => response.json())
     .then((data) =>  {
@@ -168,6 +169,7 @@ function renderQuizQuestionForm() {
     const goodAnswerLabel = document.createElement('label');
     goodAnswerLabel.innerHTML = "Bonne réponse : ";
     const goodAnswer = document.createElement('select');
+    goodAnswer.className = "form-label mt-4";
     goodAnswer.id = 'goodAnswer'
     const option1 = document.createElement('option');
     option1.innerHTML = '1';
@@ -291,7 +293,6 @@ function renderExistingQuestions(){
       let feedbackContent = "";
       data.forEach(element => {
         const form = document.createElement('form');
-        form.addEventListener('submit', modifyExistingQuestion);
         const questionTitle = document.createElement('h2');
         questionTitle.innerHTML = `Question n° ${j}`
         main.appendChild(questionTitle);
@@ -303,8 +304,12 @@ function renderExistingQuestions(){
         question.type = 'text';
         question.value = element.content;
         question.required = true;
+        question.id = `question${element.question_id}`;
         question.className = 'form-control mb-3';
         question.placeholder = "Entrez la question..."
+        form.addEventListener('submit', (e) => {
+          modifyExistingQuestion(e, element.question_id)
+        });
         j+=1;
         
         fetch(`http://localhost:3000/answers?question=${element.question_id}`)
@@ -316,12 +321,15 @@ function renderExistingQuestions(){
         data2.forEach(element2 => {
             const answerLabel = document.createElement('label');
             answerLabel.innerHTML = `Réponse ${i}`
+            if(element2.correct) answerLabel.innerHTML += " (Réponse correcte)"
             const answer = document.createElement('input');
             answer.type = 'text';
             answer.value = element2.content;
             answer.required = true;
-            answer.className = 'form-control mb-3';
+            if(element2.correct)answer.className = "form-control is-valid";
+            else answer.className = 'form-control mb-3';
             answer.placeholder = `Entrez la réponse ${i}...`
+            answer.id = `Q${element.question_id}R${i}`
             form.appendChild(answerLabel);
             form.appendChild(answer);
             i +=1;
@@ -333,7 +341,9 @@ function renderExistingQuestions(){
       const goodAnswerLabel = document.createElement('label');
       goodAnswerLabel.innerHTML = "Bonne réponse : ";
       const goodAnswer = document.createElement('select');
-      goodAnswer.id = 'goodAnswer'
+      goodAnswer.className = "form-label mt-4";
+      goodAnswer.id = `goodAnswer${element.question_id}`
+      console.log(`goodAnswer${element.question_id}`);
       const option1 = document.createElement('option');
       option1.innerHTML = '1';
       option1.value = '1';
@@ -361,13 +371,22 @@ function renderExistingQuestions(){
       feedback.value = feedbackContent;
       feedback.required = true;
       feedback.placeholder = "Entrez le feedback de la bonne réponse...";
+      feedback.id = `feedback${element.question_id}`;
+      console.log(`feedback${element.question_id}`);
       form.appendChild(feedbackLabel);
       form.appendChild(feedback);
 
       const submit = document.createElement('input');
-        submit.type = 'submit';
-        submit.value = 'Modifier';
-        form.appendChild(submit);
+      submit.type = 'submit';
+      submit.value = 'Modifier';
+      submit.className = "btn btn-info";
+      const deleteQuestion = document.createElement('input');
+      deleteQuestion.type = 'reset';
+      deleteQuestion.value = 'Supprimer';
+      deleteQuestion.className = "btn btn-info";
+      deleteQuestion.id = "deleteButton";
+      form.appendChild(submit);
+      form.appendChild(deleteQuestion);
     }
   )
       });
@@ -377,53 +396,60 @@ function renderExistingQuestions(){
 
 }
 
-async function modifyExistingQuestion(e) {
+
+
+async function modifyExistingQuestion(e, questionID) {
   e.preventDefault();
+  const question = document.querySelector(`#question${questionID}`).value;  
+    const options = {
+      method: 'PATCH',
+      body: JSON.stringify({
+        question,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    const response = await fetch(`${process.env.API_BASE_URL}/questions/${questionID}`, options);
 
-  const question = document.querySelector('#question').value;
-  const quizID = currentQuiz.quizz_id;
-  const options = {
-    method: 'POST',
-    body: JSON.stringify({
-      question,
-      quizID
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
-  const response = await fetch(`${process.env.API_BASE_URL}/questions`, options);
-  const addedQuestion = await response.json();
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    const answer1 = document.querySelector(`#Q${questionID}R1`).value;
+    const answer2 = document.querySelector(`#Q${questionID}R2`).value;
+    const answer3 = document.querySelector(`#Q${questionID}R3`).value;
+    const answer4 = document.querySelector(`#Q${questionID}R4`).value;
+    console.log(`goodAnswer${questionID}`);
+    console.log(`feedback${questionID}`);
+    const feedback = document.querySelector(`#feedback${questionID}`).value;
+    const goodAnswerNumber = document.querySelector(`#goodAnswer${questionID}`).value;
+    const options2 = {
+      method: 'PATCH',
+      body: JSON.stringify({
+        answer1,
+        answer2,
+        answer3,
+        answer4,
+        questionID,
+        goodAnswerNumber,
+        feedback
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  const answer1 = document.querySelector('#first_answer').value;
-  const answer2 = document.querySelector('#second_answer').value;
-  const answer3 = document.querySelector('#third_answer').value;
-  const answer4 = document.querySelector('#fourth_answer').value;
-  const goodAnswerNumber = document.querySelector('#goodAnswer').value;
-  const feedback = document.querySelector('#feedback').value;
-  const questionID = addedQuestion.lastInsertRowid;
-  const options2 = {
-    method: 'POST',
-    body: JSON.stringify({
-      answer1,
-      answer2,
-      answer3,
-      answer4,
-      questionID,
-      goodAnswerNumber,
-      feedback
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const response2 = await fetch(`${process.env.API_BASE_URL}/answers`, options2);
-  if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
-  Navigate('/ModifyQuizPage');
-  ModifyQuizPage(currentQuiz);
+    const response2 = await fetch(`${process.env.API_BASE_URL}/answers/${questionID}`, options2);
+    try{
+    if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
+    alert("Question modifiée avec succès ! ")
+    Navigate('/ModifyQuizPage');
+    ModifyQuizPage(currentQuiz);
+  }catch(error){
+    alert(response2.statusText)
+    }
+  
+  
 }
 
 

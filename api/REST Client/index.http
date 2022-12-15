@@ -1,9 +1,12 @@
 ######### NORMAL OPERATION  ###########
 
-### Read all pizzas
+### Read all question
 GET http://localhost:3000/index
 
-### Read all pizzas with File variable
+### Read all questions with File variable
 @baseUrl = http://localhost:3000
-GET {{baseUrl}}/index
+GET {{baseUrl}}/index/questions
+
+### 
+GET {{baseUrl}}/index/2
 
