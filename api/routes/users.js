@@ -103,13 +103,14 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/registerTeacher', (req, res) => {
-  const {mail, teacherUsername} = req.body;
+    const mail = req.body.mail;
   // RAJOUTER INPUT ENREGISTREMENT TEACHER
 
   if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/))
    return res
       .status(400)
       .json("Email non valide ou n'appartenant pas à un professeur vinci");
+  if(verifyIfTeacherExists(mail)) return res.status(401).json("Le professeur existe déjà");
   const generatedPassword = generate();
   const encryptedPassword = bcrypt.hashSync(generatedPassword, saltRounds);
   const potentialUser = toRegisterATeacher(mail, encryptedPassword);
