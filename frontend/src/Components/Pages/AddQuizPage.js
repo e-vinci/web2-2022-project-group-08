@@ -58,11 +58,13 @@ async function addQuizz(e) {
   
     const response = await fetch(`${process.env.API_BASE_URL}/quiz`, options);
     const addedQuiz = await response.json();
-  
-    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
-    Navigate('/ModifyQuizPage');
-    ModifyQuizPage(addedQuiz);
+    try{
+      if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+      Navigate('/ModifyQuizPage');
+      ModifyQuizPage(addedQuiz);
+    }catch(error){
+      alert(addedQuiz);
+    }
   }
 
 

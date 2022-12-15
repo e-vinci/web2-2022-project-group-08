@@ -10,8 +10,8 @@ router.get('/', (req, res) =>{
     const courses = getAllCourses()
     console.log(courses)
     res.status(200).json(courses);
-   const picture = getACourseImage()
-    res.status(200).json(picture); 
+//    const picture = getACourseImage()
+//     res.status(200).json(picture); 
 });
 
 

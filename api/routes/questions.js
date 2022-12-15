@@ -1,6 +1,6 @@
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
-const {getAllQuestionsOneQuizz, addQuestionByQuizId} = require('../models/Question');
+const {getAllQuestionsOneQuizz, addQuestionByQuizId, modifyQuestionByID} = require('../models/Question');
 
 const router = express.Router();
 
@@ -19,6 +19,12 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
   const question = addQuestionByQuizId(req.body.question, req.body.quizID);
+  return res.json(question); 
+  });
+
+router.patch('/:id', function (req, res) {
+  console.log('ici');
+  const question = modifyQuestionByID(req.params.id, req.body.question);
   return res.json(question); 
   });
 
