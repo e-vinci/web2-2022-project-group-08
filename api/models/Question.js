@@ -64,6 +64,10 @@ function deleteQuestionById(questionID){
      
 }
 
+function modifyQuestionByID(questionID, content){
+    return db.prepare('UPDATE questions SET content = ? WHERE question_id = ?').run(content,questionID);
+}
+
 // METHODE AVEC JOINTURE QUI RECUPERE LES QUESTIONS ENREGISTRES D'UN USER 
 
 function getUserQuestions(data){
@@ -71,8 +75,8 @@ function getUserQuestions(data){
 }
 module.exports={ getOneCourses, getAllAnswersOneQuestions, getAllcourses, 
     getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, 
-    getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, modifyQuestionByID, getUserQuestions,
-    deleteQuestionById
+    getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, getUserQuestions,
+    deleteQuestionById, modifyQuestionByID
 };
 
 

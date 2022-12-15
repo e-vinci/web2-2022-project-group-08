@@ -2,28 +2,19 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 const express = require('express');
-const { getOneCourses, getAllAnswersOneQuestions,
-  getAllQuestionsOneQuizz, getAllQuestions, getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
+const { getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
 
-// eslint-disable-next-line import/order
-const bcrypt = require('bcrypt');
-
-const {
-  getAllTeachers,
-  getOneTeacher,
-  getOneStudent,
-  toRegisterAStudent,
-  toRegisterATeacher,
-  verifyIfStudentExists,
-  verifyIfTeacherExists, getStudentId
-} = require('../models/register');
+const {loginTeacher, loginStudent,toRegisterAStudent,toRegisterATeacher,verifyIfStudentExists,verifyIfTeacherExists} = require('../models/register');
 
 const router = express.Router();
 
-const { send } = require('../utils/mail');
-const { generate } = require('../utils/passwordGenerator');
+teacherMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@vinci.be$/);
+studentMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/)
 
-const saltRounds = 10;
+
+
+
+
 
 /* GET USER PAGE */
 router.get('/', (req, res) => {
@@ -56,32 +47,27 @@ router.post('/login', (req, res) => {
 
   const {mail, password } = req.body
   
-  let isUser;
+  let authentificateUser;
 
-  if (mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/)) {
 
-    if (!verifyIfStudentExists(mail))
-      return res.status(404).json("Cet utilisateur n'existe pas ou l'email est non valide");
+  if (studentMailRegex.test(mail)) {
+
+    if (!verifyIfStudentExists(mail)) return res.status(404).json("Cet utilisateur n'existe pas ou l'email est non valide");
       
-    isUser = getOneStudent(mail, password);
+    authentificateUser = loginStudent(mail, password);
     
-
-  } else if (mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@vinci.be$/)) {
+  } else if (teacherMailRegex.test(mail)) {
     /*   ATTENTION CHANGEMENT POUR LES TESTS */
-    if (!verifyIfTeacherExists(mail))
-      return res.status(404).json("Cet utilisateur n'existe pas ou l'email est non valide");
-
-    isUser = getOneTeacher(mail, password);
-
-  } else {
-    return res.status(401).json("Cet email n'appartient pas au domaine vinci");
+    if (!verifyIfTeacherExists(mail)) return res.status(404).json("Cet utilisateur n'existe pas ou l'email est non valide");
+      authentificateUser = loginTeacher(mail, password);
+  }else{
+    return res.status(401).json("Cet utilisateur n'appartient pas au domaine Vinci")
   }
 
-  const cryptedPassword = isUser.recordUser.user_password;
+  if (authentificateUser === "IncorrectPWD") res.status(401).json("Le mot de passe n'est pas correct");
 
-  if (!bcrypt.compareSync(password, cryptedPassword))
-    return res.status(401).json("Le mot de passe n'est pas correct");
-  return res.json(isUser);
+  console.log(authentificateUser);
+  return res.json(authentificateUser);
 });
 
 router.post('/register', (req, res) => {
@@ -89,33 +75,33 @@ router.post('/register', (req, res) => {
   
   const {mail, registerPassword,registerConfPassword } = req.body
 
-  if (registerPassword !== registerConfPassword)
-    return res.status(404).json('les mots de passe ne correspondent pas');
-  if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/))
-    return res.status(401).json("Email non valide ou n'appartenant pas à un étudiant vinci");
+  if (registerPassword !== registerConfPassword) return res.status(404).json('Les mots de passe ne correspondent pas');
+
+  if (!studentMailRegex.test(mail)) return res.status(401).json("Email non valide ou n'appartenant pas à un étudiant vinci");
 
   if(verifyIfStudentExists(mail)) return res.status(401).json("L'étudiant existe déjà");
-  const encryptedPassword = bcrypt.hashSync(registerPassword, saltRounds);
-  const potentialUser = toRegisterAStudent(mail, encryptedPassword);
-  return res.json(potentialUser);
+
+ 
+  const authentificateStudent = toRegisterAStudent(mail, registerPassword);
+  return res.json(authentificateStudent);
 
 
 });
 
 router.post('/registerTeacher', (req, res) => {
-  const {mail, teacherUsername} = req.body;
-  // RAJOUTER INPUT ENREGISTREMENT TEACHER
+    const mail = req.body.mail;
 
-  if (!mail.match(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/))
+  if (!teacherMailRegex.test(mail))
    return res
       .status(400)
       .json("Email non valide ou n'appartenant pas à un professeur vinci");
-  const generatedPassword = generate();
-  const encryptedPassword = bcrypt.hashSync(generatedPassword, saltRounds);
-  const potentialUser = toRegisterATeacher(mail, encryptedPassword);
-  send(mail, generatedPassword);
+  if(verifyIfTeacherExists(mail)) return res.status(401).json("Le professeur existe déjà");
+  
+  const authentificateTeacher = toRegisterATeacher(mail);
 
-  return res.json(potentialUser);
+  
+
+  return res.json(authentificateTeacher);
 });
 
 module.exports = router;
