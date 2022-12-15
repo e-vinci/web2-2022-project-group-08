@@ -308,7 +308,10 @@ function renderExistingQuestions(){
         question.className = 'form-control mb-3';
         question.placeholder = "Entrez la question..."
         form.addEventListener('submit', (e) => {
-          modifyExistingQuestion(e, element.question_id)
+          modifyExistingQuestion(e, element.question_id);
+        });
+        form.addEventListener('reset',(e) => {
+          deleteQuestion(e, element.question_id);
         });
         j+=1;
         
@@ -380,19 +383,41 @@ function renderExistingQuestions(){
       submit.type = 'submit';
       submit.value = 'Modifier';
       submit.className = "btn btn-info";
-      const deleteQuestion = document.createElement('input');
-      deleteQuestion.type = 'reset';
-      deleteQuestion.value = 'Supprimer';
-      deleteQuestion.className = "btn btn-info";
-      deleteQuestion.id = "deleteButton";
+      const deleteQuestionButton = document.createElement('input');
+      deleteQuestionButton.type = 'reset';
+      deleteQuestionButton.value = 'Supprimer';
+      deleteQuestionButton.className = "btn btn-info";
+      deleteQuestionButton.id = "deleteButton";
       form.appendChild(submit);
-      form.appendChild(deleteQuestion);
+      form.appendChild(deleteQuestionButton);
     }
   )
       });
     }
   )
   .catch((error) => console.error("FETCH ERROR:", error));
+
+}
+
+async function deleteQuestion(e, questionID){
+  e.preventDefault();
+  const options = {
+    method: 'DELETE',
+    body: JSON.stringify({
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = await fetch(`${process.env.API_BASE_URL}/questions/${questionID}`, options);
+  try{
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    alert("Question supprimée avec succès ! ");
+    Navigate('/ModifyQuizPage');
+    ModifyQuizPage(currentQuiz);
+  }catch(error){
+    alert(response.statusText)
+    }
 
 }
 

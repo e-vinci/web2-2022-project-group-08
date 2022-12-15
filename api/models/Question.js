@@ -1,7 +1,7 @@
 // const jwt = require('jsonwebtoken');
 
 const db = require('./db_conf');
-const {deleteAnswersByQuizId} = require('../models/Answer')
+const {deleteAnswersByQuizId, deleteAnswersByQuestionId} = require('../models/Answer')
 
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;
@@ -46,9 +46,7 @@ function getOneQuestion(data){
 
 
 function addQuestionByQuizId(question, quizID){
-    const maxNumber = db.prepare('SELECT max(number) FROM questions').get();
-    console.log("max", maxNumber);
-    return db.prepare('INSERT INTO questions (quizz, number, content) VALUES (?,?,?)').run(quizID,maxNumber['max(number)'] + 1,question);
+    return db.prepare('INSERT INTO questions (quizz, content) VALUES (?,?)').run(quizID,question);
 }
 
 
@@ -56,7 +54,12 @@ function deleteQuestionsByQuizId(quizID){
     deleteAnswersByQuizId(quizID);
     return db.prepare('DELETE FROM questions WHERE quizz = ?').run(quizID);
     
-    
+}
+
+function deleteQuestionById(questionID){
+    deleteAnswersByQuestionId(questionID);
+    return db.prepare('DELETE FROM questions WHERE question_id = ?').run(questionID);
+     
 }
 
 function modifyQuestionByID(questionID, content){
@@ -65,7 +68,8 @@ function modifyQuestionByID(questionID, content){
 }
 module.exports={ getOneCourses, getAllAnswersOneQuestions, getAllcourses, 
     getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, 
-    getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, modifyQuestionByID
+    getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, modifyQuestionByID,
+    deleteQuestionById
 };
 
 
