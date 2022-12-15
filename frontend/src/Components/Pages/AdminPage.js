@@ -98,10 +98,7 @@ async function renderAdminPage () {
                     <div class="row mx-1">
                         <h3>Modification des cours du professeur :</h3>
 
-                        <div class="alert alert-dismissible alert-success w-50">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>Votre demande a été enregistré!</strong>
-                        </div>
+                        
                     </div>
 
                     <form action="POST" action="">
