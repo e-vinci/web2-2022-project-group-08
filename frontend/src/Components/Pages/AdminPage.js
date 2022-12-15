@@ -6,9 +6,43 @@ const AdminPage = () => {
     renderAdminPage();
 };
 
+function createOptionCoursesAsString (courses){
+    let coursesOptions = '';
+    courses?.forEach((course)=>{
+    coursesOptions += `
+        <option>${course.name}</option>
+    
+    `;
+});
+return coursesOptions;
+}
+
+function createOptionTeachers(teachers){
+    let teachersOptions = '';
+    teachers?.forEach((teacher)=>{
+        teachersOptions += `
+        <option>${teacher.mail}</option>
+    
+    `;
+});
+return teachersOptions;
+}
+
 async function renderAdminPage () {
     const main = document.querySelector('main');
+
+
+    const response = await fetch(`${process.env.API_BASE_URL}/courses`);
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    const courses = await response.json();
+    const OptionAsString = createOptionCoursesAsString(courses);
+
+    const response2 = await fetch(`${process.env.API_BASE_URL}/admin`);
+    if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
+    const teachers = await response2.json();
+    const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
+
     const configQuizHTML = `
     <div class="container my-3">
 
@@ -39,11 +73,7 @@ async function renderAdminPage () {
                                 <div class="form-group">
                                     <label for="exampleSelect1" class="form-label mt-4">Attribuez les cours* :</label>
                                     <select multiple="" class="form-select" id="exampleSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
                                 </div>
@@ -68,10 +98,7 @@ async function renderAdminPage () {
                     <div class="row mx-1">
                         <h3>Modification des cours du professeur :</h3>
 
-                        <div class="alert alert-dismissible alert-success w-50">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>Votre demande a été enregistré!</strong>
-                        </div>
+                        
                     </div>
 
                     <form action="POST" action="">
@@ -79,16 +106,12 @@ async function renderAdminPage () {
 
                         <div class="row justify-content-around">
 
-                            <form action="GET" action="">
+                            <form action="GET" action="getInfo">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleSelect1" class="form-label mt-4">Example select</label>
-                                        <select class="form-select" id="exampleSelect1">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <label for="mailTeacher" class="form-label mt-4">Example select</label>
+                                        <select class="form-select" id="mailTeacher">
+                                            ${OptionAsStringForTeachers}
                                         </select>
                                     </div>
                                     
@@ -108,11 +131,7 @@ async function renderAdminPage () {
                                 <div class="form-group">
                                     <label for="exampleSelect2" class="form-label mt-4">Attribuez les cours* :</label>
                                     <select multiple="" class="form-select" id="exampleSelect2">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
                                 </div>

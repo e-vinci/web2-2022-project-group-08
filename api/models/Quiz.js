@@ -1,18 +1,20 @@
 const db = require('./db_conf');
 
-const {deleteQuestionsByQuizId} = require('../models/Question')
+const {deleteQuestionsByQuizId} = require('./Question');
 
 
 
 
 function addQuizzByCourseName(course){
     const courseID = db.prepare('SELECT course_id FROM courses WHERE name=?').get(course).course_id;
+    
     if (verifyIfQuizzExists(courseID)) {
         return;
     }
     const date = new Date().toLocaleDateString();
     const add  = db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
-    return db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
+    // eslint-disable-next-line consistent-return
+    return  db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
 }
 
 function verifyIfQuizzExists(courseID){

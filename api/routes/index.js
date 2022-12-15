@@ -24,5 +24,27 @@ router.get('/questions', (req, res) =>{
     res.json({questions,answers});
 });
 
+router.get('/:idQuestion', (req,res) => {
+    const idQuestion = parseInt(req?.params?.idQuestion, 10);
+
+    if(idQuestion === undefined || idQuestion<=0 )
+    return res.status(400).json('réponse inconue ');
+
+    const answers = getAllAnswersOneQuestions(idQuestion);
+   
+     let goodAnswer; 
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+    answers.forEach(element =>{ 
+        if( element.correct === 1){
+        goodAnswer = element
+        }
+     });
+         
+    if(goodAnswer === undefined )
+      return res.status(400).json('réponse non trouvé ');
+
+    return res.json(goodAnswer);
+});
+
 
 module.exports = router;

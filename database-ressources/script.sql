@@ -108,9 +108,9 @@ INSERT INTO teachers( mail, user_password) VALUES ('ramtin@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('kevin@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('dorcas@vinci.be','mdp') ;
 
-insert into courses(name, code, presentation) VALUES (1,'JavaScript','BINV1010','JavaScript est un langage de programmation de scripts principalement employé dans les pages web interactives et à ce titre est une partie essentielle des applications web. ','./img/javaScript.jpg')
-insert into courses(name, code, presentation)VALUES(2,'Uml','BINV2010',"Le langage UML (Unified Modeling Language, ou langage de modélisation unifié) a été pensé pour être un langage de modélisation visuelle commun, et riche sémantiquement et syntaxiquement. Il est destiné à l'architecture, la conception et la mise en œuvre de systèmes logiciels ",'./img/uml.jpg')
-insert into courses(name, code, presentation)VALUES(3,'Sql','BINV3010',"SQL est un langage informatique normalisé servant à exploiter des bases de données relationnelles. La partie langage de manipulation des données de SQL permet de rechercher, d'ajouter, de modifier ou de supprimer des données dans les bases de données ",'./img/sql.jpg')
+insert into courses(name, code, presentation, picture)VALUES('Uml','BINV2010',"Le langage UML (Unified Modeling Language, ou langage de modélisation unifié) a été pensé pour être un langage de modélisation visuelle commun, et riche sémantiquement et syntaxiquement. Il est destiné à l'architecture, la conception et la mise en œuvre de systèmes logiciels ",'./img/uml.jpg')
+insert into courses(name, code, presentation, picture) VALUES ('JavaScript','BINV1010','JavaScript est un langage de programmation de scripts principalement employé dans les pages web interactives et à ce titre est une partie essentielle des applications web. ','./img/javaScript.jpg')
+insert into courses(name, code, presentation, picture)VALUES('Sql','BINV3010',"SQL est un langage informatique normalisé servant à exploiter des bases de données relationnelles. La partie langage de manipulation des données de SQL permet de rechercher, d'ajouter, de modifier ou de supprimer des données dans les bases de données ",'./img/sql.jpg')
 insert into quizzes(course, isOnline) values (1,false);
 insert into questions(quizz, number, content) VALUES (1,1, 'comment appelle-t-on une relation qui est une forme agrégation');
 insert into questions (quizz, number, content) values (1, 2, 'comment appelle t-on un changement de état considéré comme instantané');
@@ -123,7 +123,7 @@ insert into answers (question, content, correct, good_answer_feedback) values (1
 insert into answers (question, content, correct, good_answer_feedback) values (1,'une classification', false,'on va donner des feedback après check pour le moment ton cours' );
 
 insert into answers (question, content, correct, good_answer_feedback) VALUES (2,'un changement instantané ', false, 'on va donner des feedback après check pour le moment ton cours');
-insert into answers (question, content, correct, good_answer_feedback) values (2,'une transition', false, 'on va donner des feedback après check pour le moment ton cours');
+insert into answers (question, content, correct, good_answer_feedback) values (2,'une transition', true, 'on va donner des feedback après check pour le moment ton cours');
 insert into answers (question, content, correct, good_answer_feedback) values (2,'un bouleversement ', false,'bravo');
 insert into answers (question, content, correct, good_answer_feedback) values (2,'une alternance', false,'on va donner des feedback après check pour le moment ton cours' );
 

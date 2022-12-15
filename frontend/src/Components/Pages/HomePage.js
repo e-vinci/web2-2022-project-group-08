@@ -10,8 +10,8 @@ import Glide from '@glidejs/glide';
 import { clearPage, renderPageTitle } from "../../utils/render";
 import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
-import img1 from "../../img/javaScript.jpg";
-import img2 from "../../img/uml.jpg";
+import img1 from "../../img/uml.jpg";
+import img2 from "../../img/javaScript.jpg";
 import img3 from "../../img/sql.jpg";
 
 const HomePage = () => {
