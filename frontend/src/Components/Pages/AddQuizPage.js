@@ -22,7 +22,7 @@ function renderQuizForm() {
   form.className = 'p-5';
   const courses = document.createElement('select')
   courses.id = 'courses';
-  fetch('http://localhost:3000/courses')
+  fetch(`${process.env.API_BASE_URL}/courses`)
     .then((response) => response.json())
     .then((data) =>  {
       data.forEach(element => {
