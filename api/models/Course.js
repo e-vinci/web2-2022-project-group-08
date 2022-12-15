@@ -7,6 +7,11 @@ function getAllCourses(){
     return db.prepare('SELECT * FROM courses').all();
 };
 
+function getACourseById(idCourse){
+    const course = db.prepare('select  *  from courses where course_id = ? ').get(idCourse);
+    return course;
+};
+
 
 function getACourse(name){
     const course = db.prepare('select  *  from courses where name = ? ').get(name);
@@ -19,5 +24,5 @@ function getACourseImage(name){
 }
 
 module.exports={
- getACourse, getAllCourses, getACourseImage
+ getACourse, getAllCourses, getACourseImage,getACourseById
 };
