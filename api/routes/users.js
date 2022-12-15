@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 const express = require('express');
 const { getOneCourses, getAllAnswersOneQuestions,
@@ -25,20 +27,30 @@ const saltRounds = 10;
 
 /* GET USER PAGE */
 router.get('/', (req, res) => {
+  const tabOfKeyQuestions = [];
+  const tabContentQuestions = [];
   const registeredQuestions = getAllRegisteredQuestion(3);
-  const specificQuestion = getOneQuestion(registeredQuestions.question);
+  console.log('Question enregistres : ')
   console.log(registeredQuestions)
-  console.log('specific question :')
-  console.log(specificQuestion)
-  res.status(200).json(specificQuestion);
+  // PARCOURS la table contenant la question_id de l'etudiant puis on la push dans le tableau
+  for (const key in registeredQuestions) {
+      tabOfKeyQuestions.push(registeredQuestions[key].question);
+  }
+
+  // PARCOURS la table qu'on vient de creer contenant les questions_id et on la push dans un tab
+  for (const index of tabOfKeyQuestions) {
+    const question = getOneQuestion(index);
+    tabContentQuestions.push(question)
+  }
+
+console.log('tab questions key')
+console.log(tabOfKeyQuestions)
+console.log('tab contenu des questions')
+console.log(tabContentQuestions)
+
+  res.status(200).json(tabContentQuestions);
 });
 
-// /* GET users listing. */
-// router.get('/userAccount', (req, res) => {
-//   console.log('Router user account')
-//   const registeredQuestions = getAllRegisteredQuestion(3);
-//   res.json(registeredQuestions);
-// });
 
 router.post('/login', (req, res) => {
 

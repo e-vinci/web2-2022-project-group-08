@@ -27,21 +27,23 @@ function getAllAnswersOneQuestions(question){
     return db.prepare('select * from answers where question = ?').all(question);
 };
 
-// eslint-disable-next-line camelcase
-function getAllRegisteredQuestion(studentId){
-    return db.prepare('select * from registered_questions where student = ?').get(studentId);
-    // console.log('question')
-    // console.log(question)
-    // return question.student;
-}
+
 
 function getAllQuestions(){
     return db.prepare('select * from questions').all();
 }
 
 // eslint-disable-next-line camelcase
+function getAllRegisteredQuestion(studentId){
+    return db.prepare('select * from registered_questions where student = ?').all(studentId);
+    // console.log('question')
+    // console.log(question)
+    // return question.student;
+}
+
+// eslint-disable-next-line camelcase
 function getOneQuestion(data){
-    return db.prepare('SELECT * FROM questions WHERE question_id = ?').all(data);
+    return db.prepare('SELECT content FROM questions WHERE question_id = ?').get(data);
 }
 
 
@@ -59,10 +61,16 @@ function deleteQuestionsByQuizId(quizID){
     
 }
 
+// METHODE AVEC JOINTURE QUI RECUPERE LES QUESTIONS ENREGISTRES D'UN USER 
+
+function getUserQuestions(data){
+    return db.prepare('SELECT * FROM registered_questions rq, students s WHERE s.student_id = ? AND  s.student_id = rq.student ').all(data);
+}
+
 
 module.exports={
     getOneCourses, getAllAnswersOneQuestions, getAllcourses,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId,deleteQuestionsByQuizId, getUserQuestions
 };
 
 
