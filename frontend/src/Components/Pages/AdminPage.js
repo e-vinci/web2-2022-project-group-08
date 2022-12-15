@@ -106,11 +106,11 @@ async function renderAdminPage () {
 
                         <div class="row justify-content-around">
 
-                            <form action="GET" action="">
+                            <form action="GET" action="getInfo">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="exampleSelect1" class="form-label mt-4">Example select</label>
-                                        <select class="form-select" id="exampleSelect1">
+                                        <label for="mailTeacher" class="form-label mt-4">Example select</label>
+                                        <select class="form-select" id="mailTeacher">
                                             ${OptionAsStringForTeachers}
                                         </select>
                                     </div>
