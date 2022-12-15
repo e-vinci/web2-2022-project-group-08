@@ -5,17 +5,16 @@ const db = require('./db_conf');
 
 function addQuizzByCourseName(course){
     const courseID = db.prepare('SELECT course_id FROM courses WHERE name=?').get(course).course_id;
+    
     if (verifyIfQuizzExists(courseID)) {
         return;
     }
     const date = new Date().toLocaleDateString();
-<<<<<<< HEAD
-    return  db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
-=======
     const add  = db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
+    const res = db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
 
-    return db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
->>>>>>> 4cc3e92d65dcfcdbcb72c011179d47f6cb1df0fe
+    // eslint-disable-next-line consistent-return
+    return   res
 }
 
 function verifyIfQuizzExists(courseID){

@@ -126,7 +126,6 @@ async function onRegister(e) {
 }
 
 
-
 async function onRegisterForTeacher(e) {
   e.preventDefault();
 

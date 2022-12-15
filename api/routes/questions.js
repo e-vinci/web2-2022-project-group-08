@@ -6,14 +6,9 @@ const router = express.Router();
 
 
 router.get('/', function (req, res) {
-    const quiz = req?.query
-      ? parseInt(req.query.quiz)
-      : undefined;
+    const quiz = req?.query ? parseInt(req.query.quiz) : undefined;
     console.log(quiz);
-    if (
-      quiz &&
-      (typeof quiz !== 'number' || quiz <= 0)
-    )
+    if ( quiz && (typeof quiz !== 'number' || quiz <= 0)  )
       return res.sendStatus(400);
   
     if (!quiz) return res.json([]);

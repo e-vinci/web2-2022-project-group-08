@@ -121,7 +121,7 @@ insert into answers (question, content, correct, good_answer_feedback) values (1
 insert into answers (question, content, correct, good_answer_feedback) values (1,'une classification', false,'on va donner des feedback après check pour le moment ton cours' );
 
 insert into answers (question, content, correct, good_answer_feedback) VALUES (2,'un changement instantané ', false, 'on va donner des feedback après check pour le moment ton cours');
-insert into answers (question, content, correct, good_answer_feedback) values (2,'une transition', false, 'on va donner des feedback après check pour le moment ton cours');
+insert into answers (question, content, correct, good_answer_feedback) values (2,'une transition', true, 'on va donner des feedback après check pour le moment ton cours');
 insert into answers (question, content, correct, good_answer_feedback) values (2,'un bouleversement ', false,'bravo');
 insert into answers (question, content, correct, good_answer_feedback) values (2,'une alternance', false,'on va donner des feedback après check pour le moment ton cours' );
 

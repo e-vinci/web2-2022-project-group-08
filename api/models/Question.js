@@ -46,11 +46,9 @@ function addQuestionByQuizId(question, quizID){
     console.log("max", maxNumber);
     return db.prepare('INSERT INTO questions (quizz, number, content) VALUES (?,?,?)').run(quizID,maxNumber['max(number)'] + 1,question);
 }
-
-
-module.exports={
-    getOneCourses, getAllAnswersOneQuestions, getAllcourses,
-    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, getAllQuestions, getOneQuestion, addQuestionByQuizId
+module.exports={ getOneCourses, getAllAnswersOneQuestions, getAllcourses, 
+    getAllQuestionsOneQuizz, getAllQuizzOneCourses, getAllRegisteredQuestion, 
+    getAllQuestions, getOneQuestion, addQuestionByQuizId
 };
 
 
