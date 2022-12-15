@@ -43,6 +43,23 @@ const addOneMovie = async (movie) => {
   }
 };
 
+const readRightAnswer = async (idQuestion) => {
+  try {
+    const reponse = await fetch(`${process.env.API_BASE_URL}/index/${idQuestion}`);
+
+    if (!reponse.ok) {
+      throw new Error(`readAllQuizz:: fetch error : ${reponse.status} : ${reponse.statusText}`);
+    }
+    const rightResponse = await reponse.json();
+    console.log(rightResponse);
+    return rightResponse;
+
+  } catch (err) {
+    console.error('readAllQuizz::error: ', err);
+    throw err;
+  }
+};
+
 async function deleteOneMovie(id) {
   if (!id) return undefined;
 
@@ -101,4 +118,4 @@ async function updateOneMovie(id, newMovieData) {
   }
 }
 
-export { readAllQuizz, addOneMovie, deleteOneMovie, updateOneMovie };
+export { readAllQuizz, addOneMovie, deleteOneMovie, updateOneMovie, readRightAnswer };

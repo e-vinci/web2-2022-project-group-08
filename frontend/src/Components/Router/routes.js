@@ -12,7 +12,7 @@ const routes = {
   '/': HomePage,
   '/login': RegisterPage,
   '/register': RegisterPage,
-  '/QuizzPage': Quizzs,
+  '/Quizzs': Quizzs,
   '/logout': Logout,
   '/configurationQuiz' : ConfigQuizPage,
   '/users' : userPage,
