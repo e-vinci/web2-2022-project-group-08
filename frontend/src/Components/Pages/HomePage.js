@@ -13,6 +13,7 @@ import Navigate from "../Router/Navigate";
 import img1 from "../../img/uml.jpg";
 import img2 from "../../img/javaScript.jpg";
 import img3 from "../../img/sql.jpg";
+import img4 from '../../img/bg-photo.png'
 
 const HomePage = () => {
 
