@@ -8,13 +8,15 @@
 
 import { usePathPrefix } from '../../utils/path-prefix';
 
-const Navigate = (toUri) => {
+const Navigate = (toUri, data) => {
   const fromUri = window.location.pathname;
   if (fromUri === toUri) return;
 
-  window.history.pushState({}, '', usePathPrefix(toUri));
-  const popStateEvent = new PopStateEvent('popstate', { state: {} });
+  console.log("data", data);
+  window.history.pushState({data}, '', usePathPrefix(toUri));
+  const popStateEvent = new PopStateEvent('popstate', { state: {data} });
   dispatchEvent(popStateEvent);
+  
 };
 
 export default Navigate;
