@@ -52,14 +52,14 @@ async function renderAdminPage () {
         <div class="row justify-content-around"> 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
 
-                <form action="/admins/addCourse" method="post" class="container-fluid" id="addCourseForm">
+                <form class="container-fluid" id="addCourseForm">
                     <h3>Création d'un cours :</h3>
 
                     <div class="row">
                         <div class="col-6  mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseCode">Entrez le code du cours</label>
-                                <input type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode">
+                                <input required type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode">
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@ async function renderAdminPage () {
                         <div class="col-6 mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseCode">Entrez le code du cours</label>
-                                <input type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode">
+                                <input required type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode">
                             </div>
                         </div>
                     </div>
@@ -338,7 +338,7 @@ async function onRegister(e) {
     };
   
     // eslint-disable-next-line no-unused-vars
-    await fetch(`${process.env.API_BASE_URL}/admins/addCourse`, options);
+    await fetch(`${process.env.API_BASE_URL}/courses`, options);
 }
 
 
