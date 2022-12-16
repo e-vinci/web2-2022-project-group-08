@@ -36,9 +36,8 @@ create table questions
         primary key autoincrement,
     quizz       INTEGER      not null
         references quizzes,
-    number      INTEGER      not null,
     content     varchar(200) not null,
-    unique (question_id, number)
+    unique (question_id)
 );
 
 create table answers
@@ -112,9 +111,9 @@ insert into courses(name, code, presentation, picture)VALUES('Uml','BINV2010',"L
 insert into courses(name, code, presentation, picture) VALUES ('JavaScript','BINV1010','JavaScript est un langage de programmation de scripts principalement employé dans les pages web interactives et à ce titre est une partie essentielle des applications web. ','./img/javaScript.jpg')
 insert into courses(name, code, presentation, picture)VALUES('Sql','BINV3010',"SQL est un langage informatique normalisé servant à exploiter des bases de données relationnelles. La partie langage de manipulation des données de SQL permet de rechercher, d'ajouter, de modifier ou de supprimer des données dans les bases de données ",'./img/sql.jpg')
 insert into quizzes(course, isOnline) values (1,false);
-insert into questions(quizz, number, content) VALUES (1,1, 'comment appelle-t-on une relation qui est une forme agrégation');
-insert into questions (quizz, number, content) values (1, 2, 'comment appelle t-on un changement de état considéré comme instantané');
-insert into questions (quizz, number, content) values (1, 3, 'c est quoi une classe abstraite ?');
+insert into questions(quizz, content) VALUES (1, 'comment appelle-t-on une relation qui est une forme agrégation');
+insert into questions (quizz,content) values (1,  'comment appelle t-on un changement de état considéré comme instantané');
+insert into questions (quizz, content) values (1,  'c est quoi une classe abstraite ?');
 
 
 insert into answers (question, content, correct, good_answer_feedback) VALUES (1,'une spécialisation', false, 'on va donner des feedback après check pour le moment ton cours');

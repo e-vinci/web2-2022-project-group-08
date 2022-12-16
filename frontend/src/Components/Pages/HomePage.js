@@ -10,9 +10,11 @@ import Glide from '@glidejs/glide';
 import { clearPage, renderPageTitle } from "../../utils/render";
 import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
-import img1 from "../../img/uml.jpg";
-import img2 from "../../img/javaScript.jpg";
+import img1 from "../../img/javaScript.jpg";
+import img2 from "../../img/uml.jpg";
 import img3 from "../../img/sql.jpg";
+import img4 from '../../img/bg-photo.png'
+import img5 from '../../img/img_section.png'
 
 const HomePage = () => {
 
@@ -35,6 +37,7 @@ function renderContent(){
   main.appendChild(listeOfCourses);
 };
 
+<<<<<<< HEAD
 /*     let urls =[];
     let compt=0;
   fetch('http://localhost:3000/index')
@@ -47,6 +50,9 @@ function renderContent(){
     })}) */
 
     
+=======
+// <img class="main_img_homepage" src="${img5}" alt=""> 
+>>>>>>> b1c9fe892d775b0e3d8a5642d8d54ab5da23801e
 
 function renderHeader(){
   const urls =[];
@@ -66,8 +72,8 @@ console.log('Urls',urls);
   let compteur=0;
   document.getElementById('header').innerHTML=`
 
-  <div class="choix">Choisissez un cours</div>
-
+  <div class="choix"><h1>  </h1></div>
+  
   <div class="glide">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">

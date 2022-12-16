@@ -38,7 +38,7 @@ router.delete('/:id', (req,res) => {
 router.patch('/:id', (req, res) => {
   const updatedQuiz = updateQuizById(req.params.id, req.body.newCourse)
   console.log(updatedQuiz);
-  if(!updateQuizById) return res.status(409).json("");
+  if(!updatedQuiz) return res.status(409).json("");
   return res.json(updatedQuiz);
 })
 

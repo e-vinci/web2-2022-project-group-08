@@ -25,20 +25,22 @@ function onNavBarClick() {
 }
 
 function onHistoryChange() {
-  window.addEventListener('popstate', () => {
+  window.addEventListener('popstate', (e) => {
     const uri = removePathPrefix(window.location.pathname);
     const componentToRender = routes[uri];
-    componentToRender();
+    console.log("router", e.state.data);
+    componentToRender(e.state?.data ? e.state.data : null);
   });
 }
 
 function onFrontendLoad() {
-  window.addEventListener('load', () => {
+  window.addEventListener('load', (e) => {
     const uri = removePathPrefix(window.location.pathname);
     const componentToRender = routes[uri];
     if (!componentToRender) throw Error(`The ${uri} ressource does not exist.`);
 
-    componentToRender();
+    
+    componentToRender(e.state?.data ? e.state.data : null);
   });
 }
 
