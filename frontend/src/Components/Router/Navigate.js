@@ -12,7 +12,6 @@ const Navigate = (toUri, data) => {
   const fromUri = window.location.pathname;
   if (fromUri === toUri) return;
 
-  console.log("data", data);
   window.history.pushState({data}, '', usePathPrefix(toUri));
   const popStateEvent = new PopStateEvent('popstate', { state: {data} });
   dispatchEvent(popStateEvent);

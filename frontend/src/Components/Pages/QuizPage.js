@@ -14,7 +14,7 @@ const QuizPage = () => {
 function renderQuestions(){
     const main = document.querySelector('main');
 
-    fetch('http://localhost:3000/questions?quiz=5') /* Ici ce sera à voir avec Ramtin plus tard, quand il va appuyer sur Démarer sur sa page ça va navigate vers ta page avec en paramètre l'ID du quiz que tu pourras récupérer */
+    fetch('http://localhost:3000/questions?quiz=25') /* Ici ce sera à voir avec Ramtin plus tard, quand il va appuyer sur Démarer sur sa page ça va navigate vers ta page avec en paramètre l'ID du quiz que tu pourras récupérer */
     .then((response) => response.json())
     .then((data) =>  {
       let questionNumber = 1;
