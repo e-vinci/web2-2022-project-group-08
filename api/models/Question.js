@@ -1,7 +1,7 @@
 // const jwt = require('jsonwebtoken');
 
 const db = require('./db_conf');
-const {deleteAnswersByQuizId} = require('../models/Answer')
+const {deleteAnswersByQuizId} = require('./Answer')
 
 // const jwtSecret = 'iplearn!!!';
 // const lifetimeJwt = 24 * 60 * 60 * 1000;

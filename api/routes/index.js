@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
-const { getAllCourses , getACourseImage} = require('../models/Course');
+const { getAllCourses } = require('../models/Course');
 const {  getAllAnswersOneQuestions, getAllQuestionsOneQuizz, 
      } = require('../models/Question');
 
