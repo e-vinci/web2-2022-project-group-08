@@ -32,6 +32,6 @@ app.use('/questions', cors(corsOptions), questionsRouter);
 app.use('/quiz', cors(corsOptions), quizRouter);
 app.use('/courses', cors(corsOptions), coursesRouter);
 app.use('/answers', cors(corsOptions), answersRouter);
-app.use('/admins', cors(corsOptions), adminsRouter);
+app.use('/admin', cors(corsOptions), adminsRouter);
 
 module.exports = app;
