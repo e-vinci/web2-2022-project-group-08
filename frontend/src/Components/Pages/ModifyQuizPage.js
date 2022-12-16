@@ -6,7 +6,6 @@ import Navigate from '../Router/Navigate';
 let currentQuiz = {};
 const ModifyQuizPage = (quiz) => {
   currentQuiz = quiz;
-
   clearPage();
   renderPageTitle('Quizz du cours :');
   renderDeleteButton();

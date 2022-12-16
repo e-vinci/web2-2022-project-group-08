@@ -14,7 +14,6 @@ import img1 from "../../img/javaScript.jpg";
 import img2 from "../../img/uml.jpg";
 import img3 from "../../img/sql.jpg";
 import img4 from '../../img/bg-photo.png'
-// import img5 from '../../img/img_section.png'
 
 const HomePage = () => {
 
@@ -37,10 +36,35 @@ function renderContent(){
   main.appendChild(listeOfCourses);
 };
 
-// <img class="main_img_homepage" src="${img5}" alt=""> 
+/*     let urls =[];
+    let compt=0;
+  fetch('http://localhost:3000/index')
+  .then((response) => response.json())
+  .then((data) =>  {
+    // eslint-disable-next-line no-unused-vars
+    data.forEach(element => {
+      urls[compt]=element.picture;
+      compt+1;
+    })}) */
+
+    
 
 function renderHeader(){
-  
+  const urls =[];
+  let compt=0;
+fetch('http://localhost:3000/index')
+.then((response) => response.json())
+.then((data) =>  {
+  // eslint-disable-next-line no-unused-vars
+  data.forEach(element => {
+    let value= element.picture;
+    urls.push(value) ;
+    compt+1;
+    
+  })})
+console.log('Urls',urls);
+
+  let compteur=0;
   document.getElementById('header').innerHTML=`
 
   <div class="choix"><h1>  </h1></div>
@@ -48,9 +72,8 @@ function renderHeader(){
   <div class="glide">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
-    <a href="/configurationQuiz?1" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img1}" alt=""></li></a>
-    <a href="/configurationQuiz?2" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img2}" alt=""></li></a>  
-    <a href="/configurationQuiz?3" class="element"><li class="glide__slide"><img class="imgcardslider" src="${img3}" alt=""></li></a>
+    <a href="/configurationQuiz?${compteur+1}" class="element"><li class="glide__slide"><img class="imgcardslider" src="${urls[compteur]}" alt=""></li></a>
+  
     </ul>
   </div>
 
@@ -79,8 +102,6 @@ fetch('http://localhost:3000/index')
   .then((data) =>  {
     // eslint-disable-next-line no-unused-vars
      let markup = '';
-     let images = [];
-     images.push(img1,img2,img3);
      let compt=0;
     data.forEach(element => {
         markup +=
@@ -89,7 +110,7 @@ fetch('http://localhost:3000/index')
     <div class="row">
   
         <div class="col-3 my-auto">
-        <a> <img class="" src="${images[compt]}" alt="" style="width:50%; height:auto"></a>
+        <a> <img class="" src="${element.picture}" alt="" style="width:50%; height:auto"></a>
         </div>
   
             <div class="col-9">

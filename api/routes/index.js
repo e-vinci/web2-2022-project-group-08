@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
-const { getAllCourses , getACourseImage} = require('../models/Course');
+const { getAllCourses } = require('../models/Course');
 const {  getAllAnswersOneQuestions, getAllQuestionsOneQuizz, 
      } = require('../models/Question');
 
@@ -10,8 +10,6 @@ router.get('/', (req, res) =>{
     const courses = getAllCourses()
     console.log(courses)
     res.status(200).json(courses);
-//    const picture = getACourseImage()
-//     res.status(200).json(picture); 
 });
 
 
