@@ -1,6 +1,7 @@
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
-const {getAllQuestionsOneQuizz, addQuestionByQuizId, modifyQuestionByID} = require('../models/Question');
+const {getAllQuestionsOneQuizz, addQuestionByQuizId, modifyQuestionByID, deleteQuestionById} = require('../models/Question');
+
 
 const router = express.Router();
 
@@ -23,9 +24,13 @@ router.post('/', function (req, res) {
   });
 
 router.patch('/:id', function (req, res) {
-  console.log('ici');
   const question = modifyQuestionByID(req.params.id, req.body.question);
   return res.json(question); 
   });
+
+router.delete('/:id', function (req, res){
+  const question = deleteQuestionById(req.params.id);
+  return res.json(question);
+});
 
 module.exports = router;

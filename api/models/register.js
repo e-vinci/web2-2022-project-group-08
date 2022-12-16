@@ -6,27 +6,41 @@ const db = require('./db_conf');
 const jwtSecret = 'iplearn!!!';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const { generate } = require('../utils/passwordGenerator');
+const { send } = require('../utils/mail');
+
 function getAllTeachers() {
     return db.prepare("SELECT * FROM teachers ").all();    
 };
 
-function getOneTeacher(mail){
+function loginTeacher(mail, password){
   const teacher = db.prepare('select  *  from teachers where mail = ? ').get(mail);
   if(!teacher) return undefined;
+
+  if (!bcrypt.compareSync(password, teacher.user_password))
+    return "IncorrectPWD";
+
   const token = jwt.sign(
     {mail},
     jwtSecret,
     {expiresIn: lifetimeJwt}
   );
   
-  const recordUser = teacher;
-  const authenticatedTeacher = { mail, token, recordUser};
+
+  const authenticatedTeacher = { mail, token};
+  console.log("ici", authenticatedTeacher);
   return authenticatedTeacher;
 };
 
-function getOneStudent(mail){
+
+function loginStudent(mail, password){
     const student = db.prepare('select * from students where mail = ?').get(mail);
     if(!student) return undefined;
+    
+    if (!bcrypt.compareSync(password, student.user_password))
+    return "IncorrectPWD";
 
     const token = jwt.sign(
       {mail},
@@ -34,14 +48,15 @@ function getOneStudent(mail){
       {expiresIn: lifetimeJwt}
     );
   
-    const recordUser = student;
-    const authenticatedStudent = { mail, token, recordUser};
+    
+    const authenticatedStudent = { mail, token};
     return authenticatedStudent;
   };
 
   
   function toRegisterAStudent( mail, password){
-    const student = db.prepare('INSERT INTO students (mail, user_password) VALUES(?,?) RETURNING student_id').all(mail,password);
+    const encryptedPassword = bcrypt.hashSync(password, saltRounds);
+    const student = db.prepare('INSERT INTO students (mail, user_password) VALUES(?,?) RETURNING student_id').run(mail,encryptedPassword);
     if(student === undefined ) return undefined;
 
     const token = jwt.sign(
@@ -49,19 +64,26 @@ function getOneStudent(mail){
       jwtSecret,
       {expiresIn : lifetimeJwt}
     );
-    const  authenticatedStudent = {mail,token, student};
+    const  authenticatedStudent = {mail,token};
     return authenticatedStudent;
   };
 
-  function toRegisterATeacher(mail, password){
-    const idTeacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').get(mail,password);
+  function toRegisterATeacher(mail){
+    const generatedPassword = generate();
+    const encryptedPassword = bcrypt.hashSync(generatedPassword, saltRounds);
+
+    const idTeacher = db.prepare('INSERT INTO teachers(mail, user_password) VALUES(?,?) RETURNING teacher_id').run(mail,encryptedPassword);
     if(idTeacher === undefined ) return undefined;
+
+
     const token = jwt.sign(
       {mail},
       jwtSecret,
       {expiresIn : lifetimeJwt}
     );
-    const  authenticatedStudent = {mail,token, idTeacher};
+
+    send(mail, generatedPassword);
+    const  authenticatedStudent = {mail,token};
     return authenticatedStudent;
   };
 
@@ -91,9 +113,9 @@ function getOneStudent(mail){
 
 
 module.exports={
-    getAllTeachers, getOneTeacher, 
-    getOneStudent, toRegisterAStudent,
+    getAllTeachers, 
+     toRegisterAStudent,
      toRegisterATeacher, verifyIfStudentExists, 
-     verifyIfTeacherExists, getStudentId
+     verifyIfTeacherExists, getStudentId, loginTeacher, loginStudent
 };
 

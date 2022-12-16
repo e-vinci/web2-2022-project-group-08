@@ -2,7 +2,6 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 /* import Navbar from '../Navbar/Navbar'; */
-import ModifyQuizPage from './ModifyQuizPage';
 
 const AddQuizPAge = () => {
   clearPage();
@@ -22,7 +21,7 @@ function renderQuizForm() {
   form.className = 'p-5';
   const courses = document.createElement('select')
   courses.id = 'courses';
-  fetch('http://localhost:3000/courses')
+  fetch(`${process.env.API_BASE_URL}/courses`)
     .then((response) => response.json())
     .then((data) =>  {
       data.forEach(element => {
@@ -60,8 +59,7 @@ async function addQuizz(e) {
     const addedQuiz = await response.json();
     try{
       if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-      Navigate('/ModifyQuizPage');
-      ModifyQuizPage(addedQuiz);
+      Navigate('/modifyQuizPage', addedQuiz);
     }catch(error){
       alert(addedQuiz);
     }

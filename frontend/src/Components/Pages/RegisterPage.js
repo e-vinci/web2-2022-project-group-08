@@ -8,7 +8,6 @@ const RegisterPage = () => {
   renderPageTitle();
   renderRegisterForm();
   renderLoginForm();
-  renderTeacherForm();
 };
 
 function renderRegisterForm() {
@@ -107,56 +106,6 @@ async function onRegister(e) {
     alert(authenticatedUser);
   }
   
-}
-
-function renderTeacherForm(){
-    /*  teacher form  */
-    const main = document.querySelector('main');
-    const title = document.createElement('h2')
-    main.appendChild(title);
-    title.innerHTML = "Formulaire d'enregistrement d'un professeur"
-    const teacherForm = document.createElement('form');
-    teacherForm.className = 'p-5';
-    const teacherUsername = document.createElement('input');
-    teacherUsername.type = 'text';
-    teacherUsername.id = 'teacherUsername';
-    teacherUsername.placeholder = 'email vinci';
-    teacherUsername.required = true;
-    teacherUsername.className = 'form-control mb-3';
-    const teacherSubmit = document.createElement('input');
-    teacherSubmit.value = 'Enregistrer un nouveau professeur';
-    teacherSubmit.type = 'submit';
-    teacherSubmit.className = 'btn btn-info';
-  
-    teacherForm.appendChild(teacherUsername);
-    teacherForm.appendChild(teacherSubmit);
-    main.appendChild(teacherForm);
-    teacherForm.addEventListener('submit', onRegisterForTeacher);
-}
-
-async function onRegisterForTeacher(e) {
-  e.preventDefault();
-
-  const teacherUsername = document.querySelector('#teacherUsername').value;
-  
-
-  const options = {
-    method: 'POST',
-    body: JSON.stringify({
-      teacherUsername,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const response = await fetch(`${process.env.API_BASE_URL}/users/registerTeacher`, options);
-
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
-  Navbar();
-
-  Navigate('/');
 }
 
 
