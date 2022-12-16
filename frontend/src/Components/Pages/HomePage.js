@@ -15,7 +15,6 @@ import img2 from "../../img/uml.jpg";
 import img3 from "../../img/sql.jpg";
 import img4 from '../../img/bg-photo.png'
 
-
 const HomePage = () => {
 
   clearPage();
