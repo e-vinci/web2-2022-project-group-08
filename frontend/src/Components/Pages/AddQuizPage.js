@@ -2,7 +2,6 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 /* import Navbar from '../Navbar/Navbar'; */
-import ModifyQuizPage from './ModifyQuizPage';
 
 const AddQuizPAge = () => {
   clearPage();
@@ -60,8 +59,7 @@ async function addQuizz(e) {
     const addedQuiz = await response.json();
     try{
       if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-      Navigate('/ModifyQuizPage');
-      ModifyQuizPage(addedQuiz);
+      Navigate('/modifyQuizPage', addedQuiz);
     }catch(error){
       alert(addedQuiz);
     }

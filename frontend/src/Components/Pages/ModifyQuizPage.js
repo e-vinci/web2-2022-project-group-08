@@ -6,6 +6,9 @@ import Navigate from '../Router/Navigate';
 let currentQuiz = {};
 const ModifyQuizPage = (quiz) => {
   currentQuiz = quiz;
+  /*if(!currentQuiz){
+    popstate 
+  }*/
   clearPage();
   renderPageTitle('Quizz du cours :');
   renderDeleteButton();
@@ -101,7 +104,6 @@ async function modifyCourse(e) {
   currentQuiz.course = newCourseId;
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   alert('Cours modifié avec succès');
-  Navigate('/ModifyQuizPage');
   ModifyQuizPage(currentQuiz);
   }catch(error){
     alert("Attention, un quizz existe déjà pour ce cours. Veuillez le supprimer ou choisir un autre cours");
@@ -271,8 +273,8 @@ function renderQuizQuestionForm() {
     try{
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
     alert("Question ajoutée avec succès ! ")
-    Navigate('/ModifyQuizPage');
     ModifyQuizPage(currentQuiz);
+
   }catch(error){
     alert(response2.statusText)
     }
@@ -413,7 +415,6 @@ async function deleteQuestion(e, questionID){
   try{
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
     alert("Question supprimée avec succès ! ");
-    Navigate('/ModifyQuizPage');
     ModifyQuizPage(currentQuiz);
   }catch(error){
     alert(response.statusText)
@@ -468,7 +469,6 @@ async function modifyExistingQuestion(e, questionID) {
     try{
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
     alert("Question modifiée avec succès ! ")
-    Navigate('/ModifyQuizPage');
     ModifyQuizPage(currentQuiz);
   }catch(error){
     alert(response2.statusText)
