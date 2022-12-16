@@ -19,7 +19,7 @@ const routes = {
   '/configurationQuiz' : ConfigQuizPage,
   '/users' : userPage,
   '/addQuiz' : AddQuizPage,
-  '/admins' : AdminPage,
+  '/admin' : AdminPage,
   '/modifyQuizPage' : ModifyQuizPage
 
 };
