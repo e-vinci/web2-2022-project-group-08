@@ -30,6 +30,7 @@ return teachersOptions;
 
 async function renderAdminPage () {
     const main = document.querySelector('main');
+    // document.querySelector('#addCourseForm').addEventListener('submit', onRegister);
 
 
     const response = await fetch(`${process.env.API_BASE_URL}/courses`);
@@ -37,7 +38,7 @@ async function renderAdminPage () {
     const courses = await response.json();
     const OptionAsString = createOptionCoursesAsString(courses);
 
-    const response2 = await fetch(`${process.env.API_BASE_URL}/admin`);
+    const response2 = await fetch(`${process.env.API_BASE_URL}/admins`);
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
     const teachers = await response2.json();
     const OptionAsStringForTeachers = createOptionTeachers(teachers);
@@ -50,7 +51,8 @@ async function renderAdminPage () {
 
         <div class="row justify-content-around"> 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
-                <form action="" method="post" class="container-fluid">
+
+                <form action="/admins/addCourse" method="post" class="container-fluid" id="addCourseForm">
                     <h3>Création d'un cours :</h3>
 
                     <div class="row">
@@ -66,7 +68,7 @@ async function renderAdminPage () {
                         <div class="col-8  mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseName">Entrez le nom du cours</label>
-                                <input type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="courseName">
+                                <input type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="coursName">
                             </div>
                         </div>
                     </div>
@@ -96,6 +98,8 @@ async function renderAdminPage () {
                     </div>
 
                 </form>
+
+
             </div>
 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
@@ -304,11 +308,39 @@ async function renderAdminPage () {
         </div>
     </div>
     
-    
     `; 
     main.innerHTML +=  configQuizHTML;
-    
+    document.querySelector('#addCourseForm').addEventListener('submit', onRegister);
+
 }
+
+// eslint-disable-next-line no-unused-vars
+async function onRegister(e) {
+    e.preventDefault();
+  
+    const nameCourse = document.querySelector('#coursName').value;
+    const codeCourse = document.querySelector('#courseCode').value;
+    const descriptionCourse = document.querySelector('#courseTextarea').value;
+    const urlPictureCourse = document.querySelector('#courseTextarea').value;
+
+  
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        nameCourse,
+        codeCourse,
+        descriptionCourse,
+        urlPictureCourse
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    // eslint-disable-next-line no-unused-vars
+    await fetch(`${process.env.API_BASE_URL}/admins/addCourse`, options);
+}
+
 
 
 export default AdminPage;
