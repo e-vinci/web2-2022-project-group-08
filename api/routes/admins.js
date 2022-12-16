@@ -15,19 +15,20 @@ router.get('/', (req, res) =>{
 
 // CREATE COURSE
 router.post('/addCourse', (req, res) =>{
-    const codeName = req.body.courseCode;
-    const courseName = req.body.coursName;
-    const courseDescription = req.body.courseTextarea;
-    const coursePicture = 'test';
+    console.log('router POST ajout cours')
+
+    const {nameCourse, codeCourse, descriptionCourse, urlPictureCourse} = req.body
+    
 
     console.log('VALEUR : ')
-    console.log(codeName)
-    console.log(courseName)
+    console.log(nameCourse)
+    console.log(codeCourse)
 
-    if(codeName === null || courseName === null || courseDescription === null || coursePicture === null ){
-        return res.status(400).json('Une donnee est vide')
-    }
-    createCourse(codeName.value, courseName.value, courseDescription.value, coursePicture.value);
+    // if(codeName === null || courseName === null || courseDescription === null || coursePicture === null ){
+    //     return res.status(400).json('Une donnee est vide')
+    // }
+
+    createCourse(nameCourse, codeCourse, descriptionCourse, urlPictureCourse);
     
     return res.json('Cours bien ajoute dans la db');
 });

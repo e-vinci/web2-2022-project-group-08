@@ -30,6 +30,7 @@ return teachersOptions;
 
 async function renderAdminPage () {
     const main = document.querySelector('main');
+    // document.querySelector('#addCourseForm').addEventListener('submit', onRegister);
 
 
     const response = await fetch(`${process.env.API_BASE_URL}/courses`);
@@ -37,12 +38,11 @@ async function renderAdminPage () {
     const courses = await response.json();
     const OptionAsString = createOptionCoursesAsString(courses);
 
-    const response2 = await fetch(`${process.env.API_BASE_URL}/admin`);
+    const response2 = await fetch(`${process.env.API_BASE_URL}/admins`);
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
     const teachers = await response2.json();
     const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
-
 
     const configQuizHTML = `
     <div class="container my-3">
@@ -52,7 +52,7 @@ async function renderAdminPage () {
         <div class="row justify-content-around"> 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
 
-                <form action="/addCourse" method="post" class="container-fluid">
+                <form action="/admins/addCourse" method="post" class="container-fluid" id="addCourseForm">
                     <h3>Création d'un cours :</h3>
 
                     <div class="row">
@@ -93,7 +93,7 @@ async function renderAdminPage () {
 
                     <div class="row my-2">
                         <div class="col-auto mx-auto">
-                            <button onclick="onRegister()" type="submit" class="btn btn-primary rounded-pill">Créer cours</button>
+                            <button type="submit" class="btn btn-primary rounded-pill">Créer cours</button>
                         </div>
                     </div>
 
@@ -208,7 +208,7 @@ async function renderAdminPage () {
                         <h3>Ajout professeur :</h3>
                     </div>
 
-                    <form id="addCourseForm" action="" method="post">
+                    <form action="" method="post">
                         <div class="row justify-content-center ">
                             <div class="col-4">
                                 <div class="form-group">
@@ -308,12 +308,10 @@ async function renderAdminPage () {
         </div>
     </div>
     
-
-    
     `; 
-   //  document.getElementById('addCourseForm').addEventListener('submit');
     main.innerHTML +=  configQuizHTML;
-    
+    document.querySelector('#addCourseForm').addEventListener('submit', onRegister);
+
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -340,7 +338,7 @@ async function onRegister(e) {
     };
   
     // eslint-disable-next-line no-unused-vars
-    const response = await fetch(`${process.env.API_BASE_URL}/admin/addCourse`, options);
+    await fetch(`${process.env.API_BASE_URL}/admins/addCourse`, options);
 }
 
 
