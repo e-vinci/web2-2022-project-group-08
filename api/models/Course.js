@@ -7,6 +7,11 @@ function getAllCourses(){
     return db.prepare('SELECT * FROM courses').all();
 };
 
+// CREER COURS 
+function createCourse(name, code, presentation, picture){
+    return db.prepare('INSERT INTO courses (name, code, presentation, picture) VALUES(?,?,?,?)').run(name, code, presentation, picture);
+};
+
 function getACourseById(idCourse){
     const course = db.prepare('select  *  from courses where course_id = ? ').get(idCourse);
     return course;
@@ -24,5 +29,5 @@ function getACourseImage(name){
 }
 
 module.exports={
- getACourse, getAllCourses, getACourseImage,getACourseById
+ getACourse, getAllCourses, getACourseImage,getACourseById, createCourse
 };

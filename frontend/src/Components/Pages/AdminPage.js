@@ -43,6 +43,7 @@ async function renderAdminPage () {
     const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
 
+
     const configQuizHTML = `
     <div class="container my-3">
 
@@ -50,7 +51,8 @@ async function renderAdminPage () {
 
         <div class="row justify-content-around"> 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
-                <form action="" method="post" class="container-fluid">
+
+                <form action="/addCourse" method="post" class="container-fluid">
                     <h3>Création d'un cours :</h3>
 
                     <div class="row">
@@ -66,7 +68,7 @@ async function renderAdminPage () {
                         <div class="col-8  mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseName">Entrez le nom du cours</label>
-                                <input type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="courseName">
+                                <input type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="coursName">
                             </div>
                         </div>
                     </div>
@@ -91,11 +93,13 @@ async function renderAdminPage () {
 
                     <div class="row my-2">
                         <div class="col-auto mx-auto">
-                            <button type="submit" class="btn btn-primary rounded-pill">Créer cours</button>
+                            <button onclick="onRegister()" type="submit" class="btn btn-primary rounded-pill">Créer cours</button>
                         </div>
                     </div>
 
                 </form>
+
+
             </div>
 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
@@ -204,7 +208,7 @@ async function renderAdminPage () {
                         <h3>Ajout professeur :</h3>
                     </div>
 
-                    <form action="" method="post">
+                    <form id="addCourseForm" action="" method="post">
                         <div class="row justify-content-center ">
                             <div class="col-4">
                                 <div class="form-group">
@@ -304,11 +308,41 @@ async function renderAdminPage () {
         </div>
     </div>
     
+
     
     `; 
+   //  document.getElementById('addCourseForm').addEventListener('submit');
     main.innerHTML +=  configQuizHTML;
     
 }
+
+// eslint-disable-next-line no-unused-vars
+async function onRegister(e) {
+    e.preventDefault();
+  
+    const nameCourse = document.querySelector('#coursName').value;
+    const codeCourse = document.querySelector('#courseCode').value;
+    const descriptionCourse = document.querySelector('#courseTextarea').value;
+    const urlPictureCourse = document.querySelector('#courseTextarea').value;
+
+  
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        nameCourse,
+        codeCourse,
+        descriptionCourse,
+        urlPictureCourse
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    // eslint-disable-next-line no-unused-vars
+    const response = await fetch(`${process.env.API_BASE_URL}/admin/addCourse`, options);
+}
+
 
 
 export default AdminPage;

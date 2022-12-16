@@ -13,9 +13,6 @@ studentMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9
 
 
 
-
-
-
 /* GET USER PAGE */
 router.get('/', (req, res) => {
   const tabOfKeyQuestions = [];

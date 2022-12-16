@@ -14,7 +14,7 @@ import img1 from "../../img/javaScript.jpg";
 import img2 from "../../img/uml.jpg";
 import img3 from "../../img/sql.jpg";
 import img4 from '../../img/bg-photo.png'
-import img5 from '../../img/img_section.png'
+// import img5 from '../../img/img_section.png'
 
 const HomePage = () => {
 
