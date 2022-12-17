@@ -13,5 +13,5 @@ function deleteNote(noteId){
 }
 
 module.exports={
-    addNote, getNotes
+    addNote, getNotes,deleteNote
 }
