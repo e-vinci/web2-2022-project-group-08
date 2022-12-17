@@ -1,5 +1,5 @@
 const express = require('express');
-const {getAllCourses, createCourse} = require('../models/Course')
+const {getAllCourses, createCourse, modifyCourse} = require('../models/Course')
 
 
 const router = express.Router();
@@ -29,7 +29,18 @@ router.post('/', (req, res) =>{
     createCourse(nameCourse, codeCourse, descriptionCourse, urlPictureCourse);
     
     return res.json('Cours bien ajoute dans la db');
-   });
+});
+
+router.put('/:id', (req, res) =>{
+    console.log('router put modification cours cours')
+
+    const idCourse = req.params.id;
+
+    const {nameCourse, codeCourse, descriptionCourse, urlPictureCourse} = req.body
+    
+    const reponse = modifyCourse(codeCourse, nameCourse, descriptionCourse, urlPictureCourse, idCourse);
+    return res.json(reponse);
+});
 
 
 module.exports = router;

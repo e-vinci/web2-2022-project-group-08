@@ -1,6 +1,5 @@
 const express = require('express');
-const {getAllteachers} = require('../models/User');
-const {getAllCoursesForTeacher} = require('../models/User');
+const {getAllteachers, getAllCoursesForTeacher} = require('../models/User');
 const {getCourseById, createCourse} = require('../models/Course');
 
 

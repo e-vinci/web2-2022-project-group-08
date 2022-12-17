@@ -10,9 +10,11 @@ function createOptionCoursesAsString (courses){
     let coursesOptions = '';
     courses?.forEach((course)=>{
     coursesOptions += `
-        <option>${course.name}</option>
+        <option value=${course.course_id} >${course.name}</option>
     
     `;
+
+    
 });
 return coursesOptions;
 }
@@ -104,14 +106,14 @@ async function renderAdminPage () {
             </div>
 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
-                <form  id="modifyCourse" class="container-fluid">
+                <form  id="modifyCourseForm" class="container-fluid">
                     <h3>Modifier un cours :</h3>
 
                     <div class="row">
                         <div class="col-8 mx-auto">
                             <div class="form-group">
-                                <label for="selectCourseName" class="form-label mt-4">Sélectionnez un cours à modifier</label>
-                                <select class="form-select" id="selectCourseName" name="selectCourseName">
+                                <label for="selectCourseNametoModify" class="form-label mt-4">Sélectionnez un cours à modifier</label>
+                                <select class="form-select" id="selectCourseNametoModify" name="selectCourseNametoModify">
                                     ${OptionAsString}
                                 </select>
                             </div>
@@ -123,8 +125,8 @@ async function renderAdminPage () {
                     <div class="row">
                         <div class="col-6 mx-auto">
                             <div class="form-group">
-                                <label class="col-form-label mt-4" for="courseCode">Entrez le code du cours</label>
-                                <input required type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode" name="courseCode">
+                                <label class="col-form-label mt-4" for="courseCodetoModify">Entrez le code du cours</label>
+                                <input required type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCodetoModify" name="courseCodetoModify">
                             </div>
                         </div>
                     </div>
@@ -132,8 +134,8 @@ async function renderAdminPage () {
                     <div class="row">
                         <div class="col-8  mx-auto">
                             <div class="form-group">
-                                <label class="col-form-label mt-4" for="courseName">Entrez le nom du cours</label>
-                                <input required type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="courseName" name="courseName">
+                                <label class="col-form-label mt-4" for="courseNametoModify">Entrez le nom du cours</label>
+                                <input required type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="courseNametoModify" name="courseNametoModify">
                             </div>
                         </div>
                     </div>
@@ -141,8 +143,8 @@ async function renderAdminPage () {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="courseTextarea" class="form-label mt-4">Entrez description du cours</label>
-                                <textarea required class="form-control" id="courseTextarea" name="courseTextarea" rows="3"></textarea>
+                                <label for="courseTextareatoModify" class="form-label mt-4">Entrez description du cours</label>
+                                <textarea required class="form-control" id="courseTextareatoModify" name="courseTextareatoModify" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -150,8 +152,8 @@ async function renderAdminPage () {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="courseFile" class="form-label mt-4">Choisissez une photo (pnj, jpeg, ..) </label>
-                                <input class="form-control" type="file" id="courseFile" name="courseFile">
+                                <label for="courseFiletoModify" class="form-label mt-4">Choisissez une photo (pnj, jpeg, ..) </label>
+                                <input class="form-control" type="file" id="courseFiletoModify" name="courseFiletoModify">
                             </div>
                         </div>
                     </div>
@@ -175,7 +177,7 @@ async function renderAdminPage () {
                         <h3>Supprimer un cours :</h3>
                     </div>
 
-                    <form id="deleteCourse">
+                    <form id="deleteCourseForm">
                         <div class="row justify-content-center ">
                             
                             <div class="col-4">
@@ -310,7 +312,8 @@ async function renderAdminPage () {
     `; 
     main.innerHTML +=  adminPage;
     document.querySelector('#addCourseForm').addEventListener('submit', addCourse);
-
+    document.querySelector('#modifyCourseForm').addEventListener('submit', modifyCourse);
+    /* document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse); */
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -321,6 +324,11 @@ async function addCourse(e) {
     const codeCourse = document.querySelector('#courseCode').value;
     const descriptionCourse = document.querySelector('#courseTextarea').value;
     const urlPictureCourse = document.querySelector('#courseTextarea').value;
+
+    console.log(nameCourse);
+
+    console.log(codeCourse);
+    console.log(descriptionCourse);
 
 
     const options = {
@@ -338,6 +346,60 @@ async function addCourse(e) {
     // eslint-disable-next-line no-unused-vars
     await fetch(`${process.env.API_BASE_URL}/courses`, options);
 }
+
+
+async function modifyCourse(e) {
+    e.preventDefault();
+
+    const selectCourse = document.querySelector('#selectCourseNametoModify').value;
+    console.log(selectCourse);
+    
+
+    const nameCourse = document.querySelector('#courseNametoModify').value;
+    console.log(nameCourse);
+    const codeCourse = document.querySelector('#courseCodetoModify').value;
+    console.log(codeCourse);
+    const descriptionCourse = document.querySelector('#courseTextareatoModify').value;
+    console.log(descriptionCourse);
+    const urlPictureCourse = document.querySelector('#courseTextareatoModify').value;
+    console.log(urlPictureCourse);
+
+    
+
+
+    const options = {
+    method: 'PUT',
+    body: JSON.stringify({
+        nameCourse,
+        codeCourse,
+        descriptionCourse,
+        urlPictureCourse
+    }),
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    };
+    // eslint-disable-next-line no-unused-vars
+    await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
+}
+
+/* async function deleteCourse(e) {
+    e.preventDefault();
+
+    const selectCourse = document.querySelector('#selectCourseName').value;
+    
+    const options = {
+    method: 'PUT',
+    body: JSON.stringify({
+        selectCourse,
+    }),
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    };
+    // eslint-disable-next-line no-unused-vars
+    await fetch(`${process.env.API_BASE_URL}/courses`, options);
+} */
 
 
 

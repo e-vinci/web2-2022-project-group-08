@@ -28,6 +28,11 @@ function getACourseImage(name){
     return imageCourse;
 }
 
+
+function modifyCourse(newCode ,newName, newPresentation, newPicture, select){
+    return db.prepare('UPDATE courses SET code = ?,  name = ?, presentation = ?, picture = ?  WHERE course_id = ?').run(newCode ,newName, newPresentation, newPicture, select);
+}
+
 module.exports={
- getACourse, getAllCourses, getACourseImage,getACourseById, createCourse
+    getACourse, getAllCourses, getACourseImage,getACourseById, createCourse, modifyCourse
 };
