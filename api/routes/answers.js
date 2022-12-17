@@ -5,11 +5,11 @@ const {addAnswerByQuestionId,  deleteAnswersByQuestionId} = require('../models/A
 const router = express.Router();
 
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     const question = req?.query
-      ? parseInt(req.query.question)
+      ? parseInt(req.query.question,10)
       : undefined;
-    console.log(question);
+  
     if (
       question &&
       (typeof question !== 'number' || question <= 0)
@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
     return res.json(getAllAnswersOneQuestions(question));
   });
 
- router.post('/', function (req, res) {
+ router.post('/', (req, res) => {
     const answers = [];
     const answer1 = addAnswerByQuestionId(req.body.answer1, req.body.questionID, req.body.goodAnswerNumber === '1', req.body.feedback);
     answers.push(answer1);
@@ -35,7 +35,7 @@ router.get('/', function (req, res) {
     return res.json(answers); 
     });
 
-  router.patch('/:id', function (req, res) { /* Attention, c'est l'id de la question*/
+  router.patch('/:id', (req, res) => { /* Attention, c'est l'id de la question */
     const answers = [];
     deleteAnswersByQuestionId(req.params.id);
     const answer1 = addAnswerByQuestionId(req.body.answer1, req.body.questionID, req.body.goodAnswerNumber === '1', req.body.feedback);
