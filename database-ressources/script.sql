@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS personal_notes ;
+DROP TABLE IF EXISTS personal_user_notes;
 DROP TABLE IF EXISTS registered_questions ;
 DROP TABLE IF EXISTS answers ;
 DROP TABLE IF EXISTS questions ;
@@ -50,25 +50,14 @@ create table answers
         primary key autoincrement,
     question             INTEGER      not null
         references questions,
-    possible_answer      varchar(200) not null,
+    content      varchar(200) not null,
     correct              boolean      not null,
     good_answer_feedback varchar(200)
 );
 
-create table sqlite_master
-(
-    type     text,
-    name     text,
-    tbl_name text,
-    rootpage int,
-    sql      text
-);
 
-create table sqlite_sequence
-(
-    name,
-    seq
-);
+
+
 
 create table students
 (
@@ -125,20 +114,20 @@ INSERT INTO teachers( mail, user_password) VALUES ('ramtin@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('kevin@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('dorcas@vinci.be','mdp') ;
 
-insert into courses(name, code, presentation, picture)VALUES('Uml','BINV2010',"Le langage UML (Unified Modeling Language, ou langage de modélisation unifié) a été pensé pour être un langage de modélisation visuelle commun, et riche sémantiquement et syntaxiquement. Il est destiné à l'architecture, la conception et la mise en œuvre de systèmes logiciels ",'./img/uml.jpg')
-insert into courses(name, code, presentation, picture) VALUES ('JavaScript','BINV1010','JavaScript est un langage de programmation de scripts principalement employé dans les pages web interactives et à ce titre est une partie essentielle des applications web. ','./img/javaScript.jpg')
-insert into courses(name, code, presentation, picture)VALUES('Sql','BINV3010',"SQL est un langage informatique normalisé servant à exploiter des bases de données relationnelles. La partie langage de manipulation des données de SQL permet de rechercher, d'ajouter, de modifier ou de supprimer des données dans les bases de données ",'./img/sql.jpg')
+insert into courses(name, code, presentation, picture)VALUES('Uml','BINV2010','Le langage UML (Unified Modeling Language, ou langage de modélisation unifié) a été pensé pour être un langage de modélisation visuelle commun, et riche sémantiquement et syntaxiquement. Il est destiné à l''architecture, la conception et la mise en œuvre de systèmes logiciels ','./img/uml.jpg');
+insert into courses(name, code, presentation, picture) VALUES ('JavaScript','BINV1010','JavaScript est un langage de programmation de scripts principalement employé dans les pages web interactives et à ce titre est une partie essentielle des applications web. ','./img/javaScript.jpg');
+insert into courses(name, code, presentation, picture)VALUES('Sql','BINV3010','SQL est un langage informatique normalisé servant à exploiter des bases de données relationnelles. La partie langage de manipulation des données de SQL permet de rechercher, d''ajouter, de modifier ou de supprimer des données dans les bases de données ','./img/sql.jpg');
 insert into quizzes(course, isOnline) values (1,false);
-insert into questions(quizz, content) VALUES (1, 'comment appelle-t-on une relation qui indique l''inclusion d''un élément dans un autre ');
-insert into questions (quizz,content) values (1,  'comment appelle t-on un changement de état considéré comme instantané');
-insert into questions (quizz, content) values (1,  'c''est quoi une classe abstraite ?');
-insert into questions (quizz, content) values (1,  'c''est quoi la navigation ');
-insert into questions (quizz, content) values (1,  'quel est la convention concernant le nom d''un diagramme de classe ? ');
-insert into questions (quizz, content) values (1,  'qu''est ce qu''un super état ? ');
-insert into questions (quizz, content) values (1,  'quelle est la différence entre le noeud de décision et le noeud de fusion ?  ');
-insert into questions (quizz, content) values (1,  'qu''est ce qu''une barre de synchronization  ? ');
-insert into questions (quizz, content) values (1,  'quelle est l''intrus ? ');
-insert into questions (quizz, content) values (1,  'Dans un diagramme d''etat, qu''est ce qui est mis généralement entre crochets ?  ');
+insert into questions(quizz, number,content) VALUES (1,  1,'comment appelle-t-on une relation qui indique l''inclusion d''un élément dans un autre ');
+insert into questions (quizz,number,content) values (1,  2,'comment appelle t-on un changement de état considéré comme instantané');
+insert into questions (quizz, number,content) values (1,  3,'c''est quoi une classe abstraite ?');
+insert into questions (quizz, number,content) values (1,  4,'c''est quoi la navigation ');
+insert into questions (quizz, number,content) values (1,  5,'quel est la convention concernant le nom d''un diagramme de classe ? ');
+insert into questions (quizz, number,content) values (1,  6,'qu''est ce qu''un super état ? ');
+insert into questions (quizz, number,content) values (1,  7,'quelle est la différence entre le noeud de décision et le noeud de fusion ?  ');
+insert into questions (quizz, number,content) values (1,  8,'qu''est ce qu''une barre de synchronization  ? ');
+insert into questions (quizz, number,content) values (1,  9,'quelle est l''intrus ? ');
+insert into questions (quizz, number,content) values (1,  10,'Dans un diagramme d''etat, qu''est ce qui est mis généralement entre crochets ?  ');
 
 
 
