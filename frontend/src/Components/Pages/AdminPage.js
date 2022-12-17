@@ -44,7 +44,8 @@ async function renderAdminPage () {
     const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
 
-    const configQuizHTML = `
+    const adminPage = `
+
     <div class="container my-3">
 
         <h1 class="text-center">Bienvenue Nom Prénom</h1>
@@ -52,14 +53,14 @@ async function renderAdminPage () {
         <div class="row justify-content-around"> 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
 
-                <form action="/admins/addCourse" method="post" class="container-fluid" id="addCourseForm">
+                <form class="container-fluid" id="addCourseForm">
                     <h3>Création d'un cours :</h3>
 
                     <div class="row">
                         <div class="col-6  mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseCode">Entrez le code du cours</label>
-                                <input type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode">
+                                <input required type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode" name="courseCode">
                             </div>
                         </div>
                     </div>
@@ -68,7 +69,7 @@ async function renderAdminPage () {
                         <div class="col-8  mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseName">Entrez le nom du cours</label>
-                                <input type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="coursName">
+                                <input required type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="coursName" name="coursName">
                             </div>
                         </div>
                     </div>
@@ -77,7 +78,7 @@ async function renderAdminPage () {
                         <div class="col">
                             <div class="form-group">
                                 <label for="courseTextarea" class="form-label mt-4">Entrez description du cours</label>
-                                <textarea class="form-control" id="courseTextarea" rows="3"></textarea>
+                                <textarea required class="form-control" id="courseTextarea" name="courseTextarea" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -86,7 +87,7 @@ async function renderAdminPage () {
                         <div class="col">
                             <div class="form-group">
                                 <label for="courseFile" class="form-label mt-4">Choisissez une photo (pnj, jpeg, ..) </label>
-                                <input class="form-control" type="file" id="courseFile">
+                                <input  class="form-control" type="file" id="courseFile name="courseFile">
                             </div>
                         </div>
                     </div>
@@ -103,15 +104,14 @@ async function renderAdminPage () {
             </div>
 
             <div class="col-5 border border-white border-2  py-1 my-3 rounded-5">
-                <form action="" method="post" class="container-fluid">
+                <form  id="modifyCourse" class="container-fluid">
                     <h3>Modifier un cours :</h3>
 
                     <div class="row">
                         <div class="col-8 mx-auto">
                             <div class="form-group">
                                 <label for="selectCourseName" class="form-label mt-4">Sélectionnez un cours à modifier</label>
-                                <select class="form-select" id="selectCourseName">
-                                    <option selected class="text-center">Choissisez le cours</option>
+                                <select class="form-select" id="selectCourseName" name="selectCourseName">
                                     ${OptionAsString}
                                 </select>
                             </div>
@@ -124,7 +124,7 @@ async function renderAdminPage () {
                         <div class="col-6 mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseCode">Entrez le code du cours</label>
-                                <input type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode">
+                                <input required type="text" class="form-control" placeholder="Exemple : BINV0000" id="courseCode" name="courseCode">
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@ async function renderAdminPage () {
                         <div class="col-8  mx-auto">
                             <div class="form-group">
                                 <label class="col-form-label mt-4" for="courseName">Entrez le nom du cours</label>
-                                <input type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="courseName">
+                                <input required type="text" class="form-control text-center" placeholder="Exemple : Javascript" id="courseName" name="courseName">
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ async function renderAdminPage () {
                         <div class="col">
                             <div class="form-group">
                                 <label for="courseTextarea" class="form-label mt-4">Entrez description du cours</label>
-                                <textarea class="form-control" id="courseTextarea" rows="3"></textarea>
+                                <textarea required class="form-control" id="courseTextarea" name="courseTextarea" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@ async function renderAdminPage () {
                         <div class="col">
                             <div class="form-group">
                                 <label for="courseFile" class="form-label mt-4">Choisissez une photo (pnj, jpeg, ..) </label>
-                                <input class="form-control" type="file" id="courseFile">
+                                <input class="form-control" type="file" id="courseFile" name="courseFile">
                             </div>
                         </div>
                     </div>
@@ -168,7 +168,6 @@ async function renderAdminPage () {
 
         
         <div class="row w-50 mx-auto">
-
             <div class="col">
                 <div class="container border border-white border-2  py-1 my-3 rounded-5 ">
 
@@ -176,13 +175,13 @@ async function renderAdminPage () {
                         <h3>Supprimer un cours :</h3>
                     </div>
 
-                    <form action="" method="post">
+                    <form id="deleteCourse">
                         <div class="row justify-content-center ">
                             
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="selectCourseName" class="form-label mt-4">Sélectionnez un cours à modifier</label>
-                                    <select class="form-select" id="selectCourseName">
+                                    <select class="form-select" id="selectCourseName" name="selectCourseName">
                                         ${OptionAsString}
                                     </select>
                                 </div>
@@ -208,12 +207,12 @@ async function renderAdminPage () {
                         <h3>Ajout professeur :</h3>
                     </div>
 
-                    <form action="" method="post">
+                    <form id="addTeacher">
                         <div class="row justify-content-center ">
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="inputMail" class="form-label mt-4">Selectionnez l'adresse email</label>
-                                    <input type="email" class="form-control" id="inputMail" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <input required type="email" class="form-control" id="inputMail" name="inputMail" aria-describedby="emailHelp" placeholder="Enter email">
                                     <small id="emailHelp" class="form-text text-muted ">Un email automatique sera envoyé au professeur pour ses identifiants</small>
                                 </div>
                             </div>
@@ -223,7 +222,7 @@ async function renderAdminPage () {
                             <div class="col-3 ">
                                 <div class="form-group">
                                     <label for="selectCourseName" class="form-label mt-4">Attribuez les cours* :</label>
-                                    <select multiple="" class="form-select" id="selectCourseName" size="3">
+                                    <select multiple="" class="form-select" id="selectCourseName" name="selectCourseName" size="3">
                                         ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -252,12 +251,12 @@ async function renderAdminPage () {
                         <h4> Récuperer les infos du professeur : </h4>
                     </div>
 
-                    <form action="" method="get" class="row justify-content-center">
+                    <form id="recoverCoursesTeacher" class="row justify-content-center">
 
                         <div class="col-4 my-3">
                             <div class="form-group">
                                 <label for="selectMailTeacher" class="form-label mt-4">Selectionnez l'adresse email</label>
-                                <select class="form-select" id="selectMailTeacher">
+                                <select class="form-select" id="selectMailTeacher" name="selectMailTeacher">
                                     ${OptionAsStringForTeachers}
                                 </select>
 
@@ -277,12 +276,12 @@ async function renderAdminPage () {
                         <h4> Réattribuer des cours au professeur : </h4>
                     </div>
 
-                    <form action="" method="post" class="row justify-content-center">
+                    <form id="ReallocateCoursesToTeacher" class="row justify-content-center">
                         
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="exampleSelect1" class="form-label mt-4">Selectionnez l'adresse email</label>
-                                <select class="form-select" id="exampleSelect1">
+                                <label for="selectMailTeacher" class="form-label mt-4">Selectionnez l'adresse email</label>
+                                <select class="form-select" id="selectMailTeacher" name="selectMailTeacher">
                                     ${OptionAsStringForTeachers}
                                 </select>
                             </div>
@@ -290,8 +289,8 @@ async function renderAdminPage () {
                         
                         <div class="col-3">
                             <div class="form-group">
-                                <label for="selectMailTeacher" class="form-label mt-4">Attribuez les cours* :</label>
-                                <select multiple="" class="form-select" id="selectMailTeacher" size="3">
+                                <label for="selectCourses" class="form-label mt-4">Attribuez les cours* :</label>
+                                <select multiple="" class="form-select" id="selectCourses"  name="selectCourses" size="3">
                                     ${OptionAsString}
                                 </select>
                                 <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -309,39 +308,40 @@ async function renderAdminPage () {
     </div>
     
     `; 
-    main.innerHTML +=  configQuizHTML;
-    document.querySelector('#addCourseForm').addEventListener('submit', onRegister);
+    main.innerHTML +=  adminPage;
+    document.querySelector('#addCourseForm').addEventListener('submit', addCourse);
 
 }
 
 // eslint-disable-next-line no-unused-vars
-async function onRegister(e) {
+async function addCourse(e) {
     e.preventDefault();
-  
+
     const nameCourse = document.querySelector('#coursName').value;
     const codeCourse = document.querySelector('#courseCode').value;
     const descriptionCourse = document.querySelector('#courseTextarea').value;
     const urlPictureCourse = document.querySelector('#courseTextarea').value;
 
-  
+
     const options = {
-      method: 'POST',
-      body: JSON.stringify({
+    method: 'POST',
+    body: JSON.stringify({
         nameCourse,
         codeCourse,
         descriptionCourse,
         urlPictureCourse
-      }),
-      headers: {
+    }),
+    headers: {
         'Content-Type': 'application/json',
-      },
+    },
     };
-  
     // eslint-disable-next-line no-unused-vars
-    await fetch(`${process.env.API_BASE_URL}/admins/addCourse`, options);
+    await fetch(`${process.env.API_BASE_URL}/courses`, options);
 }
 
 
 
 export default AdminPage;
 
+
+/* pas mis de required a la ligne 89, 153 */

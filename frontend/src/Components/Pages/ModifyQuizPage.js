@@ -5,7 +5,10 @@ import Navigate from '../Router/Navigate';
 
 let currentQuiz = {};
 const ModifyQuizPage = (quiz) => {
-  currentQuiz = quiz;
+  if(!quiz){
+    currentQuiz = window.history.state?.data;
+  }
+  else currentQuiz = quiz;
   clearPage();
   renderPageTitle('Quizz du cours :');
   renderDeleteButton();
@@ -60,7 +63,7 @@ function renderQuizForm() {
   const courses = document.createElement('select')
   courses.id = 'courses';
   courses.className = "form-label mt-4";
-  fetch('http://localhost:3000/courses')
+  fetch(`${process.env.API_BASE_URL}/courses`)
     .then((response) => response.json())
     .then((data) =>  {
       data.forEach(element => {
@@ -285,7 +288,7 @@ function renderExistingQuestions(){
     const title = document.createElement('h2');
     title.innerHTML = "Modifier les questions existantes"
     main.appendChild(title);
-    fetch(`http://localhost:3000/questions?quiz=${currentQuiz.quizz_id}`)
+    fetch(`${process.env.API_BASE_URL}/questions?quiz=${currentQuiz.quizz_id}`)
     .then((response) => response.json())   
     .then((data) =>  {
       let j = 1;
@@ -314,7 +317,7 @@ function renderExistingQuestions(){
         });
         j+=1;
         
-        fetch(`http://localhost:3000/answers?question=${element.question_id}`)
+        fetch(`${process.env.API_BASE_URL}/answers?question=${element.question_id}`)
         .then((response2) => response2.json())    
         .then((data2) =>  {
         form.appendChild(questionLabel);
