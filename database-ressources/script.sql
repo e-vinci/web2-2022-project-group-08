@@ -20,14 +20,17 @@ create table courses
     picture      varchar(100)
 );
 
+create unique index courses_name_uindex
+    on courses (name);
+
 create table quizzes
 (
     quizz_id      INTEGER not null
         primary key autoincrement,
-    creation_date date    not null,
+    creation_date timestamp default (DATETIME(CURRENT_TIMESTAMP, 'LOCALTIME')) not null,
     course        INTEGER not null
         references courses,
-    isOnline      boolean default false not null
+    isOnline      boolean   default false not null
 );
 
 create table questions
@@ -36,8 +39,9 @@ create table questions
         primary key autoincrement,
     quizz       INTEGER      not null
         references quizzes,
+    number      INTEGER      not null,
     content     varchar(200) not null,
-    unique (question_id)
+    unique (question_id, number)
 );
 
 create table answers
@@ -46,21 +50,43 @@ create table answers
         primary key autoincrement,
     question             INTEGER      not null
         references questions,
-    content              varchar(200) not null,
+    possible_answer      varchar(200) not null,
     correct              boolean      not null,
     good_answer_feedback varchar(200)
 );
 
+create table sqlite_master
+(
+    type     text,
+    name     text,
+    tbl_name text,
+    rootpage int,
+    sql      text
+);
 
+create table sqlite_sequence
+(
+    name,
+    seq
+);
 
 create table students
 (
     student_id    INTEGER
         primary key autoincrement,
-
     mail          varchar(100) not null
         unique,
     user_password varchar(100) not null
+);
+
+create table personal_user_notes
+(
+    id_personal_note INTEGER not null
+        primary key autoincrement,
+    content          varchar(5000),
+    student          INTEGER not null
+        references students,
+    date_creation    timestamp default (DATETIME(CURRENT_TIMESTAMP, 'LOCALTIME')) not null
 );
 
 create table registered_questions
@@ -73,23 +99,14 @@ create table registered_questions
         references students
 );
 
-create table personal_notes
-(
-    id_personal_note    INTEGER not null
-        primary key autoincrement,
-    content             varchar(500),
-    registered_question INTEGER not null
-        references registered_questions,
-    registered_date     date    not null
-);
-
 create table teachers
 (
     teacher_id    INTEGER      not null
         primary key autoincrement,
     mail          varchar(100) not null
         unique,
-    user_password varchar(100) not null
+    user_password varchar(100) not null,
+    is_admin      boolean default false not null
 );
 
 create table professors_courses
@@ -100,6 +117,7 @@ create table professors_courses
         references courses,
     primary key (teacher, course)
 );
+
 
 INSERT INTO teachers( mail, user_password) VALUES ('manal@vinci.be','mdp') ;
 INSERT INTO teachers( mail, user_password) VALUES ('steven@vinci.be','mdp') ;
