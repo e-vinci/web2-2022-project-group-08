@@ -182,8 +182,8 @@ async function renderAdminPage () {
                             
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="selectCourseName" class="form-label mt-4">Sélectionnez un cours à modifier</label>
-                                    <select class="form-select" id="selectCourseName" name="selectCourseName">
+                                    <label for="selectCourseNameToDelete" class="form-label mt-4">Sélectionnez un cours à modifier</label>
+                                    <select class="form-select" id="selectCourseNameToDelete" name="selectCourseNameToDelete">
                                         ${OptionAsString}
                                     </select>
                                 </div>
@@ -313,7 +313,7 @@ async function renderAdminPage () {
     main.innerHTML +=  adminPage;
     document.querySelector('#addCourseForm').addEventListener('submit', addCourse);
     document.querySelector('#modifyCourseForm').addEventListener('submit', modifyCourse);
-    /* document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse); */
+    document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -383,13 +383,13 @@ async function modifyCourse(e) {
     await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
 }
 
-/* async function deleteCourse(e) {
+async function deleteCourse(e) {
     e.preventDefault();
 
-    const selectCourse = document.querySelector('#selectCourseName').value;
+    const selectCourse = document.querySelector('#selectCourseNameToDelete').value;
     
     const options = {
-    method: 'PUT',
+    method: 'POST',
     body: JSON.stringify({
         selectCourse,
     }),
@@ -398,8 +398,8 @@ async function modifyCourse(e) {
     },
     };
     // eslint-disable-next-line no-unused-vars
-    await fetch(`${process.env.API_BASE_URL}/courses`, options);
-} */
+    await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
+}
 
 
 

@@ -43,4 +43,14 @@ router.put('/:id', (req, res) =>{
 });
 
 
+router.post('/:id', (req, res) =>{
+    console.log('router put modification cours cours')
+
+    const idCourse = req.params.id;
+    
+    const reponse = modifyCourse(codeCourse, nameCourse, descriptionCourse, urlPictureCourse, idCourse);
+    return res.json(reponse);
+});
+
+
 module.exports = router;
