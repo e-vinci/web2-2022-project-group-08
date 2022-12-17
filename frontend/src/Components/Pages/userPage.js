@@ -15,8 +15,6 @@ const UserPage = () => {  // mettre id entre parenthèse
     renderUserQuestions();
     renderUserNotesForm();
     renderUserListNotes();
-    
-    
 };
 
 function renderStructureOfPage(){
@@ -58,8 +56,8 @@ function renderStructureOfPage(){
                     </div>
                     <hr>
                     <div class="col-sm-9 text-secondary">
-                    <h6 class="lesQuestions"></h6>
-                      Kenneth Valdez
+                    <h6 class="lesQuestions">  </h6>
+                    
                     </div>
                   </div>
                   <hr>
@@ -84,7 +82,7 @@ function renderStructureOfPage(){
                     <hr>
                     <div class="col-sm-9 text-secondary">
                     <h6 class="lesNotes"></h6>
-                      Kenneth Valdez
+                
                     </div>
                   </div>
                   <hr>
@@ -113,19 +111,19 @@ function renderStructureOfPage(){
           </div>
         </div>
     </div>
-}
+
 `
 main.appendChild(contenu);
 
 
 }
  function renderContent(){
-  const main = document.querySelector('main'); 
+/*   const main = document.querySelector('main'); 
   const listeOfQuestions = document.createElement('div');
   listeOfQuestions.className = 'listeOfQuestions'
-  main.appendChild(listeOfQuestions);
+  main.appendChild(listeOfQuestions); */
 
-  // NOTE FORM
+ /*  // NOTE FORM
   const addNotes = document.createElement('div');
   addNotes.className = 'addNotes'
   main.appendChild(addNotes);
@@ -133,14 +131,14 @@ main.appendChild(contenu);
   // LIST OF USER NOTES
   const userNotes = document.createElement('div');
   userNotes.className = 'userNotes'
-  main.appendChild(userNotes);
+  main.appendChild(userNotes); */
   
 
 }
 
 function renderUserQuestions () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
-    const listeOfQuestions = document.querySelector('.lesQuestions')
+    const lesQuestions = document.querySelector('.lesQuestions')
 fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) =>  {
@@ -150,7 +148,7 @@ fetch('http://localhost:3000/users')
       liste += ` <div class="questionsSections"> <ul>
                     <li>${element.content}</li>
                 </ul> </div>`;
-            listeOfQuestions.innerHTML = liste;
+            lesQuestions.innerHTML = liste;
         });               
       } 
     )            
@@ -168,7 +166,7 @@ function renderUserNotesForm () {
       <textarea id="noteContent" cols="80" rows="13"></textarea>
     </div>
     <div>
-      <button class="btn btn-primary rounded-pill" type="submit" >Save my note</button>
+      <button class="mt-2 btn btn-primary rounded-pill" type="submit" >Save my note</button>
     </div>
  </form>`
 

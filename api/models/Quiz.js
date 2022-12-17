@@ -50,10 +50,16 @@ function updateQuizById(quizID, newCourse){
 }
 
 
+function getQuizIdByCourseId(courseId){
+    return db.prepare('SELECT q.quizz_id FROM quizzes q, courses c WHERE c.course_id = q.course AND c.course_id = ?').run(courseId);
+}
+
+
 module.exports={
     addQuizzByCourseName,
     getQuizById,
     getQuizzes,
     deleteQuizById,
-    updateQuizById
+    updateQuizById,
+    getQuizIdByCourseId
    };
