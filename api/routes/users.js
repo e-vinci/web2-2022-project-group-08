@@ -103,7 +103,7 @@ router.post('/registerTeacher', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const idteacher = req.params.id;
-  const tabCourseTeacher = getAllCoursesForTeacher(idteacher);
+  const tabCourseTeacher = getAllCoursesForTeacher(idteacher); 
   return res.json(tabCourseTeacher);
 });
 

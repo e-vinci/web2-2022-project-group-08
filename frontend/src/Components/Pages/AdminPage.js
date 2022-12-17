@@ -264,7 +264,7 @@ async function renderAdminPage () {
 
                                 <p>Ce professeur est inscrit au cours de : </p>
 
-                                <p id="teacherCourse">.</p>
+                                <p id="teacherInfoCourse">.</p>
                             </div>
                         </div>
 
@@ -422,7 +422,16 @@ async function recoverInformationsTeacher(e) {
     };
     // eslint-disable-next-line no-unused-vars
     const teacherCourses = await fetch(`${process.env.API_BASE_URL}/users/${idTeacher}`, options);
-    document.querySelector('#tabCourseTeacher').innerHTML(teacherCourses.json());
+    const teachersCourses2 = await teacherCourses.json();
+    
+    let result ="";
+
+    teachersCourses2.forEach(element => {
+        result += ` ${  element.name}`;
+    });
+
+    console.log(result);
+    document.querySelector('#teacherInfoCourse').innerHTML = result;
 }
 
 
