@@ -36,6 +36,7 @@ function getQuizzes(){
 }
 
 function deleteQuizById(quizID){
+    
     deleteQuestionsByQuizId(quizID);
     return db.prepare('DELETE FROM quizzes WHERE quizz_id = ? ').run(quizID);
 }
