@@ -36,6 +36,7 @@ function getQuizzes(){
 }
 
 function deleteQuizById(quizID){
+    
     deleteQuestionsByQuizId(quizID);
     return db.prepare('DELETE FROM quizzes WHERE quizz_id = ? ').run(quizID);
 }
@@ -52,10 +53,16 @@ function updateQuizById(quizID, newCourse){
 }
 
 
+function getQuizIdByCourseId(courseId){
+    return db.prepare('SELECT q.quizz_id FROM quizzes q, courses c WHERE c.course_id = q.course AND c.course_id = ?').get(courseId);
+}
+
+
 module.exports={
     addQuizzByCourseName,
     getQuizById,
     getQuizzes,
     deleteQuizById,
-    updateQuizById
+    updateQuizById,
+    getQuizIdByCourseId
    };

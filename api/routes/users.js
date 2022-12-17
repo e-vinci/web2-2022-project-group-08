@@ -5,15 +5,11 @@ const express = require('express');
 const { getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
 
 const {loginTeacher, loginStudent,toRegisterAStudent,toRegisterATeacher,verifyIfStudentExists,verifyIfTeacherExists} = require('../models/register');
-
+const {getAllCoursesForTeacher} = require('../models/User');
 const router = express.Router();
 
 teacherMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@vinci.be$/);
 studentMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@student.vinci.be$/)
-
-
-
-
 
 
 /* GET USER PAGE */
@@ -103,5 +99,13 @@ router.post('/registerTeacher', (req, res) => {
 
   return res.json(authentificateTeacher);
 });
+
+
+router.get('/:id', (req, res) => {
+  const idteacher = req.params.id;
+  const tabCourseTeacher = getAllCoursesForTeacher(idteacher); 
+  return res.json(tabCourseTeacher);
+});
+
 
 module.exports = router;

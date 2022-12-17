@@ -3,7 +3,7 @@
 import Logout from '../Logout/Logout';
 import RegisterPage from '../Pages/RegisterPage';
 import HomePage from '../Pages/HomePage';
-import QuizPage from '../Pages/quizPage';
+import QuizPage from '../Pages/QuizPage';
 import userPage from '../Pages/userPage';
 import ConfigQuizPage from '../Pages/ConfigQuizPage';
 import AddQuizPage from '../Pages/AddQuizPage';
@@ -15,14 +15,13 @@ const routes = {
   '/login': RegisterPage,
   '/register': RegisterPage,
   '/': HomePage,
-  '/quizPage': QuizPage,
+  '/QuizPage': QuizPage,
   '/logout': Logout,
   '/configurationQuiz' : ConfigQuizPage,
   '/users' : userPage,
   '/addQuiz' : AddQuizPage,
-  '/admin' : AdminPage,
+  '/admins' : AdminPage,
   '/modifyQuizPage' : ModifyQuizPage
-
 };
 
 export default routes;

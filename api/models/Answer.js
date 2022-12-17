@@ -25,7 +25,7 @@ function deleteAnswersByQuizId(quizID){
 }
 
 function deleteAnswersByQuestionId(questionID){
-    db.prepare('DELETE FROM answers WHERE question = ? ').run(questionID);  
+    db.prepare('DELETE FROM answers WHERE question = ? ').run(questionID); 
     
 }
 

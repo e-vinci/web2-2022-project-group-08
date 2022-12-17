@@ -16,6 +16,8 @@ const answersRouter = require('./routes/answers');
 const quizRouter = require('./routes/quiz');
 const coursesRouter = require('./routes/courses');
 const adminsRouter = require('./routes/admins');
+const notesRouter = require('./routes/notes');
+
 
 
 
@@ -33,5 +35,7 @@ app.use('/quiz', cors(corsOptions), quizRouter);
 app.use('/courses', cors(corsOptions), coursesRouter);
 app.use('/answers', cors(corsOptions), answersRouter);
 app.use('/admins', cors(corsOptions), adminsRouter);
+app.use('/notes', cors(corsOptions), notesRouter);
+
 
 module.exports = app;
