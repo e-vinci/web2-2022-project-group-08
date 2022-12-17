@@ -15,8 +15,6 @@ const UserPage = () => {  // mettre id entre parenthèse
     renderUserQuestions();
     renderUserNotesForm();
     renderUserListNotes();
-    
-    
 };
 
 function renderStructureOfPage(){
@@ -58,8 +56,8 @@ function renderStructureOfPage(){
                     </div>
                     <hr>
                     <div class="col-sm-9 text-secondary">
-                    <h6 class="lesQuestions"></h6>
-                      Kenneth Valdez
+                    <h6 class="lesQuestions">  </h6>
+                    
                     </div>
                   </div>
                   <hr>
@@ -84,7 +82,7 @@ function renderStructureOfPage(){
                     <hr>
                     <div class="col-sm-9 text-secondary">
                     <h6 class="lesNotes"></h6>
-                      Kenneth Valdez
+                
                     </div>
                   </div>
                   <hr>
@@ -140,7 +138,7 @@ main.appendChild(contenu);
 
 function renderUserQuestions () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
-    const listeOfQuestions = document.querySelector('.lesQuestions')
+    const lesQuestions = document.querySelector('.lesQuestions')
 fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) =>  {
@@ -150,7 +148,7 @@ fetch('http://localhost:3000/users')
       liste += ` <div class="questionsSections"> <ul>
                     <li>${element.content}</li>
                 </ul> </div>`;
-            listeOfQuestions.innerHTML = liste;
+            lesQuestions.innerHTML = liste;
         });               
       } 
     )            
