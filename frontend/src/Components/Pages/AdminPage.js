@@ -389,9 +389,9 @@ async function deleteCourse(e) {
     const selectCourse = document.querySelector('#selectCourseNameToDelete').value;
     
     const options = {
-    method: 'POST',
+    method: 'DELETE',
     body: JSON.stringify({
-        selectCourse,
+        
     }),
     headers: {
         'Content-Type': 'application/json',
@@ -399,6 +399,7 @@ async function deleteCourse(e) {
     };
     // eslint-disable-next-line no-unused-vars
     await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
+    AdminPage();
 }
 
 

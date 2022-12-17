@@ -1,5 +1,6 @@
 const express = require('express');
-const {getAllCourses, createCourse, modifyCourse} = require('../models/Course')
+const {getAllCourses, createCourse, modifyCourse, deleteCourseById} = require('../models/Course')
+const {getQuizIdByCourseId, deleteQuizById} = require('../models/Quiz')
 
 
 const router = express.Router();
@@ -43,13 +44,21 @@ router.put('/:id', (req, res) =>{
 });
 
 
-router.post('/:id', (req, res) =>{
-    console.log('router put modification cours cours')
+router.delete('/:id', (req, res) =>{
+    console.log('router DELETE modification cours cours')
 
     const idCourse = req.params.id;
-    
-    const reponse = modifyCourse(codeCourse, nameCourse, descriptionCourse, urlPictureCourse, idCourse);
-    return res.json(reponse);
+    const reponse = getQuizIdByCourseId(idCourse);
+    const quizId = reponse.quizz_id;
+
+    if(!quizId) {
+        let reponse3= deleteCourseById(idCourse);
+        
+    }
+    const reponse2 = deleteQuizById(reponse);
+    let reponse3= deleteCourseById(idCourse);
+
+    return res.json(reponse3);
 });
 
 
