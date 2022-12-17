@@ -121,6 +121,23 @@ function renderUserListNotes() {
     .catch((error) => console.error("FETCH ERROR:", error));
   };
 
+  async function deleteNote(){
+      const idNote = document.querySelector('#idNote').value;
+      console.log(idNote);
+      const options = {
+        method: 'DELETE',
+        body: JSON.stringify({
+          idNote
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },                                                                
+      };
+
+      await fetch(`${process.env.API_BASE_URL}/notes`, options);
+      Navigate('/users?id=')
+    }
+
 
 
 export default UserPage;

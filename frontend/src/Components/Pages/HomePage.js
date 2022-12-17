@@ -28,7 +28,7 @@ const HomePage = () => {
 
 function renderContent(){
   const main = document.querySelector('main');
-  const header = document.createElement('p');
+  const header = document.createElement('section');
   header.id='header';
   main.appendChild(header);  
   const listeOfCourses= document.createElement('div');

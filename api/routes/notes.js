@@ -21,7 +21,11 @@ router.get('/', (req, res) => {
     return res.json(newNote);
 });
 
-
+router.delete('/:idNote', (req, res) => {
+  const {idNote} = req.params;
+  const deletedNote = deleteNote(idNote);
+  return res.json(deletedNote);
+});
 
 
 module.exports = router;
