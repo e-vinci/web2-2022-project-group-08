@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {addNote, getNotes} = require('../models/Notes');
+const {addNote, getNotes, deleteNote} = require('../models/Notes');
 
 const router = express.Router();
 

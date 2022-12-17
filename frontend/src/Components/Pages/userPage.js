@@ -10,6 +10,7 @@ import Navigate from '../Router/Navigate';
 
 const UserPage = () => {  // mettre id entre parenthèse
     clearPage(); 
+    renderStructureOfPage();
     renderContent();
     renderUserQuestions();
     renderUserNotesForm();
@@ -18,12 +19,108 @@ const UserPage = () => {  // mettre id entre parenthèse
     
 };
 
+function renderStructureOfPage(){
+  const main = document.querySelector('main');
+  const contenu = document.createElement('section');
+  contenu.innerHTML = `
+  <div class="container">
+    <div class="main-body">
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                  <div class="col-auto">
+
+                  <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_zfszhesy.json"  background="transparent"  speed="1"  style="width: 250px; height: 250px;"  loop  autoplay></lottie-player>
+                  </div>
+
+                    <div class="mt-3">
+                      <h4>METTRE LE NOM DU USER</h4>
+                      <p class="text-secondary mb-1">METTRE L EMAIL</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                  <div class="col-sm-4 text-secondary"> 
+                    </div>
+                    <div class="col-sm-4">
+                      <h5 class="mb-0">Questions enregistrées</h5>
+                    </div>
+                    <hr>
+                    <div class="col-sm-9 text-secondary">
+                    <h6 class="lesQuestions"></h6>
+                      Kenneth Valdez
+                    </div>
+                  </div>
+                  <hr>
+                  
+              
+                </div>
+              </div>
+
+              <div class="card mt-3">
+                
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                  <div class="col-sm-4 text-secondary"> 
+                    </div>
+                    <div class="col-sm-4">
+                      <h5 class="mb-0">Mes notes</h5>
+                    </div>
+                    <hr>
+                    <div class="col-sm-9 text-secondary">
+                    <h6 class="lesNotes"></h6>
+                      Kenneth Valdez
+                    </div>
+                  </div>
+                  <hr>
+                  
+              
+                </div>
+              </div>
+
+
+              <div class="row gutters-sm">
+                <div class="col-md-12 mb-5">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="d-flex align-items-center mb-3"> Ajouter une note</h5>
+                     
+          
+                      <div class="ajouterNotes">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+}
+`
+main.appendChild(contenu);
+
+
+}
  function renderContent(){
   const main = document.querySelector('main'); 
-  const title = document.createElement('h1');
-  title.innerText = 'My Personal Space 📝'
-  main.appendChild(title);
-
   const listeOfQuestions = document.createElement('div');
   listeOfQuestions.className = 'listeOfQuestions'
   main.appendChild(listeOfQuestions);
@@ -43,7 +140,7 @@ const UserPage = () => {  // mettre id entre parenthèse
 
 function renderUserQuestions () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
-    const listeOfQuestions = document.querySelector('.listeOfQuestions')
+    const listeOfQuestions = document.querySelector('.lesQuestions')
 fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) =>  {
@@ -63,15 +160,15 @@ fetch('http://localhost:3000/users')
 
 
 function renderUserNotesForm () {
-    const addNotes = document.querySelector('.addNotes');
+    const addNotes = document.querySelector('.ajouterNotes');
 
     const form = `<form id="addNotesForm">
     <div>
-      <label>Add A Note about What I Want</label>
-      <textarea id="noteContent" cols="50" rows="5"></textarea>
+      <label></label>
+      <textarea id="noteContent" cols="80" rows="13"></textarea>
     </div>
     <div>
-      <button type="submit" >Save my note</button>
+      <button class="btn btn-primary rounded-pill" type="submit" >Save my note</button>
     </div>
  </form>`
 
@@ -101,7 +198,7 @@ async function addNote(e){
 }
 
 function renderUserListNotes() {
-  const noteList = document.querySelector('.userNotes');
+  const noteList = document.querySelector('.lesNotes');
   fetch('http://localhost:3000/notes')
       .then((response) => response.json())
       .then((data) =>  {
