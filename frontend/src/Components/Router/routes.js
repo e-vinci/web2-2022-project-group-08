@@ -21,7 +21,6 @@ const routes = {
   '/addQuiz' : AddQuizPage,
   '/admin' : AdminPage,
   '/modifyQuizPage' : ModifyQuizPage
-
 };
 
 export default routes;
