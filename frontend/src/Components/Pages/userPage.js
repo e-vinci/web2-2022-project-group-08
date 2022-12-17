@@ -111,19 +111,19 @@ function renderStructureOfPage(){
           </div>
         </div>
     </div>
-}
+
 `
 main.appendChild(contenu);
 
 
 }
  function renderContent(){
-  const main = document.querySelector('main'); 
+/*   const main = document.querySelector('main'); 
   const listeOfQuestions = document.createElement('div');
   listeOfQuestions.className = 'listeOfQuestions'
-  main.appendChild(listeOfQuestions);
+  main.appendChild(listeOfQuestions); */
 
-  // NOTE FORM
+ /*  // NOTE FORM
   const addNotes = document.createElement('div');
   addNotes.className = 'addNotes'
   main.appendChild(addNotes);
@@ -131,7 +131,7 @@ main.appendChild(contenu);
   // LIST OF USER NOTES
   const userNotes = document.createElement('div');
   userNotes.className = 'userNotes'
-  main.appendChild(userNotes);
+  main.appendChild(userNotes); */
   
 
 }
@@ -166,7 +166,7 @@ function renderUserNotesForm () {
       <textarea id="noteContent" cols="80" rows="13"></textarea>
     </div>
     <div>
-      <button class="btn btn-primary rounded-pill" type="submit" >Save my note</button>
+      <button class="mt-2 btn btn-primary rounded-pill" type="submit" >Save my note</button>
     </div>
  </form>`
 
