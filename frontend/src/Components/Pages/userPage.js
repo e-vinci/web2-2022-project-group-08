@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Button } from 'bootstrap';
-import { setAuthenticatedUser } from '../../utils/auths';
+import { getAuthenticatedUser, setAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
@@ -8,7 +8,11 @@ import Navigate from '../Router/Navigate';
 
 
 
-const UserPage = () => {  // mettre id entre parenthèse
+const UserPage =async () => {  // mettre id entre parenthèse
+    const user = getAuthenticatedUser();
+    console.log("user", user);
+    console.log(user.studentID);
+    const registeredQuestions = await fetch(`localhost:3000/users/${user.studentID}`)
     clearPage(); 
     renderStructureOfPage();
 
@@ -18,6 +22,8 @@ const UserPage = () => {  // mettre id entre parenthèse
 };
 
 function renderStructureOfPage(){
+  const authenticatedUser = getAuthenticatedUser();
+console.log("authenticatedUser",authenticatedUser)
   const main = document.querySelector('main');
   const contenu = document.createElement('section');
   contenu.innerHTML = `
@@ -35,7 +41,7 @@ function renderStructureOfPage(){
                   </div>
 
                     <div class="mt-3">
-                      <h4>METTRE LE NOM DU USER</h4>
+                      <h4>${authenticatedUser?.mail}</h4>
                       <p class="text-secondary mb-1">METTRE L EMAIL</p>
                     </div>
                   </div>
@@ -206,8 +212,6 @@ function renderUserListNotes() {
 
         let liste = '';
         data.forEach(element => {
-          // console.log("data",element.id_personal_note)
-
       liste += ` <div key={element.id_personal_note} class="container">
       <div class="row align-items-start">
       
@@ -229,8 +233,8 @@ function renderUserListNotes() {
             noteList.innerHTML = liste;
         }); 
 
-        document.getElementById('deleteForm').addEventListener('click', deleteNote)
-     
+        document.querySelectorAll('#deleteForm').forEach(x => x.addEventListener('click', deleteNote)
+        )
       //  mySubmitBtn.onclick = deleteNote()
 
 

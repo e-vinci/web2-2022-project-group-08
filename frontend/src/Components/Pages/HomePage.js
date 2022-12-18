@@ -159,8 +159,15 @@ fetch('http://localhost:3000/index')
                 </p>
             </div>
 
-          <input type="hidden" id="idCourse" value="${element.course_id}">
-           <div class="col-2 my-auto"> <a href="/configurationQuiz?${compt+1}"<button id="start" type="submit" class="btn btn-primary rounded-pill"> démarrer</button> </a> </div>
+           <div class="col-2 my-auto"> 
+
+           <a href="/configurationQuiz?${element.course_id}"
+
+           <button id="start" type="submit" class="btn btn-primary rounded-pill"> démarrer</button> 
+           
+           </a>
+           
+           </div>
 
                   </div>
                 </div>
