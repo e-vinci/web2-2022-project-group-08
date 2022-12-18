@@ -29,6 +29,10 @@ function getQuizById(quizz){
     
 }
 
+function getQuizByCourse(courseID){
+    return db.prepare('SELECT * FROM quizzes WHERE course = ?').get(courseID);
+}
+
 
 function getQuizzes(){
     return db.prepare('SELECT * FROM quizzes').all();
@@ -54,6 +58,7 @@ module.exports={
     addQuizzByCourseName,
     getQuizById,
     getQuizzes,
+    getQuizByCourse,
     deleteQuizById,
     updateQuizById
    };

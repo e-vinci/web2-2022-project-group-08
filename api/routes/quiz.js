@@ -1,5 +1,5 @@
  const express = require('express');
-const {addQuizzByCourseName, getQuizById, getQuizzes, deleteQuizById, updateQuizById} = require ('../models/Quiz');
+const {addQuizzByCourseName, getQuizById, getQuizzes, deleteQuizById, updateQuizById, getQuizByCourse} = require ('../models/Quiz');
 
 
 const router = express.Router();
@@ -8,8 +8,16 @@ const router = express.Router();
 
 
 router.get('/', (req, res) =>{
+  const course = req.query?.course;
+  if(course){
+    const quiz = getQuizByCourse(course);
+    if(!quiz) return res.status(200)
+    return res.json(quiz)
+  }else{
+
   const quizzes = getQuizzes();
   return res.json(quizzes);
+  }
    });
 
 router.get('/:id', (req, res) =>{
@@ -20,11 +28,12 @@ router.get('/:id', (req, res) =>{
   });
 
 
+
+
+
+
 router.post('/', (req, res) => {
   const quiz = addQuizzByCourseName(req.body.selectedCourse);
-  if (!quiz) {
-    return res.status(409).json("Il existe déjà un quizz pour ce cours.");
-  }
   return res.json(quiz);
   });
 

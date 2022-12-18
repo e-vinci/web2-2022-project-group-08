@@ -28,7 +28,6 @@ function onHistoryChange() {
   window.addEventListener('popstate', (e) => {
     const uri = removePathPrefix(window.location.pathname);
     const componentToRender = routes[uri];
-    console.log("router", e.state.data);
     componentToRender(e.state?.data ? e.state.data : null);
   });
 }

@@ -22,6 +22,9 @@ const HomePage = () => {
   renderContent();
   renderHeader();
   renderListCourses();
+
+  
+ 
 };
 
 
@@ -94,8 +97,12 @@ console.log('Urls',urls);
 
 };
 
+
+
+
 function renderListCourses () {
   const listeOfCourses = document.querySelector('.listeOfCourses');
+
 
 fetch('http://localhost:3000/index')
   .then((response) => response.json())
@@ -104,6 +111,12 @@ fetch('http://localhost:3000/index')
      let markup = '';
      let compt=0;
     data.forEach(element => {
+      fetch(` http://localhost:3000/quiz?course=${element.course_id}` )
+      .then((response2) => response2.json())
+      .then((quiz) => {
+        console.log(quiz)
+      
+      
         markup +=
         ` 
   <div class="container my-3  border border-dark rounded-5 bg-white ">
@@ -127,8 +140,8 @@ fetch('http://localhost:3000/index')
                 </p>
             </div>
 
-       
-           <div class="col-2 my-auto"> <a href="/configurationQuiz?${element.course_id}"> <button class="btn btn-primary rounded-pill"> démarrer</button> </a> </div>
+            
+           <div class="col-2 my-auto"> <a id="test24"> <button id="button${compt}" value="${quiz.quizz_id}" class="btn btn-primary rounded-pill"> démarrer</button> </a> </div>
 
                   </div>
                 </div>
@@ -137,18 +150,33 @@ fetch('http://localhost:3000/index')
     </div>
         
         `
+        
         compt+=1;
         ;
         listeOfCourses.innerHTML = markup;
-    });
-  }
-)
-
-
-
-};
+      
+      }).then(()=> {
+        const button = document.querySelector(`#button${compt - 1}`);
+        console.log("ici", button);
+        console.log(`#button${compt-1}`)
+        button.addEventListener('click', (e) => {
+          goToConfiguration(e, button.value)
+        })
+        
+        })
+      
+      
+    })
+  })
+}
+  
+function goToConfiguration(e, quizID){
+  e.preventDefault();
+    Navigate("/configurationQuiz", quizID);
+}
 
 
 
 
 export default HomePage;
+

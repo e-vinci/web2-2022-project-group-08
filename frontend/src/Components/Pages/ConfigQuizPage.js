@@ -1,10 +1,24 @@
 import { clearPage } from "../../utils/render";
+import Navigate from "../Router/Navigate";
 
 
-const ConfigQuiz = () => {  // mettre id entre parenthèse
+const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
+    console.log(quizID)
     clearPage();
     renderConfigQuiz();
+    const form = document.querySelector('#startForm');
+    console.log(form)
+    form.addEventListener('click', (e) => {
+        goToQuizz(e, quizID)
+    })
 };
+
+
+function goToQuizz(e, quizID){
+    e.preventDefault();
+    Navigate('/quizPage', quizID);
+
+}
 
 async function renderConfigQuiz () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
@@ -64,10 +78,10 @@ async function renderConfigQuiz () {
                 <div class="row justify-content-center">
                     <div class="col-auto m-1">
 
-                        <form action="" method="GET">
+                        <form id="startForm" >
 							<input type="hidden" name="id" value="">
-							<button type="submit" class="btn btn-primary rounded-pill">
-								Démarrer
+							<button  type = 'submit' class="btn btn-primary rounded-pill">
+								Démarrer    
 							</button>
 						</form>
                     </div>
