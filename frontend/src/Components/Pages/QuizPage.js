@@ -12,10 +12,10 @@ const delay = 15*1000;
 console.log(goodAnswerNumber);
 console.log(givenAnswerNumber);
 
-const QuizPage = async () => {
-  console.log(`boo : ${1}`);
+const QuizPage = async (quizID) => {
+  console.log(`boo : ${quizID}`);
     clearPage();
-    const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${1}`)
+    const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${quizID}`)
     questions = await response.json();
     console.log(`here : ${questions[0]}`);
     renderQuestion(questions);
