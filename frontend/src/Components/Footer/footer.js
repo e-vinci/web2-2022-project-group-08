@@ -1,4 +1,4 @@
-import toz from '../../img/Logo_bootstrap.png';
+import logo from '../../img/Logo_bootstrap.png';
 
 const Footer = () => {
     renderFooter();
@@ -13,7 +13,7 @@ function renderFooter() {
         <div class="row justify-content-around">
     
             <div class="col-4">
-                <img class="logoFooter" src="./Logo_bootstrap.png" alt="" style="width:100%; height:auto"></a>
+                <img class="logoFooter" src="${logo}" alt="" style="width:100%; height:auto"></a>
             </div>
     
             <div class="col-4">
