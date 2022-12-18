@@ -116,6 +116,7 @@ function renderStructureOfPage(){
 main.appendChild(contenu);
 
 
+
 }
  function renderContent(){
 /*   const main = document.querySelector('main'); 
@@ -195,40 +196,54 @@ async function addNote(e){
   Navigate('/users?id=')
 }
 
+
 function renderUserListNotes() {
+
   const noteList = document.querySelector('.lesNotes');
   fetch('http://localhost:3000/notes')
       .then((response) => response.json())
       .then((data) =>  {
+
         let liste = '';
         data.forEach(element => {
-      liste += ` <div class="container">
+          // console.log("data",element.id_personal_note)
+
+      liste += ` <div key={element.id_personal_note} class="container">
       <div class="row align-items-start">
+      
         <div class="col">
         <h5> ${element.content} </h5>
         <p class="h6"> Ajouté le ${element.date_creation} </p>
+
         </div>
             <div class="col-6">
-                <form id="deleteForm">
-                        <input type="hidden" id="idNote" value="${element.id_personal_note}">
-                        <button type="submit" class="btn btn-primary rounded-pill"> DELETE MY NOTE 😕 </button>
-                </form>
+            <div >
+            <input type="hidden" id="idNote" value="${element.id_personal_note}">
+            <button id="deleteForm" type="submit" class="btn btn-primary rounded-pill"> DELETE MY NOTE 😕 </button>
+            </div>
             </div>
         </div>
        </div>
       <div>
         `;
+          
             noteList.innerHTML = liste;
         }); 
-        document.getElementById('deleteForm').addEventListener('submit', deleteNote);
+
+        document.getElementById('deleteForm').addEventListener('click', deleteNote)
+     
+      //  mySubmitBtn.onclick = deleteNote()
+
+
       }   
+      
     )            
     .catch((error) => console.error("FETCH ERROR:", error));
   };
 
   async function deleteNote(){
+    
       const idNote = document.querySelector('#idNote').value;
-      console.log(idNote);
       const options = {
         method: 'DELETE',
         body: JSON.stringify({
@@ -239,7 +254,7 @@ function renderUserListNotes() {
         },                                                                
       };
 
-      await fetch(`${process.env.API_BASE_URL}/notes/idNote`, options);
+      await fetch(`${process.env.API_BASE_URL}/notes/${idNote}`, options);
       Navigate('/users?id=')
     }
 
