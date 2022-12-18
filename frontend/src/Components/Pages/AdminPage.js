@@ -436,7 +436,7 @@ async function addTeacher(e) {
         },
         };
         
-    await fetch(`${process.env.API_BASE_URL}/users`, options);
+    await fetch(`${process.env.API_BASE_URL}/users/registerTeacher`, options);
     
 }
 
