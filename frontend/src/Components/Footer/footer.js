@@ -12,11 +12,11 @@ function renderFooter() {
     <footer class="container-fluid bg-dark py-2 text-white">
         <div class="row justify-content-around">
     
-            <div class="col-3">
-                <img class="logoFooter" src="${toz}" alt="" style="width:100%; height:auto"></a>
+            <div class="col-4">
+                <img class="logoFooter" src="./Logo_bootstrap.png" alt="" style="width:100%; height:auto"></a>
             </div>
     
-            <div class="col-3">
+            <div class="col-4">
                 <h3 class="text-white">Membres projet</h3>
 
                 <div class="container-fluid">
@@ -48,7 +48,7 @@ function renderFooter() {
                 </div>
             </div>
     
-            <div class="col-3">
+            <div class="col-4">
                 <h3 class="text-white">Contact</h3>
                 <div class="container-fluid">
 
@@ -67,8 +67,8 @@ function renderFooter() {
                                     </svg>
                                     <a
                                     class="mail text-white"
-                                    href="mailto:kevin.bationo@student.vinci.be"
-                                    >Email ipl learn a mettre a j </a>
+                                    href="mailto:quizzteam8@gmail.com"
+                                    >IPLEARN</a>
                                 </p>
                         </div>
                     </div>
@@ -77,13 +77,7 @@ function renderFooter() {
     
             </div>
 
-            <div class="col-3">
-                <div class="form-group">
-                    <h3>Newsletter</h3>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Rentrez votre email">
-                    <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre adresse électronique avec qui que ce soit.</small>
-                </div>
-            </div>
+        
     
             <div class="row">
                 <div class="col text-center">
