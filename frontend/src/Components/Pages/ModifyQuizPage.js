@@ -3,6 +3,8 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 /* import Navbar from '../Navbar/Navbar'; */
 import Navigate from '../Router/Navigate'; 
 
+ const Swal = require('sweetalert2');
+
 let currentQuiz = {};
 const ModifyQuizPage = (quiz) => {
   if(!quiz){
@@ -44,10 +46,18 @@ async function deleteQuizz(e) {
   const response = await fetch(`${process.env.API_BASE_URL}/quiz/${currentQuiz.quizz_id}`, options);
     try{
       if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-      alert("Le quizz a bien été supprimé.");
+      Swal.fire(
+        'Good job!',
+        'Le quizz a bien été supprimé !',
+        'success'
+      )
       Navigate('/addQuiz');
     }catch(error){
-      alert(response.statusText);
+      Swal.fire(
+        'Good job!',
+        `${response.statusText}`,
+        'error'
+      )
     }
 }
 
@@ -103,10 +113,19 @@ async function modifyCourse(e) {
   const newCourseId = await response.json();
   currentQuiz.course = newCourseId;
   if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-  alert('Cours modifié avec succès');
+  Swal.fire(
+    'Good job!',
+    'Cours modifié avec succès !',
+    'success'
+  )
   ModifyQuizPage(currentQuiz);
   }catch(error){
-    alert("Attention, un quizz existe déjà pour ce cours. Veuillez le supprimer ou choisir un autre cours");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Un quizz existe déjà pour ce cours. Veuillez le supprimer ou choisir un autre cours",
+    })
+
   }
 }
 
@@ -272,11 +291,19 @@ function renderQuizQuestionForm() {
     const response2 = await fetch(`${process.env.API_BASE_URL}/answers`, options2);
     try{
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
-    alert("Question ajoutée avec succès ! ")
+    Swal.fire(
+      'Good job!',
+      'Question ajoutée avec succès !',
+      'success'
+    )
     ModifyQuizPage(currentQuiz);
 
   }catch(error){
-    alert(response2.statusText)
+    Swal.fire(
+      'Good job!',
+      `${response2.statusText}`,
+      'error'
+    )
     }
     
   }
@@ -413,10 +440,18 @@ async function deleteQuestion(e, questionID){
   const response = await fetch(`${process.env.API_BASE_URL}/questions/${questionID}`, options);
   try{
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-    alert("Question supprimée avec succès ! ");
+    Swal.fire(
+      'Good job!',
+      'Question supprimée avec succès !',
+      'success'
+    )
     ModifyQuizPage(currentQuiz);
   }catch(error){
-    alert(response.statusText)
+    Swal.fire(
+      'Good job!',
+      `${response.statusText}`,
+      'error'
+    )
     }
 
 }
@@ -465,10 +500,18 @@ async function modifyExistingQuestion(e, questionID) {
     const response2 = await fetch(`${process.env.API_BASE_URL}/answers/${questionID}`, options2);
     try{
     if (!response2.ok) throw new Error(`fetch error : ${response2.status} : ${response2.statusText}`);
-    alert("Question modifiée avec succès ! ")
+    Swal.fire(
+      'Good job!',
+      'Question modifiée avec succès !',
+      'success'
+    )
     ModifyQuizPage(currentQuiz);
   }catch(error){
-    alert(response2.statusText)
+    Swal.fire(
+      'Good job!',
+      `${response2.statusText}`,
+      'error'
+    )
     }
   
   
