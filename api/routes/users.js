@@ -48,6 +48,8 @@ router.post('/login', (req, res) => {
 
   if (studentMailRegex.test(mail)) {
 
+    /* En temps normal, on devrait juste vérifier que l'adresse mail corresponde à celle d'un étudiant, ici nous avons laissé les professeurs se connecter en tant qu'étudiant pour les tests
+    étant donné que la DB nous avons séparés les professeurs des étudiants */
     if (!verifyIfStudentExists(mail)) return res.status(404).json("Cet utilisateur n'existe pas ou l'email est non valide");
       
     authentificateUser = loginStudent(mail, password);
@@ -71,9 +73,12 @@ router.post('/register', (req, res) => {
   
   const {mail, registerPassword,registerConfPassword } = req.body
 
-  if (registerPassword !== registerConfPassword) return res.status(404).json('Les mots de passe ne correspondent pas');
+  
+  if (registerPassword !== registerConfPassword) return res.status(409).json('Les mots de passe ne correspondent pas');
 
-  if (!studentMailRegex.test(mail)) return res.status(401).json("Email non valide ou n'appartenant pas à un étudiant vinci");
+  /* En temps normal, on devrait juste vérifier que l'adresse mail corresponde à celle d'un étudiant, ici nous avons laissé les professeurs se connecter en tant qu'étudiant pour les tests
+  étant donné que la DB nous avons séparés les professeurs des étudiants */
+  if (!studentMailRegex.test(mail) && !teacherMailRegex.test(mail)) return res.status(401).json("Email non valide ou n'appartenant pas à un étudiant vinci");
 
   if(verifyIfStudentExists(mail)) return res.status(401).json("L'étudiant existe déjà");
 

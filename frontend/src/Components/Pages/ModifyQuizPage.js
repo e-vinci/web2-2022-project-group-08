@@ -3,6 +3,7 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 /* import Navbar from '../Navbar/Navbar'; */
 import Navigate from '../Router/Navigate'; 
 
+ // eslint-disable-next-line import/no-unresolved
  const Swal = require('sweetalert2');
 
 let currentQuiz = {};

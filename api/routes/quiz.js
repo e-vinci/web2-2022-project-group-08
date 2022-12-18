@@ -28,9 +28,6 @@ router.get('/:id', (req, res) =>{
 
 
 
-
-
-
 router.post('/', (req, res) => {
   const quiz = addQuizzByCourseName(req.body.selectedCourse);
   if(!quiz) return res.status(401).json("Vous ne pouvez pas ajouter un quizz pour un cours où il y en a déjà un !");

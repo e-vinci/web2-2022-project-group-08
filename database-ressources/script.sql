@@ -39,9 +39,7 @@ create table questions
         primary key autoincrement,
     quizz       INTEGER      not null
         references quizzes,
-    number      INTEGER      not null,
-    content     varchar(200) not null,
-    unique (question_id, number)
+    content     varchar(200) not null
 );
 
 create table answers
@@ -118,16 +116,16 @@ insert into courses(name, code, presentation, picture)VALUES('Uml','BINV2010','L
 insert into courses(name, code, presentation, picture) VALUES ('JavaScript','BINV1010','JavaScript est un langage de programmation de scripts principalement employé dans les pages web interactives et à ce titre est une partie essentielle des applications web. ','./img/javaScript.jpg');
 insert into courses(name, code, presentation, picture)VALUES('Sql','BINV3010','SQL est un langage informatique normalisé servant à exploiter des bases de données relationnelles. La partie langage de manipulation des données de SQL permet de rechercher, d''ajouter, de modifier ou de supprimer des données dans les bases de données ','./img/sql.jpg');
 insert into quizzes(course, isOnline) values (1,false);
-insert into questions(quizz, number,content) VALUES (1,  1,'comment appelle-t-on une relation qui indique l''inclusion d''un élément dans un autre ');
-insert into questions (quizz,number,content) values (1,  2,'comment appelle t-on un changement de état considéré comme instantané');
-insert into questions (quizz, number,content) values (1,  3,'c''est quoi une classe abstraite ?');
-insert into questions (quizz, number,content) values (1,  4,'c''est quoi la navigation ');
-insert into questions (quizz, number,content) values (1,  5,'quel est la convention concernant le nom d''un diagramme de classe ? ');
-insert into questions (quizz, number,content) values (1,  6,'qu''est ce qu''un super état ? ');
-insert into questions (quizz, number,content) values (1,  7,'quelle est la différence entre le noeud de décision et le noeud de fusion ?  ');
-insert into questions (quizz, number,content) values (1,  8,'qu''est ce qu''une barre de synchronization  ? ');
-insert into questions (quizz, number,content) values (1,  9,'quelle est l''intrus ? ');
-insert into questions (quizz, number,content) values (1,  10,'Dans un diagramme d''etat, qu''est ce qui est mis généralement entre crochets ?  ');
+insert into questions(quizz,content) VALUES (1,  'comment appelle-t-on une relation qui indique l''inclusion d''un élément dans un autre ');
+insert into questions (quizz,content) values (1,  'comment appelle t-on un changement de état considéré comme instantané');
+insert into questions (quizz,content) values (1,  'c''est quoi une classe abstraite ?');
+insert into questions (quizz,content) values (1,  'c''est quoi la navigation ');
+insert into questions (quizz,content) values (1,  'quel est la convention concernant le nom d''un diagramme de classe ? ');
+insert into questions (quizz,content) values (1,  'qu''est ce qu''un super état ? ');
+insert into questions (quizz,content) values (1,  'quelle est la différence entre le noeud de décision et le noeud de fusion ?  ');
+insert into questions (quizz,content) values (1,'qu''est ce qu''une barre de synchronization  ? ');
+insert into questions (quizz,content) values (1,'quelle est l''intrus ? ');
+insert into questions (quizz,content) values (1,'Dans un diagramme d''etat, qu''est ce qui est mis généralement entre crochets ?  ');
 
 
 
