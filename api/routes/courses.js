@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', (req, res) =>{
     const courses = getAllCourses();
     return res.json(courses);
-   });
+});
 
 
 router.post('/', (req, res) =>{
@@ -51,7 +51,9 @@ router.delete('/:id', (req, res) =>{
     const reponse = getQuizIdByCourseId(idCourse);
     const quizId = reponse.quizz_id;
 
-    const reponse2 = deleteQuizById(quizId);
+    if (Number.isInteger(quizId)) {
+        const reponse2 = deleteQuizById(quizId);
+    }
     let reponse3= deleteCourseById(idCourse);
 
     return res.json(reponse3);
