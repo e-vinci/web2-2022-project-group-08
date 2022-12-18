@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { clearPage } from '../../utils/render';
 
 const Swal = require('sweetalert2');
@@ -12,15 +13,50 @@ const delay = 15*1000;
 console.log(goodAnswerNumber);
 console.log(givenAnswerNumber);
 
-const QuizPage = async () => {
-  console.log(`boo : ${1}`);
+const QuizPage = async (quizID) => {
+  console.log(`boo : ${quizID}`);
     clearPage();
-    const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${1}`)
+    const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${quizID}`)
+   /*  renderStructurePage(); */
     questions = await response.json();
     console.log(`here : ${questions[0]}`);
     renderQuestion(questions);
   };
   
+
+  function renderStructurePage(){
+    const main = document.querySelector('main');
+    const contenu = document.createElement('section');
+    contenu.innerHTML = `
+    <div class="containerQuizzPage mt-sm-5 my-1">
+    <div class="question ml-sm-5 pl-sm-5 pt-2">
+        <div class="py-2 h5"><b>
+
+        <h6 class="questionM"></h6>
+
+        </b></div>
+        <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+            <label class="options">
+            <h5 class="lesRepM"></h5>
+            Small Business Owner or Employee
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            
+        </div>
+    </div>
+    <div class="d-flex align-items-center pt-3">
+        <div id="prev">
+            <button class="btn btn-primary">Previous</button>
+        </div>
+        <div class="ml-auto mr-sm-5">
+            <button class="btn btn-success">Next</button>
+        </div>
+    </div>
+</div>`
+
+  main.appendChild(contenu);
+  }
 
 function renderQuestion(question){
   if(!question){
@@ -46,9 +82,12 @@ function renderQuestion(question){
     clearPage();
 
     const main = document.querySelector('main');
+    const all = document.createElement ('section');
+    all.className="containerQuizzPage "
     const questionWrapper = document.createElement('div');
     questionWrapper.type = "questionWrapper";
     questionWrapper.innerHTML =`Question n° ${questionNumber + 1} ${question.content}`;
+    questionWrapper.className='questionM'
     const answerWrapper = document.createElement('div');
     answerWrapper.type = "answerWrapper";
     questionWrapper.appendChild(answerWrapper);
@@ -60,7 +99,7 @@ function renderQuestion(question){
             let answerNumber = 1;
             data2.forEach(answer => {
             const answerButton = document.createElement('button');
-            answerButton.className = "btn btn-lg btn-primary";
+            answerButton.className = "options";
             answerButton.type = 'button';
             answerButton.id = `button${answerNumber}`;
             answerButton.innerHTML =  `Réponse n° ${answerNumber} : ${answer.content}`
@@ -74,6 +113,8 @@ function renderQuestion(question){
             answerNumber +=1;    
       });
 
+    
+
         timeID = setTimeout(()=>{
             questionNumber +=1;
             renderQuestion(questions[questionNumber]);
@@ -82,8 +123,9 @@ function renderQuestion(question){
 
     })
     
-
-    main.appendChild(questionWrapper);
+    all.appendChild(questionWrapper);
+    main.appendChild(all);
+   
 }
 
 async function chooseAnswer(e, goodAnswer, answer){
