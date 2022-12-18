@@ -9,9 +9,14 @@ import Navigate from '../Router/Navigate';
 
 
 const TeacherPage = () => {  // mettre id entre parenthèse
-    clearPage(); 
+    clearPage();
+    if(!user.isTeacher) {
+      alert("Vous n'avez pas l'autorisation");
+      return;
+    }
     renderStructureOfPage();
     renderTeacherCourses();
+
 
 };
 

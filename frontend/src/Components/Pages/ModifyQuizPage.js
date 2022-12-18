@@ -8,6 +8,10 @@ import Navigate from '../Router/Navigate';
 
 let currentQuiz = {};
 const ModifyQuizPage = (quiz) => {
+  if(!user.isTeacher) {
+    alert("Vous n'avez pas l'autorisation");
+    return;
+  }
   if(!quiz){
     currentQuiz = window.history.state?.data;
   }

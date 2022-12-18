@@ -9,7 +9,14 @@
 import { usePathPrefix } from '../../utils/path-prefix';
 
 const Navigate = (toUri, data) => {
-  const fromUri = Number(window.location.href.split('?')[1])
+  let fromUri;
+  if(fromUri === '/' && toUri === '/configurationQuiz') {
+    console.log('icitt');
+     fromUri = Number(window.location.href.split('?')[1])
+  }else{
+     fromUri = window.location.pathname
+  }
+  
 console.log("fromUri",fromUri)
   if (fromUri === toUri) return;
 
