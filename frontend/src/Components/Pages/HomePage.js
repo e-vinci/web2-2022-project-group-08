@@ -10,8 +10,8 @@ import Glide from '@glidejs/glide';
 import { clearPage, renderPageTitle } from "../../utils/render";
 import Navbar from "../Navbar/Navbar";
 import Navigate from "../Router/Navigate";
-import img from "../../img/javaScript.jpg";
-import img2 from "../../img/uml.jpg";
+import img from "../../img/uml.jpg";
+import img2 from "../../img/javaScript.jpg";
 import img3 from "../../img/sql.jpg";
 import img4 from '../../img/bg-photo.png'
 
