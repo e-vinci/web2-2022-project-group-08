@@ -278,8 +278,8 @@ async function renderAdminPage () {
                         
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="selectMailTeacher" class="form-label mt-4">Selectionnez l'adresse email</label>
-                                <select class="form-select" id="selectMailTeacher" name="selectMailTeacher">
+                                <label for="selectMailTeacherForReallocate" class="form-label mt-4">Selectionnez l'adresse email</label>
+                                <select class="form-select" id="selectMailTeacherForReallocate" name="selectMailTeacherForReallocate">
                                     ${OptionAsStringForTeachers}
                                 </select>
                             </div>
@@ -287,8 +287,8 @@ async function renderAdminPage () {
                         
                         <div class="col-3">
                             <div class="form-group">
-                                <label for="selectCourses" class="form-label mt-4">Attribuez les cours* :</label>
-                                <select multiple="" class="form-select select-multiple" id="selectCourses"  name="selectCourses" size="3">
+                                <label for="selectCoursesForReallocate" class="form-label mt-4">Attribuez les cours* :</label>
+                                <select multiple="" class="form-select select-multiple" id="selectCoursesForReallocate"  name="selectCoursesForReallocate" size="3">
                                     ${OptionAsString}
                                 </select>
                                 <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -326,8 +326,6 @@ async function addCourse(e) {
     const descriptionCourse = document.querySelector('#courseTextarea').value;
     const urlPictureCourse = document.querySelector('#courseTextarea').value;
 
-
-
     const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -354,7 +352,7 @@ async function modifyCourse(e) {
     const codeCourse = document.querySelector('#courseCodetoModify').value;
     const descriptionCourse = document.querySelector('#courseTextareatoModify').value;
     const urlPictureCourse = document.querySelector('#courseTextareatoModify').value;
- 
+
     const options = {
     method: 'PUT',
     body: JSON.stringify({
@@ -422,9 +420,13 @@ async function addTeacher(e) {
     const mail = document.querySelector('#inputMail').value;
     const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
 
+    const tabCourses = [];
+
     for (let i = 0; i < courses.length; i+=1) {
-        console.log(courses.item(i).value);
+        tabCourses.push(courses.item(i).value)
+        
     }
+
 
     const options = {
         method: 'POST',
@@ -446,13 +448,20 @@ async function addTeacher(e) {
 async function ReallocateCoursesToTeacher(e) {
     e.preventDefault();
 
-    const idTeacher = document.querySelector('#inputMail').value;
-    const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
+    const idTeacher = document.querySelector('#selectMailTeacherForReallocate').value;
+    const courses = document.querySelector('#selectCoursesForReallocate').selectedOptions;
+
+    const tabCourses = [];
+    
+    for (let i = 0; i < courses.length; i+=1) {
+        // eslint-disable-next-line radix
+        tabCourses.push(parseInt(courses.item(i).value));
+    }
 
     const options = {
         method: 'PUT',
         body: JSON.stringify({
-            courses
+            tabCourses
         }),
         headers: {
             'Content-Type': 'application/json',

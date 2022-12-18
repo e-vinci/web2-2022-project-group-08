@@ -20,8 +20,8 @@ const QuizPage = async (quizID) => {
     const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${quizID}`)
    /*  renderStructurePage(); */
     questions = await response.json();
-    console.log(`here : ${questions[0]}`);
-    renderQuestion(questions);
+    console.log(questions);
+    renderQuestion(questions[questionNumber]);  
   };
   
 

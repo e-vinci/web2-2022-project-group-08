@@ -12,7 +12,7 @@ function getAllCoursesTeacherdDontHave(idTeacher){
     return db.prepare('SELECT c.name FROM courses c, teachers t WHERE t.teacher_id = 1 AND t.teacher_id NOT IN(SELECT pc.teacher FROM professors_courses pc WHERE pc.teacher = t.teacher_id AND c.course_id = pc.course);').all(idTeacher);
 };
 
-function registerTeacherForforCourses(idTeacher,idCourse){
+function registerTeacherForCourses(idTeacher,idCourse){
     return db.prepare('INSERT INTO professors_courses(teacher, course) VALUES (?,?)').run(idTeacher,idCourse);
 };
 
@@ -30,7 +30,7 @@ function deleteFromProfesseurCourses(idTeacher){
 module.exports={
     getAllteachers,
     getAllCoursesForTeacher,
-    registerTeacherForforCourses,
+    registerTeacherForCourses,
     deleteFromProfessorsCourses,
     getAllCoursesTeacherdDontHave,
     deleteFromProfesseurCourses

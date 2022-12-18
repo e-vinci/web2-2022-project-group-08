@@ -8,8 +8,11 @@ import Navigate from '../Router/Navigate';
 
 
 
-const UserPage = () => {  // mettre id entre parenthèse
-    
+const UserPage =async () => {  // mettre id entre parenthèse
+    const user = getAuthenticatedUser();
+    console.log("user", user);
+    console.log(user.studentID);
+    const registeredQuestions = await fetch(`localhost:3000/users/${user.studentID}`)
     clearPage(); 
     renderStructureOfPage();
 
