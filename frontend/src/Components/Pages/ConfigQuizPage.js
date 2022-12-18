@@ -4,11 +4,16 @@ import Navigate from "../Router/Navigate";
 // eslint-disable-next-line import/no-unresolved
 const Swal = require('sweetalert2');
 
+    let getId = Number(window.location.href.split('?')[1])
 
-const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
+    if(getId === null){
+        getId = -1;
+    }
+
+const ConfigQuiz = () => {  // mettre id entre parenthès
     clearPage();
-    console.log(`id du quiz : ${quizID}`);
-    if( quizID === '-1') {
+    console.log(`id du quiz : ${getId}`);
+    if( getId === '-1') {
         Swal.fire(
             'Pas encore de quizz pour ce gours :( !',
             '',
@@ -31,14 +36,14 @@ const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
     renderConfigQuiz();
     const form = document.querySelector('#startForm');
     form.addEventListener('click', (e) => {
-        goToQuizz(e, quizID)
+        goToQuizz(e, getId)
     })
 };
 
 
-function goToQuizz(e, quizID){
+function goToQuizz(e){
     e.preventDefault();
-    Navigate('/QuizPage', quizID);
+    Navigate('/QuizPage', getId);
 
 }
 

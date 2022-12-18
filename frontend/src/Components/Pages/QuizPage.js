@@ -8,10 +8,11 @@ let questions = [];
 let questionNumber = 0;
 let goodAnswerNumber = 0;
 let givenAnswerNumber = 0;
-let timeID ;
-const delay = 15*1000;
+// let timeID ;
+// const delay = 15*1000;
 console.log(goodAnswerNumber);
 console.log(givenAnswerNumber);
+
 
 const QuizPage = async (quizID) => {
   console.log(`boo : ${quizID}`);
@@ -19,44 +20,44 @@ const QuizPage = async (quizID) => {
     const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${quizID}`)
    /*  renderStructurePage(); */
     questions = await response.json();
-    console.log(`here : ${questions[0]}`);
-    renderQuestion(questions);
+    console.log(questions);
+    renderQuestion(questions[questionNumber]);  
   };
   
 
-  function renderStructurePage(){
-    const main = document.querySelector('main');
-    const contenu = document.createElement('section');
-    contenu.innerHTML = `
-    <div class="containerQuizzPage mt-sm-5 my-1">
-    <div class="question ml-sm-5 pl-sm-5 pt-2">
-        <div class="py-2 h5"><b>
+//   function renderStructurePage(){
+//     const main = document.querySelector('main');
+//     const contenu = document.createElement('section');
+//     contenu.innerHTML = `
+//     <div class="containerQuizzPage mt-sm-5 my-1">
+//     <div class="question ml-sm-5 pl-sm-5 pt-2">
+//         <div class="py-2 h5"><b>
 
-        <h6 class="questionM"></h6>
+//         <h6 class="questionM"></h6>
 
-        </b></div>
-        <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-            <label class="options">
-            <h5 class="lesRepM"></h5>
-            Small Business Owner or Employee
-                <input type="radio" name="radio">
-                <span class="checkmark"></span>
-            </label>
+//         </b></div>
+//         <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+//             <label class="options">
+//             <h5 class="lesRepM"></h5>
+//             Small Business Owner or Employee
+//                 <input type="radio" name="radio">
+//                 <span class="checkmark"></span>
+//             </label>
             
-        </div>
-    </div>
-    <div class="d-flex align-items-center pt-3">
-        <div id="prev">
-            <button class="btn btn-primary">Previous</button>
-        </div>
-        <div class="ml-auto mr-sm-5">
-            <button class="btn btn-success">Next</button>
-        </div>
-    </div>
-</div>`
+//         </div>
+//     </div>
+//     <div class="d-flex align-items-center pt-3">
+//         <div id="prev">
+//             <button class="btn btn-primary">Previous</button>
+//         </div>
+//         <div class="ml-auto mr-sm-5">
+//             <button class="btn btn-success">Next</button>
+//         </div>
+//     </div>
+// </div>`
 
-  main.appendChild(contenu);
-  }
+//   main.appendChild(contenu);
+//   }
 
 function renderQuestion(question){
   if(!question){
@@ -113,13 +114,12 @@ function renderQuestion(question){
             answerNumber +=1;    
       });
 
-    
 
-        timeID = setTimeout(()=>{
-            questionNumber +=1;
-            renderQuestion(questions[questionNumber]);
-            clearTimeout(timeID);     
-        }, delay);
+        // timeID = setTimeout(()=>{
+        //     questionNumber +=1;
+        //     renderQuestion(questions[questionNumber]);
+        //     clearTimeout(timeID);     
+        // }, delay);
 
     })
     
