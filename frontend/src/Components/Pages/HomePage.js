@@ -55,7 +55,7 @@ function renderContent(){
 function renderHeader(){
   const urls =[];
   let compt=0;
-fetch('http://localhost:3000/index')
+fetch(`${process.env.API_BASE_URL}/index`)
 .then((response) => response.json())
 .then((data) =>  {
   // eslint-disable-next-line no-unused-vars
@@ -108,14 +108,14 @@ function renderListCourses () {
   const listeOfCourses = document.querySelector('.listeOfCourses');
 
 
-fetch('http://localhost:3000/index')
+fetch(`${process.env.API_BASE_URL}/index`)
   .then((response) => response.json())
   .then((data) =>  {
     // eslint-disable-next-line no-unused-vars
      let markup = '';
      let compt=0;
     data.forEach(element => {
-      fetch(` http://localhost:3000/quiz?course=${element.course_id}` )
+      fetch( `${process.env.API_BASE_URL}/quiz?course=${element.course_id}` )
       .then((response2) => response2.json())
       .then((quiz) => {
   
