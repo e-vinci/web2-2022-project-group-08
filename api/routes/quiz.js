@@ -23,7 +23,6 @@ router.get('/', (req, res) =>{
 router.get('/:id', (req, res) =>{
   const quizID = req.params.id;
   const quiz = getQuizById(quizID);
-  console.log(quiz)
   return res.json(quiz);
   });
 
@@ -46,7 +45,6 @@ router.delete('/:id', (req,res) => {
 
 router.patch('/:id', (req, res) => {
   const updatedQuiz = updateQuizById(req.params.id, req.body.newCourse)
-  console.log(updatedQuiz);
   if(!updatedQuiz) return res.status(409).json("");
   return res.json(updatedQuiz);
 })

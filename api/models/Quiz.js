@@ -12,7 +12,7 @@ function addQuizzByCourseName(course){
         return;
     }
     const date = new Date().toLocaleDateString();
-    const add  = db.prepare('INSERT INTO quizzes (creation_date, course) VALUES (?,?)').run(date, courseID);
+    const add  = db.prepare('INSERT INTO quizzes (creation_date, course, isOnline) VALUES (?,?,?)').run(date, courseID, 1);
     // eslint-disable-next-line consistent-return
     return  db.prepare(`SELECT * FROM quizzes WHERE quizz_id = ? `).get(add.lastInsertRowid);
 }

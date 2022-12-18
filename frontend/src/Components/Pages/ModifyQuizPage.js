@@ -348,7 +348,6 @@ function renderExistingQuestions(){
       const goodAnswer = document.createElement('select');
       goodAnswer.className = "form-label mt-4";
       goodAnswer.id = `goodAnswer${element.question_id}`
-      console.log(`goodAnswer${element.question_id}`);
       const option1 = document.createElement('option');
       option1.innerHTML = '1';
       option1.value = '1';
@@ -377,7 +376,7 @@ function renderExistingQuestions(){
       feedback.required = true;
       feedback.placeholder = "Entrez le feedback de la bonne réponse...";
       feedback.id = `feedback${element.question_id}`;
-      console.log(`feedback${element.question_id}`);
+
       form.appendChild(feedbackLabel);
       form.appendChild(feedback);
 
@@ -445,8 +444,6 @@ async function modifyExistingQuestion(e, questionID) {
     const answer2 = document.querySelector(`#Q${questionID}R2`).value;
     const answer3 = document.querySelector(`#Q${questionID}R3`).value;
     const answer4 = document.querySelector(`#Q${questionID}R4`).value;
-    console.log(`goodAnswer${questionID}`);
-    console.log(`feedback${questionID}`);
     const feedback = document.querySelector(`#feedback${questionID}`).value;
     const goodAnswerNumber = document.querySelector(`#goodAnswer${questionID}`).value;
     const options2 = {
