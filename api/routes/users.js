@@ -16,7 +16,7 @@ studentMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9
 router.get('/:id', (req, res) => {
   const tabOfKeyQuestions = [];
   const tabContentQuestions = [];
-  const registeredQuestions = getAllRegisteredQuestion(req.params.id);
+  const registeredQuestions = getAllRegisteredQuestion(3);
   console.log('Question enregistres : ')
   console.log(registeredQuestions)
   // PARCOURS la table contenant la question_id de l'etudiant puis on la push dans le tableau

@@ -26,4 +26,5 @@ const routes = {
   '/teachers' : TeacherPage
 };
 
+
 export default routes;

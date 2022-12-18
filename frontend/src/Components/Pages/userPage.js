@@ -8,11 +8,7 @@ import Navigate from '../Router/Navigate';
 
 
 
-const UserPage =async () => {  // mettre id entre parenthèse
-    const user = getAuthenticatedUser();
-    console.log("user", user);
-    console.log(user.studentID);
-    const registeredQuestions = await fetch(`localhost:3000/users/${user.studentID}`)
+const UserPage = async () => {  // mettre id entre parenthèse
     clearPage(); 
     renderStructureOfPage();
 
@@ -145,7 +141,8 @@ main.appendChild(contenu);
 function renderUserQuestions () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
     const lesQuestions = document.querySelector('.lesQuestions')
-fetch('http://localhost:3000/users')
+
+      fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) =>  {
         let liste = '';
