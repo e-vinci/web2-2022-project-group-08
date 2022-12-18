@@ -446,7 +446,7 @@ async function addTeacher(e) {
 async function ReallocateCoursesToTeacher(e) {
     e.preventDefault();
 
-    const mail = document.querySelector('#inputMail').value;
+    const idTeacher = document.querySelector('#inputMail').value;
     const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
 
     const options = {
@@ -459,7 +459,7 @@ async function ReallocateCoursesToTeacher(e) {
         },
         };
         
-    await fetch(`${process.env.API_BASE_URL}/users/${mail}`, options);
+    await fetch(`${process.env.API_BASE_URL}/users/${idTeacher}`, options);
     
 }
 

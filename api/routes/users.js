@@ -5,7 +5,7 @@ const express = require('express');
 const { getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
 
 const {loginTeacher, loginStudent,toRegisterAStudent,toRegisterATeacher,verifyIfStudentExists,verifyIfTeacherExists} = require('../models/register');
-const {getAllCoursesForTeacher, registerTeacherForforCourses} = require('../models/User');
+const {getAllCoursesForTeacher, registerTeacherForforCourses,deleteFromProfesseurCourses} = require('../models/User');
 const router = express.Router();
 
 teacherMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@vinci.be$/);
@@ -121,7 +121,14 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   const idteacher = req.params.id;
   const courses = req.body;
-  return res.json(courses);
+
+  const deleteAllCourses = deleteFromProfesseurCourses(idteacher);
+
+  for (let i = 0; i < courses.length; i+=1) {
+    let addCourse = registerTeacherForforCourses(idteacher, courses.item(i).value);
+}
+
+  return res.json(addCourse);
 });
 
 
