@@ -14,7 +14,6 @@ function createOptionCoursesAsString (courses){
     
     `;
 
-    
 });
 return coursesOptions;
 }
@@ -45,7 +44,6 @@ async function renderAdminPage () {
     const teachers = await response2.json();
     const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
-
     const adminPage = `
 
     <div class="container my-3">
@@ -219,12 +217,10 @@ async function renderAdminPage () {
                                 </div>
                             </div>
 
-                        
-
                             <div class="col-3 ">
                                 <div class="form-group">
-                                    <label for="selectCourseName" class="form-label mt-4">Attribuez les cours* :</label>
-                                    <select multiple="" class="form-select" id="selectCourseName" name="selectCourseName" size="3">
+                                    <label for="selectCoursToAdd" class="form-label mt-4">Attribuez les cours* :</label>
+                                    <select multiple class="form-select" id="selectCoursToAdd" name="selectCoursToAdd" size="3">
                                         ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -292,7 +288,7 @@ async function renderAdminPage () {
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="selectCourses" class="form-label mt-4">Attribuez les cours* :</label>
-                                <select multiple="" class="form-select" id="selectCourses"  name="selectCourses" size="3">
+                                <select multiple="" class="form-select select-multiple" id="selectCourses"  name="selectCourses" size="3">
                                     ${OptionAsString}
                                 </select>
                                 <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -314,9 +310,9 @@ async function renderAdminPage () {
     document.querySelector('#addCourseForm').addEventListener('submit', addCourse);
     document.querySelector('#modifyCourseForm').addEventListener('submit', modifyCourse);
     document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse);
-
-
     document.querySelector('#recoverCoursesTeacherForm').addEventListener('submit', recoverInformationsTeacher);
+
+    document.querySelector('#addTeacherForm').addEventListener('submit', addTeacher);
 
 }
 
@@ -329,10 +325,6 @@ async function addCourse(e) {
     const descriptionCourse = document.querySelector('#courseTextarea').value;
     const urlPictureCourse = document.querySelector('#courseTextarea').value;
 
-    console.log(nameCourse);
-
-    console.log(codeCourse);
-    console.log(descriptionCourse);
 
 
     const options = {
@@ -357,21 +349,11 @@ async function modifyCourse(e) {
     e.preventDefault();
 
     const selectCourse = document.querySelector('#selectCourseNametoModify').value;
-    console.log(selectCourse);
-    
-
     const nameCourse = document.querySelector('#courseNametoModify').value;
-    console.log(nameCourse);
     const codeCourse = document.querySelector('#courseCodetoModify').value;
-    console.log(codeCourse);
     const descriptionCourse = document.querySelector('#courseTextareatoModify').value;
-    console.log(descriptionCourse);
     const urlPictureCourse = document.querySelector('#courseTextareatoModify').value;
-    console.log(urlPictureCourse);
-
-    
-
-
+ 
     const options = {
     method: 'PUT',
     body: JSON.stringify({
@@ -430,8 +412,28 @@ async function recoverInformationsTeacher(e) {
         result += ` ${  element.name}`;
     });
 
-    console.log(result);
     document.querySelector('#teacherInfoCourse').innerHTML = result;
+}
+
+async function addTeacher(e) {
+    e.preventDefault();
+
+    const mail = document.querySelector('#inputMail').value;
+    const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({
+            mail,
+            courses
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        };
+        
+    await fetch(`${process.env.API_BASE_URL}/users`, options);
+    
 }
 
 
