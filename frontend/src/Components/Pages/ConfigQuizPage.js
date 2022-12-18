@@ -19,7 +19,7 @@ async function renderConfigQuiz () {
                 <div class="row justify-content-start">
                     <div class="col">
 
-                        <form action="/" method="GET">
+                        <form action="/quizPage" method="GET">
 							<input type="hidden" name="id" value="">
 							<button type="submit" class="btn">
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">

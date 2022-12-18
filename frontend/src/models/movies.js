@@ -7,9 +7,9 @@ const readAllQuizz = async () => {
     if (!response.ok) {
       throw new Error(`readAllQuizz:: fetch error : ${response.status} : ${response.statusText}`);
     }
-    const quizz = await response.json();
-    console.log(quizz);
-    return quizz;
+    const question = await response.json();
+    console.log(question);
+    return question;
   } catch (err) {
     console.error('readAllQuizz::error: ', err);
     throw err;

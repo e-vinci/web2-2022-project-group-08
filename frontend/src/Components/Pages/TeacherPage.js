@@ -8,7 +8,7 @@ import Navigate from '../Router/Navigate';
 
 
 
-const UserPage = () => {  // mettre id entre parenthèse
+const TeacherPage = () => {  // mettre id entre parenthèse
     clearPage(); 
     renderStructureOfPage();
 
@@ -76,13 +76,12 @@ function renderStructureOfPage(){
                   <div class="row">
                   <div class="col-sm-4 text-secondary"> 
                     </div>
-                    <div class="col-sm-4">
+                    <div data-bs-spy="scroll" data-bs-offset="0" class="scrollspy-example col-sm-4" tabindex="0">
                       <h5 class="mb-0">Mes notes</h5>
                     </div>
                     <hr>
                     <div class="col-sm-9 text-secondary">
                     <h6 class="lesNotes"></h6>
-                
                     </div>
                   </div>
                   <hr>
@@ -202,7 +201,8 @@ function renderUserListNotes() {
       .then((data) =>  {
         let liste = '';
         data.forEach(element => {
-      liste += ` <div class="container">
+      liste += ` 
+    <div class="container">
       <div class="row align-items-start">
         <div class="col">
         <h5> ${element.content} </h5>
@@ -217,10 +217,9 @@ function renderUserListNotes() {
         </div>
        </div>
       <div>
-        `;
+                `;
             noteList.innerHTML = liste;
-        }); 
-        document.getElementById('deleteForm').addEventListener('submit', deleteNote);
+        });    
       }   
     )            
     .catch((error) => console.error("FETCH ERROR:", error));
@@ -239,11 +238,11 @@ function renderUserListNotes() {
         },                                                                
       };
 
-      await fetch(`${process.env.API_BASE_URL}/notes/idNote`, options);
+      await fetch(`${process.env.API_BASE_URL}/notes`, options);
       Navigate('/users?id=')
     }
 
 
 
-export default UserPage;
+export default TeacherPage;
 

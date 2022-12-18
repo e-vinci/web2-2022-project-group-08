@@ -41,13 +41,15 @@ function deleteQuizById(quizID){
     return db.prepare('DELETE FROM quizzes WHERE quizz_id = ? ').run(quizID);
 }
 
+// eslint-disable-next-line consistent-return
 function updateQuizById(quizID, newCourse){
     const courseId = db.prepare('SELECT course_id FROM courses WHERE name = ?').get(newCourse);
     if (!verifyIfQuizzExists(courseId.course_id)) {
         db.prepare('UPDATE quizzes SET course = ? WHERE quizz_id = ?').run(courseId.course_id, quizID); 
         return courseId.course_id;  
     }
-    return;
+    // eslint-disable-next-line consistent-return
+    
 }
 
 

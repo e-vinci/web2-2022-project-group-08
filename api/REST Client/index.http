@@ -8,5 +8,5 @@ GET http://localhost:3000/index
 GET {{baseUrl}}/index/questions
 
 ### 
-GET {{baseUrl}}/index/2
+GET {{baseUrl}}/questions?quiz=1
 
