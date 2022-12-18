@@ -16,7 +16,7 @@ studentMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9
 router.get('/', (req, res) => {
   const tabOfKeyQuestions = [];
   const tabContentQuestions = [];
-  const registeredQuestions = getAllRegisteredQuestion(3);
+  const registeredQuestions = getAllRegisteredQuestion();
   console.log('Question enregistres : ')
   console.log(registeredQuestions)
   // PARCOURS la table contenant la question_id de l'etudiant puis on la push dans le tableau
@@ -40,12 +40,8 @@ console.log(tabContentQuestions)
 
 
 router.post('/login', (req, res) => {
-
   const {mail, password } = req.body
-  
   let authentificateUser;
-
-
   if (studentMailRegex.test(mail)) {
 
     /* En temps normal, on devrait juste vérifier que l'adresse mail corresponde à celle d'un étudiant, ici nous avons laissé les professeurs se connecter en tant qu'étudiant pour les tests
@@ -65,6 +61,7 @@ router.post('/login', (req, res) => {
   if (authentificateUser === "IncorrectPWD") res.status(401).json("Le mot de passe n'est pas correct");
 
   console.log(authentificateUser);
+  
   return res.json(authentificateUser);
 });
 
@@ -112,6 +109,7 @@ router.post('/registerTeacher', (req, res) => {
 
   return res.json(authentificateTeacher);
 });
+
 
 
 router.get('/:id', (req, res) => {

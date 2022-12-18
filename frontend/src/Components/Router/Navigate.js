@@ -9,7 +9,8 @@
 import { usePathPrefix } from '../../utils/path-prefix';
 
 const Navigate = (toUri, data) => {
-  const fromUri = window.location.pathname;
+  const fromUri = Number(window.location.href.split('?')[1])
+console.log("fromUri",fromUri)
   if (fromUri === toUri) return;
 
   window.history.pushState({data}, '', usePathPrefix(toUri));

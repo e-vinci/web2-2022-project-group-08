@@ -1,7 +1,7 @@
 
 module.exports = {
     secret: "you",
-    dbPath: "C:/Users/user/DataGripProjects/js/js.db"
+    dbPath: "/Users/kevinbationo/Desktop/web-project.db"
     // add your own configurations
     
 }
