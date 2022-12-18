@@ -65,7 +65,8 @@ function loginStudent(mail, password){
       {expiresIn : lifetimeJwt}
     );
     const  authenticatedStudent = {mail,token};
-    return authenticatedStudent;
+    const studentID = student?.lastInsertRowid;
+    return {authentificateStudent : authenticatedStudent, studentID : studentID, isStudent : true, isTeacher : false, isAdmin : false};
   };
 
   function toRegisterATeacher(mail){
@@ -83,8 +84,8 @@ function loginStudent(mail, password){
     );
 
     send(mail, generatedPassword);
-    const  authenticatedStudent = {mail,token};
-    return authenticatedStudent;
+    const  authenticatedTeacher = {mail,token};
+    return {authenticatedTeacher : authenticatedStudent, studentID : studentID, isStudent : true, isTeacher : true, isAdmin : false};
   };
 
   function verifyIfStudentExists (mail){

@@ -13,10 +13,10 @@ studentMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9
 
 
 /* GET USER PAGE */
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   const tabOfKeyQuestions = [];
   const tabContentQuestions = [];
-  const registeredQuestions = getAllRegisteredQuestion();
+  const registeredQuestions = getAllRegisteredQuestion(req.params.id);
   console.log('Question enregistres : ')
   console.log(registeredQuestions)
   // PARCOURS la table contenant la question_id de l'etudiant puis on la push dans le tableau
@@ -40,8 +40,12 @@ console.log(tabContentQuestions)
 
 
 router.post('/login', (req, res) => {
+
   const {mail, password } = req.body
+  
   let authentificateUser;
+
+
   if (studentMailRegex.test(mail)) {
 
     /* En temps normal, on devrait juste vérifier que l'adresse mail corresponde à celle d'un étudiant, ici nous avons laissé les professeurs se connecter en tant qu'étudiant pour les tests
@@ -61,7 +65,6 @@ router.post('/login', (req, res) => {
   if (authentificateUser === "IncorrectPWD") res.status(401).json("Le mot de passe n'est pas correct");
 
   console.log(authentificateUser);
-  
   return res.json(authentificateUser);
 });
 
@@ -108,7 +111,6 @@ router.post('/registerTeacher', (req, res) => {
 });
 
 
-
 router.get('/:id', (req, res) => {
   const idteacher = req.params.id;
   const tabCourseTeacher = getAllCoursesForTeacher(idteacher); 
@@ -129,5 +131,26 @@ router.put('/:id', (req, res) => {
   return res.json(addCourse);
 });
 
+
+router.post('/registerTeacher', (req, res) => {
+  const mail = req.body.mail;
+
+  const {email, courses} = req.body;
+
+
+if (!teacherMailRegex.test(email))
+ return res
+    .status(400)
+    .json("Email non valide ou n'appartenant pas à un professeur vinci");
+if(verifyIfTeacherExists(mail)) return res.status(401).json("Le professeur existe déjà");
+
+const authentificateTeacher = toRegisterATeacher(mail);
+
+for (let i = 0; i < courses.length; i+=1) {
+  let addCourse = registerTeacherForforCourses(email, courses.item(i).value);
+}
+
+return res.json(authentificateTeacher);
+});
 
 module.exports = router;
