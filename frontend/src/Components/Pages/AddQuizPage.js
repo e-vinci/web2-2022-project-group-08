@@ -1,4 +1,5 @@
 /* import { setAuthenticatedUser } from '../../utils/auths'; */
+import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 /* import Navbar from '../Navbar/Navbar'; */
@@ -7,6 +8,13 @@ import Navigate from '../Router/Navigate';
 const Swal = require('sweetalert2');
 
 const AddQuizPAge = () => {
+  const user = getAuthenticatedUser();
+  console.log(user);
+  console.log(user.isTeacher);
+  if(!user.isTeacher) {
+    alert("Vous n'avez pas l'autorisation");
+    return;
+  }
   clearPage();
   renderPageTitle('Ajouter un nouveau Quizz');
   renderQuizForm();

@@ -1,4 +1,5 @@
 /* import { setAuthenticatedUser } from '../../utils/auths'; */
+import { getAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 /* import Navbar from '../Navbar/Navbar'; */
 import Navigate from '../Router/Navigate'; 
@@ -8,6 +9,11 @@ import Navigate from '../Router/Navigate';
 
 let currentQuiz = {};
 const ModifyQuizPage = (quiz) => {
+  const user = getAuthenticatedUser();
+  if(!user.isTeacher) {
+    alert("Vous n'avez pas l'autorisation");
+    return;
+  }
   if(!quiz){
     currentQuiz = window.history.state?.data;
   }
