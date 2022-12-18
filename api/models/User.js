@@ -21,7 +21,16 @@ function deleteFromProfessorsCourses(idTeacher, idCourse){
 }
 
 function deleteFromProfesseurCourses(idTeacher){
-    return db.prepare('DELETE FROM professors_courses WHERE teacher = ?').run(idTeacher);
+    const test = db.prepare('SELECT * FROM professors_courses WHERE teacher = ? ').run(idTeacher);
+
+    if(test === undefined){
+        return 1;
+    }
+    
+    db.prepare('DELETE FROM professors_courses WHERE teacher = ?').run(idTeacher);
+    return 0;
+    
+
 }
 
 

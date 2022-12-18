@@ -123,16 +123,15 @@ router.put('/:id', (req, res) => {
   const {courses} = req.body;
   
   const deleteAllCourses = deleteFromProfesseurCourses(idteacher);
+  
+  
 
-  console.log(courses);
-
-  console.log('TEST COURSE')
-  let reponse;
+  const reponse = registerTeacherForCourses(idteacher, courses);
+  /* let reponse;
   for (let i = 0; i < courses.length; i+=1) {
     reponse = registerTeacherForCourses(idteacher, courses[i]);
-}
+} */
 
-  console.log('TEST COURSE')
   return res.json(reponse);
 });
 
