@@ -118,4 +118,11 @@ router.get('/:id', (req, res) => {
 });
 
 
+router.put('/:id', (req, res) => {
+  const idteacher = req.params.id;
+  const courses = req.body;
+  return res.json(courses);
+});
+
+
 module.exports = router;
