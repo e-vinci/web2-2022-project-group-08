@@ -20,6 +20,9 @@ function deleteFromProfessorsCourses(idTeacher, idCourse){
     return db.prepare('DELETE FROM professors_courses WHERE teacher = ? AND course = ?;').run(idTeacher, idCourse);
 }
 
+
+
+
 module.exports={
     getAllteachers,getAllCoursesForTeacher,registerTeacherForforCourses,deleteFromProfessorsCourses,getAllCoursesTeacherdDontHave
 };
