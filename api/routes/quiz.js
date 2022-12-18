@@ -11,7 +11,7 @@ router.get('/', (req, res) =>{
   const course = req.query?.course;
   if(course){
     const quiz = getQuizByCourse(course);
-    if(!quiz) return res.status(200)
+    if(!quiz) return res.status(404).json("Pas de quizz pour ce cours");
     return res.json(quiz)
   }else{
 

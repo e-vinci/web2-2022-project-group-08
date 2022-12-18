@@ -1,13 +1,33 @@
 import { clearPage } from "../../utils/render";
 import Navigate from "../Router/Navigate";
 
+const Swal = require('sweetalert2');
+
 
 const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
-    console.log(quizID)
     clearPage();
+    if( quizID === '-1') {
+        Swal.fire(
+            'Pas encore de quizz pour ce gours :( !',
+            '',
+            'error'
+          )
+        Swal.fire({
+            title: 'Pas encore de quizz pour ce gours :( !',
+            icon: 'info',
+            focusConfirm: false,
+            confirmButtonText:
+            `<i class="fa fa-thumbs-up"></i> Revenir à la page d'accueil`,
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Navigate('/');
+            }
+        })
+    }
     renderConfigQuiz();
     const form = document.querySelector('#startForm');
-    console.log(form)
     form.addEventListener('click', (e) => {
         goToQuizz(e, quizID)
     })

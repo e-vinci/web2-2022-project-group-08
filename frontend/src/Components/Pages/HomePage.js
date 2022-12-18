@@ -118,8 +118,7 @@ fetch('http://localhost:3000/index')
       fetch(` http://localhost:3000/quiz?course=${element.course_id}` )
       .then((response2) => response2.json())
       .then((quiz) => {
-        console.log(quiz)
-      
+  
       
         markup +=
         ` 
@@ -145,7 +144,7 @@ fetch('http://localhost:3000/index')
             </div>
 
             
-           <div class="col-2 my-auto"> <a id="test24"> <button id="button${compt}" value="${quiz.quizz_id}" class="btn btn-primary rounded-pill"> démarrer</button> </a> </div>
+           <div class="col-2 my-auto"> <a id="test24"> <button id="button${compt}" value="${quiz?.quizz_id ? quiz.quizz_id : -1}" class="btn btn-primary rounded-pill"> démarrer</button> </a> </div>
 
                   </div>
                 </div>
@@ -159,10 +158,9 @@ fetch('http://localhost:3000/index')
         ;
         listeOfCourses.innerHTML = markup;
       
-      }).then(()=> {
+      })
+      .then(()=> {
         const button = document.querySelector(`#button${compt - 1}`);
-        console.log("ici", button);
-        console.log(`#button${compt-1}`)
         button.addEventListener('click', (e) => {
           goToConfiguration(e, button.value)
         })
@@ -171,6 +169,8 @@ fetch('http://localhost:3000/index')
       
       
     })
+  }).catch((error) => {
+    console.log(error);
   })
 }
   
