@@ -92,6 +92,14 @@ router.post('/register', (req, res) => {
 router.post('/registerTeacher', (req, res) => {
     const mail = req.body.mail;
 
+    const {email, courses} = req.body;
+
+    for (let i = 0; i < courses.length; i+=1) {
+      console.log(courses.item(i).value);
+  }
+
+
+
   if (!teacherMailRegex.test(mail))
    return res
       .status(400)
