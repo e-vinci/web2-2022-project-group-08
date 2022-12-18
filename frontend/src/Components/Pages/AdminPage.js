@@ -274,7 +274,7 @@ async function renderAdminPage () {
                         <h4> Réattribuer des cours au professeur : </h4>
                     </div>
 
-                    <form id="ReallocateCoursesToTeacher" class="row justify-content-center">
+                    <form id="ReallocateCoursesToTeacherForm" class="row justify-content-center">
                         
                         <div class="col-4">
                             <div class="form-group">
@@ -313,6 +313,7 @@ async function renderAdminPage () {
     document.querySelector('#recoverCoursesTeacherForm').addEventListener('submit', recoverInformationsTeacher);
 
     document.querySelector('#addTeacherForm').addEventListener('submit', addTeacher);
+    document.querySelector('#ReallocateCoursesToTeacherForm').addEventListener('submit', ReallocateCoursesToTeacher);
 
 }
 
@@ -437,9 +438,30 @@ async function addTeacher(e) {
         };
         
     await fetch(`${process.env.API_BASE_URL}/users/registerTeacher`, options);
-    
+    AdminPage();
 }
 
+
+
+async function ReallocateCoursesToTeacher(e) {
+    e.preventDefault();
+
+    const idTeacher = document.querySelector('#inputMail').value;
+    const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
+
+    const options = {
+        method: 'PUT',
+        body: JSON.stringify({
+            courses
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        };
+        
+    await fetch(`${process.env.API_BASE_URL}/users/${idTeacher}`, options);
+    
+}
 
 
 export default AdminPage;
