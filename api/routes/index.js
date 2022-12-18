@@ -15,11 +15,12 @@ router.get('/', (req, res) =>{
 
 router.get('/questions', (req, res) =>{ 
     const  questions  = getAllQuestionsOneQuizz(1);
-    const  answers = [];
-     questions.forEach(element => (
-     answers.push(getAllAnswersOneQuestions(element.question_id))));
-     console.log( answers );
-    res.json({questions,answers});
+
+     for(let i =0; i<questions.length; i+=1 ){
+        questions[i].reponses = getAllAnswersOneQuestions(questions[i].question_id);
+    }
+
+    res.json({questions});
 });
 
 router.get('/:idQuestion', (req,res) => {

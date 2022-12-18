@@ -8,7 +8,7 @@ import Navigate from '../Router/Navigate';
 
 
 
-const UserPage = () => {  // mettre id entre parenthèse
+const TeacherPage = () => {  // mettre id entre parenthèse
     clearPage(); 
     renderStructureOfPage();
 
@@ -76,13 +76,12 @@ function renderStructureOfPage(){
                   <div class="row">
                   <div class="col-sm-4 text-secondary"> 
                     </div>
-                    <div class="col-sm-4">
+                    <div data-bs-spy="scroll" data-bs-offset="0" class="scrollspy-example col-sm-4" tabindex="0">
                       <h5 class="mb-0">Mes notes</h5>
                     </div>
                     <hr>
                     <div class="col-sm-9 text-secondary">
                     <h6 class="lesNotes"></h6>
-                
                     </div>
                   </div>
                   <hr>
@@ -114,7 +113,6 @@ function renderStructureOfPage(){
 
 `
 main.appendChild(contenu);
-
 
 
 }
@@ -196,54 +194,40 @@ async function addNote(e){
   Navigate('/users?id=')
 }
 
-
 function renderUserListNotes() {
-
   const noteList = document.querySelector('.lesNotes');
   fetch('http://localhost:3000/notes')
       .then((response) => response.json())
       .then((data) =>  {
-
         let liste = '';
         data.forEach(element => {
-          // console.log("data",element.id_personal_note)
-
-      liste += ` <div key={element.id_personal_note} class="container">
+      liste += ` 
+    <div class="container">
       <div class="row align-items-start">
-      
         <div class="col">
         <h5> ${element.content} </h5>
         <p class="h6"> Ajouté le ${element.date_creation} </p>
-
         </div>
             <div class="col-6">
-            <div >
-            <input type="hidden" id="idNote" value="${element.id_personal_note}">
-            <button id="deleteForm" type="submit" class="btn btn-primary rounded-pill"> DELETE MY NOTE 😕 </button>
-            </div>
+                <form id="deleteForm">
+                        <input type="hidden" id="idNote" value="${element.id_personal_note}">
+                        <button type="submit" class="btn btn-primary rounded-pill"> DELETE MY NOTE 😕 </button>
+                </form>
             </div>
         </div>
        </div>
       <div>
-        `;
-          
+                `;
             noteList.innerHTML = liste;
-        }); 
-
-        document.getElementById('deleteForm').addEventListener('click', deleteNote)
-     
-      //  mySubmitBtn.onclick = deleteNote()
-
-
+        });    
       }   
-      
     )            
     .catch((error) => console.error("FETCH ERROR:", error));
   };
 
   async function deleteNote(){
-    
       const idNote = document.querySelector('#idNote').value;
+      console.log(idNote);
       const options = {
         method: 'DELETE',
         body: JSON.stringify({
@@ -254,11 +238,11 @@ function renderUserListNotes() {
         },                                                                
       };
 
-      await fetch(`${process.env.API_BASE_URL}/notes/${idNote}`, options);
+      await fetch(`${process.env.API_BASE_URL}/notes`, options);
       Navigate('/users?id=')
     }
 
 
 
-export default UserPage;
+export default TeacherPage;
 

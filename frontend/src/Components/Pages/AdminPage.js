@@ -14,7 +14,6 @@ function createOptionCoursesAsString (courses){
     
     `;
 
-    
 });
 return coursesOptions;
 }
@@ -23,7 +22,7 @@ function createOptionTeachers(teachers){
     let teachersOptions = '';
     teachers?.forEach((teacher)=>{
         teachersOptions += `
-        <option>${teacher.mail}</option>
+        <option value=${teacher.teacher_id}>${teacher.mail}</option>
     
     `;
 });
@@ -45,7 +44,6 @@ async function renderAdminPage () {
     const teachers = await response2.json();
     const OptionAsStringForTeachers = createOptionTeachers(teachers);
     
-
     const adminPage = `
 
     <div class="container my-3">
@@ -182,8 +180,8 @@ async function renderAdminPage () {
                             
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="selectCourseName" class="form-label mt-4">Sélectionnez un cours à modifier</label>
-                                    <select class="form-select" id="selectCourseName" name="selectCourseName">
+                                    <label for="selectCourseNameToDelete" class="form-label mt-4">Sélectionnez un cours à modifier</label>
+                                    <select class="form-select" id="selectCourseNameToDelete" name="selectCourseNameToDelete">
                                         ${OptionAsString}
                                     </select>
                                 </div>
@@ -209,7 +207,7 @@ async function renderAdminPage () {
                         <h3>Ajout professeur :</h3>
                     </div>
 
-                    <form id="addTeacher">
+                    <form id="addTeacherForm">
                         <div class="row justify-content-center ">
                             <div class="col-4">
                                 <div class="form-group">
@@ -219,12 +217,10 @@ async function renderAdminPage () {
                                 </div>
                             </div>
 
-                        
-
                             <div class="col-3 ">
                                 <div class="form-group">
-                                    <label for="selectCourseName" class="form-label mt-4">Attribuez les cours* :</label>
-                                    <select multiple="" class="form-select" id="selectCourseName" name="selectCourseName" size="3">
+                                    <label for="selectCoursToAdd" class="form-label mt-4">Attribuez les cours* :</label>
+                                    <select multiple class="form-select" id="selectCoursToAdd" name="selectCoursToAdd" size="3">
                                         ${OptionAsString}
                                     </select>
                                     <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -253,18 +249,18 @@ async function renderAdminPage () {
                         <h4> Récuperer les infos du professeur : </h4>
                     </div>
 
-                    <form id="recoverCoursesTeacher" class="row justify-content-center">
+                    <form id="recoverCoursesTeacherForm" class="row justify-content-center">
 
                         <div class="col-4 my-3">
                             <div class="form-group">
-                                <label for="selectMailTeacher" class="form-label mt-4">Selectionnez l'adresse email</label>
-                                <select class="form-select" id="selectMailTeacher" name="selectMailTeacher">
+                                <label for="selectMailTeacherForRecover" class="form-label mt-4">Selectionnez l'adresse email</label>
+                                <select class="form-select" id="selectMailTeacherForRecover" name="selectMailTeacherForRecover">
                                     ${OptionAsStringForTeachers}
                                 </select>
 
                                 <p>Ce professeur est inscrit au cours de : </p>
 
-                                <p>Javascript, BD2.</p>
+                                <p id="teacherInfoCourse">.</p>
                             </div>
                         </div>
 
@@ -292,7 +288,7 @@ async function renderAdminPage () {
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="selectCourses" class="form-label mt-4">Attribuez les cours* :</label>
-                                <select multiple="" class="form-select" id="selectCourses"  name="selectCourses" size="3">
+                                <select multiple="" class="form-select select-multiple" id="selectCourses"  name="selectCourses" size="3">
                                     ${OptionAsString}
                                 </select>
                                 <small id="" class="form-text text-muted ">*cours : Vous devez sélectionner tous les cours.</small>
@@ -313,7 +309,11 @@ async function renderAdminPage () {
     main.innerHTML +=  adminPage;
     document.querySelector('#addCourseForm').addEventListener('submit', addCourse);
     document.querySelector('#modifyCourseForm').addEventListener('submit', modifyCourse);
-    /* document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse); */
+    document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse);
+    document.querySelector('#recoverCoursesTeacherForm').addEventListener('submit', recoverInformationsTeacher);
+
+    document.querySelector('#addTeacherForm').addEventListener('submit', addTeacher);
+
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -325,10 +325,6 @@ async function addCourse(e) {
     const descriptionCourse = document.querySelector('#courseTextarea').value;
     const urlPictureCourse = document.querySelector('#courseTextarea').value;
 
-    console.log(nameCourse);
-
-    console.log(codeCourse);
-    console.log(descriptionCourse);
 
 
     const options = {
@@ -345,6 +341,7 @@ async function addCourse(e) {
     };
     // eslint-disable-next-line no-unused-vars
     await fetch(`${process.env.API_BASE_URL}/courses`, options);
+    AdminPage();
 }
 
 
@@ -352,21 +349,11 @@ async function modifyCourse(e) {
     e.preventDefault();
 
     const selectCourse = document.querySelector('#selectCourseNametoModify').value;
-    console.log(selectCourse);
-    
-
     const nameCourse = document.querySelector('#courseNametoModify').value;
-    console.log(nameCourse);
     const codeCourse = document.querySelector('#courseCodetoModify').value;
-    console.log(codeCourse);
     const descriptionCourse = document.querySelector('#courseTextareatoModify').value;
-    console.log(descriptionCourse);
     const urlPictureCourse = document.querySelector('#courseTextareatoModify').value;
-    console.log(urlPictureCourse);
-
-    
-
-
+ 
     const options = {
     method: 'PUT',
     body: JSON.stringify({
@@ -383,23 +370,71 @@ async function modifyCourse(e) {
     await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
 }
 
-/* async function deleteCourse(e) {
+async function deleteCourse(e) {
     e.preventDefault();
 
-    const selectCourse = document.querySelector('#selectCourseName').value;
+    const selectCourse = document.querySelector('#selectCourseNameToDelete').value;
     
     const options = {
-    method: 'PUT',
+    method: 'DELETE',
     body: JSON.stringify({
-        selectCourse,
+        
     }),
     headers: {
         'Content-Type': 'application/json',
     },
     };
     // eslint-disable-next-line no-unused-vars
-    await fetch(`${process.env.API_BASE_URL}/courses`, options);
-} */
+    await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
+    AdminPage();
+}
+
+
+async function recoverInformationsTeacher(e) {
+    e.preventDefault();
+
+    const idTeacher = document.querySelector('#selectMailTeacherForRecover').value;
+
+    
+    const options = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    };
+    // eslint-disable-next-line no-unused-vars
+    const teacherCourses = await fetch(`${process.env.API_BASE_URL}/users/${idTeacher}`, options);
+    const teachersCourses2 = await teacherCourses.json();
+    
+    let result ="";
+
+    teachersCourses2.forEach(element => {
+        result += ` ${  element.name}`;
+    });
+
+    document.querySelector('#teacherInfoCourse').innerHTML = result;
+}
+
+async function addTeacher(e) {
+    e.preventDefault();
+
+    const mail = document.querySelector('#inputMail').value;
+    const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({
+            mail,
+            courses
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        };
+        
+    await fetch(`${process.env.API_BASE_URL}/users`, options);
+    
+}
 
 
 

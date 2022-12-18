@@ -5,7 +5,11 @@ function getAllteachers(){
 };
 
 function getAllCoursesForTeacher(idTeacher){
-    return db.prepare('SELECT pf.* FROM courses c, teachers t, professors_courses pf WHERE c.course_id = pf.course AND t.teacher_id = pf.teacher AND t.teacher_id = ?;').get(idTeacher);
+    return db.prepare('SELECT c.name FROM courses c, teachers t, professors_courses pf WHERE c.course_id = pf.course AND t.teacher_id = pf.teacher AND t.teacher_id = ?;').all(idTeacher);
+};
+
+function getAllCoursesTeacherdDontHave(idTeacher){
+    return db.prepare('SELECT c.name FROM courses c, teachers t WHERE t.teacher_id = 1 AND t.teacher_id NOT IN(SELECT pc.teacher FROM professors_courses pc WHERE pc.teacher = t.teacher_id AND c.course_id = pc.course);').all(idTeacher);
 };
 
 function registerTeacherForforCourses(idTeacher,idCourse){
@@ -17,5 +21,5 @@ function deleteFromProfessorsCourses(idTeacher, idCourse){
 }
 
 module.exports={
-    getAllteachers,getAllCoursesForTeacher,registerTeacherForforCourses,deleteFromProfessorsCourses
+    getAllteachers,getAllCoursesForTeacher,registerTeacherForforCourses,deleteFromProfessorsCourses,getAllCoursesTeacherdDontHave
 };

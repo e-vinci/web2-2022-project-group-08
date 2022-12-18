@@ -22,11 +22,13 @@ const QuizPage = async (quizID) => {
 
 function renderQuestion(question){
   if(!question){
-    Swal.fire(
-      'Le quizz est terminé !',
-      `Vous avez un score de ${goodAnswerNumber} / ${questions.length}`,
-      'success'
-    )
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: `Le quizz est terminé, vous avez un score de ${goodAnswerNumber} / ${questions.length}`,
+      showConfirmButton: false,
+      timer: 2000
+    })
     for (let i = 1; i < 5; i+=1) {
       const button = document.querySelector(`#button${i}`);
       button.addEventListener('click', endOfQuiz)
@@ -51,6 +53,7 @@ function renderQuestion(question){
     fetch(`${process.env.API_BASE_URL}/answers?question=${question.question_id}`) 
         .then((response) => response.json())
         .then((data2) =>  {
+         
             let answerNumber = 1;
             data2.forEach(answer => {
             const answerButton = document.createElement('button');
@@ -72,9 +75,10 @@ function renderQuestion(question){
     main.appendChild(questionWrapper);
 }
 
-function chooseAnswer(e, goodAnswer, answer){
+async function chooseAnswer(e, goodAnswer, answer){
   e.preventDefault();
   givenAnswerNumber +=1;
+  console.log(answer===goodAnswer.content)
   if(answer === goodAnswer.content){
     Swal.fire(
       'Bonne réponse !',
@@ -85,7 +89,7 @@ function chooseAnswer(e, goodAnswer, answer){
    
   }
   else{
-    Swal.fire(
+    await Swal.fire(
       'Mauvaise réponse :( !',
       goodAnswer.good_answer_feedback,
       'error'

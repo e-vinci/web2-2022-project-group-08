@@ -70,7 +70,11 @@ console.log('Urls',urls);
   let compteur=0;
   document.getElementById('header').innerHTML=`
 
-  <div class="choix"><h1>  </h1></div>
+  <div class="choix">
+    <div class="">
+    <lottie-player src="https://assets1.lottiefiles.com/private_files/lf30_icgp2hvb.json"  background="transparent"  speed="1"  style="width: 250px; height: 250px;"  loop  autoplay></lottie-player>
+    </div>
+  </div>
   
   <div class="glide">
   <div class="glide__track" data-glide-el="track">
