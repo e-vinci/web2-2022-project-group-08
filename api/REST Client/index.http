@@ -1,9 +1,10 @@
 @baseUrl = http://localhost:3000
 
-### Read all notes for a student
-GET {{baseUrl}}/notes?student=1
+### Read all courses
+GET {{baseUrl}}/index
 
-
+### Read all questions for One Quizz
+GET {{baseUrl}}/index/questions?quizz=1
 
 ### Create note  for a student 
 POST {{baseUrl}}/notes/
@@ -14,6 +15,6 @@ Content-Type: application/json
     "student" : 3
 }
 
+### Read good answer for a question
+GET {{baseUrl}}/index/1
 
-### Delete the note with ID == 1
-DELETE {{baseUrl}}/notes/1
