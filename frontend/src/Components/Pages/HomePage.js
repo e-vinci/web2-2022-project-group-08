@@ -162,6 +162,7 @@ fetch(`${process.env.API_BASE_URL}/index`)
       .then(()=> {
         const button = document.querySelector(`#button${compt - 1}`);
         button.addEventListener('click', (e) => {
+          console.log(`id when go to config ${button.value}`);
           goToConfiguration(e, button.value)
         })
         
@@ -176,7 +177,7 @@ fetch(`${process.env.API_BASE_URL}/index`)
   
 function goToConfiguration(e, quizID){
   e.preventDefault();
-    Navigate("/configurationQuiz", quizID);
+    Navigate("/ConfigQuizPage", quizID);
 }
 
 

@@ -1,11 +1,13 @@
 import { clearPage } from "../../utils/render";
 import Navigate from "../Router/Navigate";
 
+// eslint-disable-next-line import/no-unresolved
 const Swal = require('sweetalert2');
 
 
 const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
     clearPage();
+    console.log(`id du quiz : ${quizID}`);
     if( quizID === '-1') {
         Swal.fire(
             'Pas encore de quizz pour ce gours :( !',
@@ -36,7 +38,7 @@ const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
 
 function goToQuizz(e, quizID){
     e.preventDefault();
-    Navigate('/quizPage', quizID);
+    Navigate('/QuizPage', quizID);
 
 }
 
@@ -53,7 +55,7 @@ async function renderConfigQuiz () {
                 <div class="row justify-content-start">
                     <div class="col">
 
-                        <form action="/quizPage" method="GET">
+                        <form action="/QuizPage" method="GET">
 							<input type="hidden" name="id" value="">
 							<button type="submit" class="btn">
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">

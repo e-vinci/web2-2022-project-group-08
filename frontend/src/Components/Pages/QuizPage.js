@@ -7,18 +7,20 @@ let questions = [];
 let questionNumber = 0;
 let goodAnswerNumber = 0;
 let givenAnswerNumber = 0;
+let timeID ;
+const delay = 15*1000;
 console.log(goodAnswerNumber);
 console.log(givenAnswerNumber);
 
-const QuizPage = async (quizID) => {
-  console.log(quizID);
+const QuizPage = async () => {
+  console.log(`boo : ${1}`);
     clearPage();
-    const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${quizID}`)
+    const response = await fetch(`${process.env.API_BASE_URL}/questions?quiz=${1}`)
     questions = await response.json();
-    renderQuestion(questions[0]);
+    console.log(`here : ${questions[0]}`);
+    renderQuestion(questions);
   };
   
-
 
 function renderQuestion(question){
   if(!question){
@@ -28,7 +30,8 @@ function renderQuestion(question){
       title: `Le quizz est terminé, vous avez un score de ${goodAnswerNumber} / ${questions.length}`,
       showConfirmButton: false,
       timer: 2000
-    })
+    });
+  
     for (let i = 1; i < 5; i+=1) {
       const button = document.querySelector(`#button${i}`);
       button.addEventListener('click', endOfQuiz)
@@ -62,15 +65,23 @@ function renderQuestion(question){
             answerButton.id = `button${answerNumber}`;
             answerButton.innerHTML =  `Réponse n° ${answerNumber} : ${answer.content}`
             if(answer.correct) goodAnswer = answer;
+
             answerButton.addEventListener('click', (e) => {
               chooseAnswer(e, goodAnswer, answer.content)
             } );
             answerWrapper.appendChild(answerButton);
             questionWrapper.appendChild(answerWrapper);
-            answerNumber +=1;
+            answerNumber +=1;    
       });
-    })
 
+        timeID = setTimeout(()=>{
+            questionNumber +=1;
+            renderQuestion(questions[questionNumber]);
+            clearTimeout(timeID);     
+        }, delay);
+
+    })
+    
 
     main.appendChild(questionWrapper);
 }
