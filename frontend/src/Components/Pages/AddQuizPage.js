@@ -3,6 +3,9 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 /* import Navbar from '../Navbar/Navbar'; */
 
+// eslint-disable-next-line import/no-unresolved
+const Swal = require('sweetalert2');
+
 const AddQuizPAge = () => {
   clearPage();
   renderPageTitle('Ajouter un nouveau Quizz');
@@ -15,7 +18,7 @@ function renderQuizForm() {
   title.innerHTML = "Sélectionnez pour quel cours vous voulez créer un quizz"
   main.appendChild(title);
   const warning = document.createElement('p');
-  warning.innerHTML = "Attention, vous ne pouvez créer un quizz que dans les cours où il n'en existe pas. Si vous voulez modifier un quizz existant rendez vous sur cette page.";
+  warning.innerHTML = "Attention, vous ne pouvez créer un quizz que dans les cours où il n'en existe pas. Si vous voulez modifier un quizz existant rendez vous sur votre page personnelle.";
   main.append(warning);
   const form = document.createElement('form');
   form.className = 'p-5';
@@ -61,7 +64,11 @@ async function addQuizz(e) {
       if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
       Navigate('/modifyQuizPage', addedQuiz);
     }catch(error){
-      alert(addedQuiz);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `${addedQuiz}`,
+      })
     }
   }
 

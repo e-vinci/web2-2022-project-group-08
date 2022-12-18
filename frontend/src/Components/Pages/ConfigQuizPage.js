@@ -1,10 +1,46 @@
 import { clearPage } from "../../utils/render";
+import Navigate from "../Router/Navigate";
+
+// eslint-disable-next-line import/no-unresolved
+const Swal = require('sweetalert2');
 
 
-const ConfigQuiz = () => {  // mettre id entre parenthèse
+const ConfigQuiz = (quizID) => {  // mettre id entre parenthès
     clearPage();
+    console.log(`id du quiz : ${quizID}`);
+    if( quizID === '-1') {
+        Swal.fire(
+            'Pas encore de quizz pour ce gours :( !',
+            '',
+            'error'
+          )
+        Swal.fire({
+            title: 'Pas encore de quizz pour ce gours :( !',
+            icon: 'info',
+            focusConfirm: false,
+            confirmButtonText:
+            `<i class="fa fa-thumbs-up"></i> Revenir à la page d'accueil`,
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Navigate('/');
+            }
+        })
+    }
     renderConfigQuiz();
+    const form = document.querySelector('#startForm');
+    form.addEventListener('click', (e) => {
+        goToQuizz(e, quizID)
+    })
 };
+
+
+function goToQuizz(e, quizID){
+    e.preventDefault();
+    Navigate('/QuizPage', quizID);
+
+}
 
 async function renderConfigQuiz () {
     // const infoQuiz = await fetch(`http://localhost:3000/course?id=${id}`).then((response) => response.json()) ;// normalement quand sur l'accueil on clique sur démarrer je dois recevoir l'id du cours
@@ -19,7 +55,7 @@ async function renderConfigQuiz () {
                 <div class="row justify-content-start">
                     <div class="col">
 
-                        <form action="/quizPage" method="GET">
+                        <form action="/QuizPage" method="GET">
 							<input type="hidden" name="id" value="">
 							<button type="submit" class="btn">
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -64,10 +100,10 @@ async function renderConfigQuiz () {
                 <div class="row justify-content-center">
                     <div class="col-auto m-1">
 
-                        <form action="" method="GET">
+                        <form id="startForm" >
 							<input type="hidden" name="id" value="">
-							<button type="submit" class="btn btn-primary rounded-pill">
-								Démarrer
+							<button  type = 'submit' class="btn btn-primary rounded-pill">
+								Démarrer    
 							</button>
 						</form>
                     </div>

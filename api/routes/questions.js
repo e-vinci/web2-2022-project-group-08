@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
   
     if (!quiz) return res.json([]);
   
-    return res.json(getAllQuestionsOneQuizz(quiz));
+    const questions = getAllQuestionsOneQuizz(quiz);
+    return res.json(questions);
   });
 
 
