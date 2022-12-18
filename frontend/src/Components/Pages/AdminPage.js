@@ -86,8 +86,8 @@ async function renderAdminPage () {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="courseFile" class="form-label mt-4">Choisissez une photo (pnj, jpeg, ..) </label>
-                                <input  class="form-control" type="file" id="courseFile name="courseFile">
+                                <label class="col-form-label mt-4" for="courseFile">Default input</label>
+                                <input type="text" class="form-control" placeholder="Entre url de la photo" id="courseFile" name="courseFile">
                             </div>
                         </div>
                     </div>
@@ -150,8 +150,8 @@ async function renderAdminPage () {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="courseFiletoModify" class="form-label mt-4">Choisissez une photo (pnj, jpeg, ..) </label>
-                                <input class="form-control" type="file" id="courseFiletoModify" name="courseFiletoModify">
+                                <label class="col-form-label mt-4" for="courseFileToModify">Default input</label>
+                                <input type="text" class="form-control" placeholder="Entre url de la photo" id="courseFileToModify" name="courseFileToModify">
                             </div>
                         </div>
                     </div>
@@ -324,7 +324,7 @@ async function addCourse(e) {
     const nameCourse = document.querySelector('#coursName').value;
     const codeCourse = document.querySelector('#courseCode').value;
     const descriptionCourse = document.querySelector('#courseTextarea').value;
-    const urlPictureCourse = document.querySelector('#courseTextarea').value;
+    const urlPictureCourse = document.querySelector('#courseFile').value;
 
     const options = {
     method: 'POST',
@@ -351,7 +351,7 @@ async function modifyCourse(e) {
     const nameCourse = document.querySelector('#courseNametoModify').value;
     const codeCourse = document.querySelector('#courseCodetoModify').value;
     const descriptionCourse = document.querySelector('#courseTextareatoModify').value;
-    const urlPictureCourse = document.querySelector('#courseTextareatoModify').value;
+    const urlPictureCourse = document.querySelector('#courseFileToModify').value;
 
     const options = {
     method: 'PUT',
@@ -367,6 +367,7 @@ async function modifyCourse(e) {
     };
     // eslint-disable-next-line no-unused-vars
     await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
+    AdminPage();
 }
 
 async function deleteCourse(e) {
@@ -456,6 +457,7 @@ async function ReallocateCoursesToTeacher(e) {
     for (let i = 0; i < courses.length; i+=1) {
         // eslint-disable-next-line radix
         tabCourses.push(parseInt(courses.item(i).value));
+        
     }
 
     const options = {
