@@ -71,7 +71,8 @@ router.post('/register', (req, res) => {
   
   const {mail, registerPassword,registerConfPassword } = req.body
 
-  if (registerPassword !== registerConfPassword) return res.status(404).json('Les mots de passe ne correspondent pas');
+  console.log(registerConfPassword, registerPassword)
+  if (registerPassword !== registerConfPassword) return res.status(409).json('Les mots de passe ne correspondent pas');
 
   if (!studentMailRegex.test(mail)) return res.status(401).json("Email non valide ou n'appartenant pas à un étudiant vinci");
 

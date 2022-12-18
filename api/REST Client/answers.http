@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:3000
+
+### Read all answers for a question 
+GET {{baseUrl}}/answers?question=1
+
+
+
+### Create answers for a question ("De quelle couleur est le ciel ?") (4 answers required)
+POST {{baseUrl}}/answers/
+Content-Type: application/json
+
+{
+    "answer1" : "Bleu",
+    "answer2": "Rouge",
+    "answer3": "Vert",
+    "answer4": "Gris",
+    "goodAnswerNumber" : 1,
+    "questionID" : 2
+}
+
+
+### Update answers from a question ID
+PATCH {{baseUrl}}/answers/2
+Content-Type: application/json
+
+{
+    "answer1" : "Violet",
+    "answer2": "Rouge",
+    "answer3": "Bleu",
+    "answer4": "Orange",
+    "goodAnswerNumber" : 3,
+    "questionID" : 2
+}
