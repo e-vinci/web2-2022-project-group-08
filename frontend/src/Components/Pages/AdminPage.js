@@ -23,7 +23,7 @@ function createOptionTeachers(teachers){
     let teachersOptions = '';
     teachers?.forEach((teacher)=>{
         teachersOptions += `
-        <option>${teacher.mail}</option>
+        <option value=${teacher.teacher_id}>${teacher.mail}</option>
     
     `;
 });
@@ -209,7 +209,7 @@ async function renderAdminPage () {
                         <h3>Ajout professeur :</h3>
                     </div>
 
-                    <form id="addTeacher">
+                    <form id="addTeacherForm">
                         <div class="row justify-content-center ">
                             <div class="col-4">
                                 <div class="form-group">
@@ -253,18 +253,18 @@ async function renderAdminPage () {
                         <h4> Récuperer les infos du professeur : </h4>
                     </div>
 
-                    <form id="recoverCoursesTeacher" class="row justify-content-center">
+                    <form id="recoverCoursesTeacherForm" class="row justify-content-center">
 
                         <div class="col-4 my-3">
                             <div class="form-group">
-                                <label for="selectMailTeacher" class="form-label mt-4">Selectionnez l'adresse email</label>
-                                <select class="form-select" id="selectMailTeacher" name="selectMailTeacher">
+                                <label for="selectMailTeacherForRecover" class="form-label mt-4">Selectionnez l'adresse email</label>
+                                <select class="form-select" id="selectMailTeacherForRecover" name="selectMailTeacherForRecover">
                                     ${OptionAsStringForTeachers}
                                 </select>
 
                                 <p>Ce professeur est inscrit au cours de : </p>
 
-                                <p>Javascript, BD2.</p>
+                                <p id="teacherInfoCourse">.</p>
                             </div>
                         </div>
 
@@ -314,6 +314,10 @@ async function renderAdminPage () {
     document.querySelector('#addCourseForm').addEventListener('submit', addCourse);
     document.querySelector('#modifyCourseForm').addEventListener('submit', modifyCourse);
     document.querySelector('#deleteCourseForm').addEventListener('submit', deleteCourse);
+
+
+    document.querySelector('#recoverCoursesTeacherForm').addEventListener('submit', recoverInformationsTeacher);
+
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -345,6 +349,7 @@ async function addCourse(e) {
     };
     // eslint-disable-next-line no-unused-vars
     await fetch(`${process.env.API_BASE_URL}/courses`, options);
+    AdminPage();
 }
 
 
@@ -389,9 +394,9 @@ async function deleteCourse(e) {
     const selectCourse = document.querySelector('#selectCourseNameToDelete').value;
     
     const options = {
-    method: 'POST',
+    method: 'DELETE',
     body: JSON.stringify({
-        selectCourse,
+        
     }),
     headers: {
         'Content-Type': 'application/json',
@@ -399,6 +404,34 @@ async function deleteCourse(e) {
     };
     // eslint-disable-next-line no-unused-vars
     await fetch(`${process.env.API_BASE_URL}/courses/${selectCourse}`, options);
+    AdminPage();
+}
+
+
+async function recoverInformationsTeacher(e) {
+    e.preventDefault();
+
+    const idTeacher = document.querySelector('#selectMailTeacherForRecover').value;
+
+    
+    const options = {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    };
+    // eslint-disable-next-line no-unused-vars
+    const teacherCourses = await fetch(`${process.env.API_BASE_URL}/users/${idTeacher}`, options);
+    const teachersCourses2 = await teacherCourses.json();
+    
+    let result ="";
+
+    teachersCourses2.forEach(element => {
+        result += ` ${  element.name}`;
+    });
+
+    console.log(result);
+    document.querySelector('#teacherInfoCourse').innerHTML = result;
 }
 
 

@@ -6,8 +6,8 @@ const {getAllQuestionsOneQuizz, addQuestionByQuizId, modifyQuestionByID, deleteQ
 const router = express.Router();
 
 
-router.get('/', function (req, res) {
-    const quiz = req?.query ? parseInt(req.query.quiz) : undefined;
+router.get('/', (req, res) => {
+    const quiz = req?.query ? parseInt(req.query.quiz, 10) : undefined;
     console.log(quiz);
     if ( quiz && (typeof quiz !== 'number' || quiz <= 0)  )
       return res.sendStatus(400);
@@ -18,17 +18,17 @@ router.get('/', function (req, res) {
   });
 
 
-router.post('/', function (req, res) {
+router.post('/', (req, res) => {
   const question = addQuestionByQuizId(req.body.question, req.body.quizID);
   return res.json(question); 
   });
 
-router.patch('/:id', function (req, res) {
+router.patch('/:id', (req, res) => {
   const question = modifyQuestionByID(req.params.id, req.body.question);
   return res.json(question); 
   });
 
-router.delete('/:id', function (req, res){
+router.delete('/:id', (req, res)=> {
   const question = deleteQuestionById(req.params.id);
   return res.json(question);
 });

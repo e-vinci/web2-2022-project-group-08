@@ -5,7 +5,7 @@ function getAllteachers(){
 };
 
 function getAllCoursesForTeacher(idTeacher){
-    return db.prepare('SELECT pf.* FROM courses c, teachers t, professors_courses pf WHERE c.course_id = pf.course AND t.teacher_id = pf.teacher AND t.teacher_id = ?;').get(idTeacher);
+    return db.prepare('SELECT c.name FROM courses c, teachers t, professors_courses pf WHERE c.course_id = pf.course AND t.teacher_id = pf.teacher AND t.teacher_id = ?;').all(idTeacher);
 };
 
 function registerTeacherForforCourses(idTeacher,idCourse){

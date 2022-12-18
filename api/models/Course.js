@@ -33,6 +33,16 @@ function modifyCourse(newCode ,newName, newPresentation, newPicture, select){
     return db.prepare('UPDATE courses SET code = ?,  name = ?, presentation = ?, picture = ?  WHERE course_id = ?').run(newCode ,newName, newPresentation, newPicture, select);
 }
 
+function deleteCourseById(courseId){
+    return db.prepare('DELETE FROM courses WHERE course_id = ?').run(courseId);
+}
+
 module.exports={
-    getACourse, getAllCourses, getACourseImage,getACourseById, createCourse, modifyCourse
+    getACourse, 
+    getAllCourses, 
+    getACourseImage,
+    getACourseById, 
+    createCourse, 
+    modifyCourse,
+    deleteCourseById
 };
