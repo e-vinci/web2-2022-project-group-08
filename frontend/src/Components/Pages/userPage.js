@@ -214,7 +214,6 @@ function renderUserListNotes() {
         <div class="col">
         <h5> ${element.content} </h5>
         <p class="h6"> Ajouté le ${element.date_creation} </p>
-
         </div>
             <div class="col-6">
             <div >
@@ -243,20 +242,20 @@ function renderUserListNotes() {
 
   async function deleteNote(){
     
-      const idNote = document.querySelector('#idNote').value;
-      const options = {
-        method: 'DELETE',
-        body: JSON.stringify({
-          idNote
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },                                                                
-      };
+    const idNote = document.querySelector('#idNote').value;
+    const options = {
+      method: 'DELETE',
+      body: JSON.stringify({
+        idNote
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },                                                                
+    };
 
-      await fetch(`${process.env.API_BASE_URL}/notes/${idNote}`, options);
-      Navigate('/users?id=')
-    }
+    await fetch(`${process.env.API_BASE_URL}/notes/${idNote}`, options);
+    Navigate('/users?id=')
+  }
 
 
 

@@ -421,6 +421,10 @@ async function addTeacher(e) {
     const mail = document.querySelector('#inputMail').value;
     const courses = document.querySelector('#selectCoursToAdd').selectedOptions;
 
+    for (let i = 0; i < courses.length; i+=1) {
+        console.log(courses.item(i).value);
+    }
+
     const options = {
         method: 'POST',
         body: JSON.stringify({
@@ -432,7 +436,7 @@ async function addTeacher(e) {
         },
         };
         
-    await fetch(`${process.env.API_BASE_URL}/users`, options);
+    await fetch(`${process.env.API_BASE_URL}/users/registerTeacher`, options);
     
 }
 

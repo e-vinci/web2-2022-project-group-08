@@ -49,15 +49,14 @@ router.delete('/:id', (req, res) =>{
 
     const idCourse = req.params.id;
     const reponse = getQuizIdByCourseId(idCourse);
-    const quizId = reponse.quizz_id;
-    
-    let reponse2;
-    if (Number.isInteger(quizId)) {
-        reponse2 = deleteQuizById(quizId);
-    }
-    reponse2= deleteCourseById(idCourse);
+    const quizId = reponse?.quizz_id;
 
-    return res.json(reponse2);
+    if (Number.isInteger(quizId)) {
+        const reponse2 = deleteQuizById(quizId);
+    }
+    const reponse3= deleteCourseById(idCourse);
+
+    return res.json(reponse3);
 });
 
 

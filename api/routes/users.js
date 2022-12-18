@@ -5,7 +5,7 @@ const express = require('express');
 const { getAllRegisteredQuestion, getOneQuestion } = require('../models/Question');
 
 const {loginTeacher, loginStudent,toRegisterAStudent,toRegisterATeacher,verifyIfStudentExists,verifyIfTeacherExists} = require('../models/register');
-const {getAllCoursesForTeacher} = require('../models/User');
+const {getAllCoursesForTeacher, registerTeacherForforCourses} = require('../models/User');
 const router = express.Router();
 
 teacherMailRegex = new RegExp(/^[äöüéèa-zA-Z0-9]+[-_.]*[äöüéèa-zA-Z0-9]*@vinci.be$/);
@@ -92,7 +92,10 @@ router.post('/register', (req, res) => {
 router.post('/registerTeacher', (req, res) => {
     const mail = req.body.mail;
 
-  if (!teacherMailRegex.test(mail))
+    const {email, courses} = req.body;
+
+  
+  if (!teacherMailRegex.test(email))
    return res
       .status(400)
       .json("Email non valide ou n'appartenant pas à un professeur vinci");
@@ -100,7 +103,9 @@ router.post('/registerTeacher', (req, res) => {
   
   const authentificateTeacher = toRegisterATeacher(mail);
 
-  
+  for (let i = 0; i < courses.length; i+=1) {
+    let addCourse = registerTeacherForforCourses(email, courses.item(i).value);
+}
 
   return res.json(authentificateTeacher);
 });
