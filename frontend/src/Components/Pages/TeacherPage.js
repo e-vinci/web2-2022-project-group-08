@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Button } from 'bootstrap';
-import { setAuthenticatedUser } from '../../utils/auths';
+import { getAuthenticatedUser, setAuthenticatedUser } from '../../utils/auths';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
@@ -10,6 +10,7 @@ import Navigate from '../Router/Navigate';
 
 const TeacherPage = () => {  // mettre id entre parenthèse
     clearPage();
+    const user = getAuthenticatedUser();
     if(!user.isTeacher) {
       alert("Vous n'avez pas l'autorisation");
       return;
