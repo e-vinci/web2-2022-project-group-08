@@ -9,6 +9,7 @@ import Navigate from '../Router/Navigate';
 
 
 const UserPage = () => {  // mettre id entre parenthèse
+    
     clearPage(); 
     renderStructureOfPage();
 
@@ -38,7 +39,6 @@ console.log("authenticatedUser",authenticatedUser)
 
                     <div class="mt-3">
                       <h4>${authenticatedUser?.mail}</h4>
-                      <p class="text-secondary mb-1">METTRE L EMAIL</p>
                     </div>
                   </div>
                 </div>

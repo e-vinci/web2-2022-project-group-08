@@ -1,4 +1,5 @@
 const express = require('express');
+const { default: UserPage } = require('../../frontend/src/Components/Pages/userPage');
 
 const {addNote, getNotes, deleteNote} = require('../models/Notes');
 
@@ -9,6 +10,7 @@ router.get('/', (req, res) => {
     const studentId = 3; // HardCodé :|
     const userNote = getNotes(studentId);
     console.log(userNote)
+    
     return res.json(userNote);
 });
 
