@@ -6,7 +6,7 @@ const cors = require('cors');
 const corsOptions = {
 
   origin: 'http://localhost:8080',
-
+  production:'https://e-vinci.github.io/web2-2022-project-group-08/',
 };
 
 const usersRouter = require('./routes/users');
