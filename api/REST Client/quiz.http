@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:3000
+
+### Read all quizzes 
+GET {{baseUrl}}/quiz
+
+### Read a quiz for a course
+GET {{baseUrl}}/quiz?course=1
+
+### Read a quiz with its id
+GET {{baseUrl}}/quiz/1
+
+### Delete the quiz with ID == 1
+DELETE {{baseUrl}}/quiz/1
+
+### Create a quiz by a course name (fail if a quiz already exist for a course)
+POST {{baseUrl}}/quiz/
+Content-Type: application/json
+
+{
+    "selectedCourse" : "Uml"
+}
