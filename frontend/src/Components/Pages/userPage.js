@@ -12,7 +12,7 @@ const UserPage =async () => {  // mettre id entre parenthèse
     const user = getAuthenticatedUser();
     console.log("user", user);
     console.log(user.studentID);
-    const registeredQuestions = await fetch(`http://localhost:3000/users/${user.studentID}`)
+    const registeredQuestions = await fetch(`${process.env.API_BASE_URL}/users/${user.studentID}`)
     clearPage(); 
     renderStructureOfPage();
 
