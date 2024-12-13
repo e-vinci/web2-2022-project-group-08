@@ -30,10 +30,12 @@ function renderFooter() {
                         </div>
                     </div>
 
+                    /*
                     <div class="row">
                         <div class="col">
                             <p>Chitsaz Ramtin</p>
                         </div>
+                    */
 
                         <div class="col">
                             <p>Hebbal Manal</p>
