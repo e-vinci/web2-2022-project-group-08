@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:3000
+
+### Read all courses
+GET {{baseUrl}}/index
+
+### Read all questions for One Quizz
+GET {{baseUrl}}/index/questions?quizz=1
+
+### Create note  for a student 
+POST {{baseUrl}}/notes/
+Content-Type: application/json
+
+{
+    "note" : "Il faudrait plutôt faire ça",
+    "student" : 3
+}
+
+### Read good answer for a question
+GET {{baseUrl}}/index/1
+

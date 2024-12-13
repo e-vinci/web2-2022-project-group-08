@@ -1,3 +1,5 @@
+#ignore config.js
+config.json
 # ignore all node_modules folders and nested folders & files
 node_modules
 # ignore the specific VS Code configuration parameters

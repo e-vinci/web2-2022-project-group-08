@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:3000
+
+### Read all qustions for a quiz
+GET {{baseUrl}}/questions?quiz=1
+
+
+
+### Create question for a quiz 
+POST {{baseUrl}}/questions/
+Content-Type: application/json
+
+{
+    "question" : "De quelle couleur est le ciel ?",
+    "quizID" : 1
+}
+
+
+### Update question 
+PATCH {{baseUrl}}/questions/1
+Content-Type: application/json
+
+{
+    "question" : "De quelle couleur est mon t-shirt?"
+    
+}
+
+
+### Delete the question with ID == 2
+DELETE {{baseUrl}}/questions/2

@@ -6,13 +6,24 @@
  * has to import all the pages to render them.
  */
 
-const Navigate = (toUri) => {
-  const fromUri = window.location.pathname;
+import { usePathPrefix } from '../../utils/path-prefix';
+
+const Navigate = (toUri, data) => {
+  let fromUri;
+  if(fromUri === '/' && toUri === '/configurationQuiz') {
+    console.log('icitt');
+     fromUri = Number(window.location.href.split('?')[1])
+  }else{
+     fromUri = window.location.pathname
+  }
+  
+console.log("fromUri",fromUri)
   if (fromUri === toUri) return;
 
-  window.history.pushState({}, '', toUri);
-  const popStateEvent = new PopStateEvent('popstate', { state: {} });
+  window.history.pushState({data}, '', usePathPrefix(toUri));
+  const popStateEvent = new PopStateEvent('popstate', { state: {data} });
   dispatchEvent(popStateEvent);
+  
 };
 
 export default Navigate;

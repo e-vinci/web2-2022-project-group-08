@@ -1,0 +1,19 @@
+@baseUrl = http://localhost:3000
+
+### Read all notes for a student
+GET {{baseUrl}}/notes?student=1
+
+
+
+### Create note  for a student 
+POST {{baseUrl}}/notes/
+Content-Type: application/json
+
+{
+    "note" : "Il faudrait plutôt faire ça",
+    "student" : 3
+}
+
+
+### Delete the note with ID == 1
+DELETE {{baseUrl}}/notes/1
